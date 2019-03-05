@@ -1,0 +1,30 @@
+03/04/2019 6:50 PM - General Brainstorming
+    - 2D Game (Console/Graphical)
+        - Web game?
+        - Mobile?
+        - Unity?
+        - Card based game
+        - Building
+        - 2D Fortnite *******
+            - 2DBR - 2D Battle Royale
+            - BRB2D - Battle Royale But 2D
+    - Text editor
+    - Website
+    - PI
+        - Emulator
+        - Home security/Doorbells/etc
+        - Vending machine
+    - Mobile apps
+        - Game
+            - Clicker game (like Doge miner)
+        - Pool (Billiards) app
+        - Recipe app
+            - List foods and give recipes *******
+        - Food ordering
+    - Tetris solver
+    - Finances
+        - Taxes
+        - Budgeting
+    - Music
+        - Harmony recommendation app
+        - Bass booster
