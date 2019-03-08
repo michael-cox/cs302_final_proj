@@ -28,3 +28,15 @@
     - Music
         - Harmony recommendation app
         - Bass booster
+
+03/07/2019 7:30 PM - Choosing Project & Writing Proposal
+    - We chose Battle Royale But 2D and came up with the following objectives
+        - We want to have players
+        - We want to have maps w/ terrain
+        - We want buildings
+        - We want basic movement physics for players and objects
+        - Sprites and animation
+        - Dumb voice acting
+        - Here are some longer shots
+            - Multiplayer
+            - Map generation
