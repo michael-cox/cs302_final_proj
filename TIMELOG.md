@@ -1,4 +1,4 @@
-03/04/2019 6:50 PM - General Brainstorming
+03/04/2019 6:50PM-8PM - General Brainstorming
     - 2D Game (Console/Graphical)
         - Web game?
         - Mobile?
@@ -29,7 +29,7 @@
         - Harmony recommendation app
         - Bass booster
 
-03/07/2019 7:30 PM - Choosing Project & Writing Proposal
+03/07/2019 7:30PM-9:30PM - Choosing Project & Writing Proposal
     - We chose Battle Royale But 2D and came up with the following objectives
         - We want to have players
         - We want to have maps w/ terrain
