@@ -1,18 +1,18 @@
-PROG=test
-OBJ=sdl_test.o
-SRC=sdl_test.cpp
+PROG=window
+OBJ=window_test.o
+SRC=window_test.cpp
 CXX=g++
 CXXFLAGS= -lSDL2 -std=c++11
 
 $(PROG): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(PROG) $(OBJ)
+	$(CXX) $(CXXFLAGS) -o bin/$(PROG) src/$(OBJ)
 
-$(OBJ): $(SRC)
-	$(CXX) $(CXXFLAGS) -c -o $(OBJ) $(SRC)
+$(OBJ): src/$(SRC)
+	$(CXX) $(CXXFLAGS) -c -o src/$(OBJ) src/$(SRC)
 
 .PHONY: clean all
 
 all: $(PROG)
 
 clean:
-	rm -f $(PROG) $(OBJ)
+	rm -f bin/$(PROG) src/$(OBJ)
