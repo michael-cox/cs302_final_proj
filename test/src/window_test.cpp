@@ -1,7 +1,7 @@
 /*
  * Michael Cox
  * March 11, 2019
- * File: sdl_test.cpp
+ * File: window_test.cpp
  * ------------------
  * File to test making an sdl window
  * and things.
@@ -27,7 +27,7 @@ int main(int argc, char **argv) /* argc and argv are apparently required by SDL2
             SDL_WINDOWPOS_CENTERED, /*Y position flag - same */
             400, /* Width of window */
             400, /* Height of window */
-            0 /* Place for flags - 0 for defaults */
+            SDL_WINDOW_FULLSCREEN /* Place for flags - 0 for defaults */
             );
     assert(win != nullptr);
 
