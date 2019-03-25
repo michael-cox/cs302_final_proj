@@ -1,0 +1,7 @@
+Michael Cox
+CS307 Final Project
+Milestones for 3/29/2019
+--------------------------------
+
+1. Render animations using sprite sheets
+2. Use object oriented game design principles (throw it in a class with member methods)
