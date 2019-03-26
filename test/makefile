@@ -1,4 +1,6 @@
-PROG = $(addprefix bin/, window image)
+PROGNAMES = window image
+PROG = $(addprefix bin/, $(PROGNAMES))
+SRC = $(addsuffix .cpp, $(addprefix src/, $(PROGNAMES)))
 CXX = g++
 CXXFLAGS = -lSDL2 -std=c++11
 
@@ -6,8 +8,8 @@ CXXFLAGS = -lSDL2 -std=c++11
 
 all: $(PROG)
 
-$(PROG): src/%.o: src/%.cpp:
-	$(CXX) -c $(CXXFLAGS) src/$< -o $@
+$(PROG): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $@ $<
 
 clean:
 	rm -f $(PROG)
