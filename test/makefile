@@ -1,7 +1,7 @@
 PROGNAMES = window image
 HEADERNAMES = window_object
 PROG = $(addprefix bin/, $(PROGNAMES))
-HEADERS = $(addprefix .hpp, $(HEADERNAMES))
+HEADERS = $(addsuffix .hpp, $(addprefix src/, $(HEADERNAMES)))
 SRC = $(addsuffix .cpp, $(addprefix src/, $(PROGNAMES)))
 CXX = g++
 CXXFLAGS = -lSDL2 -std=c++11
