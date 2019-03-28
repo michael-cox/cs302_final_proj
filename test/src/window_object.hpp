@@ -27,11 +27,16 @@ class GWin
         GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
         GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags);
 
-        /* Deconstructors */
+        /* Deconstructor */
         ~GWin();
 
         /* SDL initializer */
         void initSDL();
+
+        /* Create window functions */
+        void createWindow(std::string windowTitle);
+        void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
+        void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags);
 
         /* 
 

@@ -1,2 +1,3 @@
 /**/*.o
-/test/window
+/test/bin/window
+/test/bin/image
