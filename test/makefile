@@ -1,5 +1,7 @@
 PROGNAMES = window image
+HEADERNAMES = window_object
 PROG = $(addprefix bin/, $(PROGNAMES))
+HEADERS = $(addprefix .hpp, $(HEADERNAMES))
 SRC = $(addsuffix .cpp, $(addprefix src/, $(PROGNAMES)))
 CXX = g++
 CXXFLAGS = -lSDL2 -std=c++11
@@ -8,7 +10,7 @@ CXXFLAGS = -lSDL2 -std=c++11
 
 all: $(PROG)
 
-$(PROG): $(SRC)
+$(PROG): $(SRC) $(HEADERS)
 	$(CXX) $(CXXFLAGS) -o $@ $<
 
 clean:

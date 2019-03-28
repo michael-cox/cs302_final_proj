@@ -38,7 +38,14 @@ class GWin
         void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
         void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags);
 
-        /* 
+        /* Render BMP */
+        void renderBMP(std::string imagePath, size_t x, size_t y);
+
+        /* Render style sheet */
+        void renderStyleSheet(std::string ssPath, size_t frameWidth, size_t x, size_t y);
+
+        /* Run game */
+        void runGame();
 
 };
 
