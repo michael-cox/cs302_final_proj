@@ -1,0 +1,14 @@
+Phillip Chu
+COSC 302/307
+March 23, 2019
+
+Milestones for week of 3/23-3/29:
+  - Read Chapter 1 of SDL manual
+  - Install a virtual machine and linux distribution in order to test SDL executables
+  - Create a basic SDL executable
+  
+4/1-4/5:
+  - Begin combining individual work with my partners
+  - Continue to read further into the SDL manual
+  - Begin to experiment with adding sound effects to SDL executables
+  - Match sound effects with certain timed events and actions
