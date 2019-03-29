@@ -1,0 +1,32 @@
+Michael Cox
+CS307 Final Project
+File: timelog-mac.txt
+--------------------------------
+
+Timelog for 3/29/2019
+--------------------------------
+
+3/13/2019 6:00PM - 9:00PM - Testing basic tasks w/ SDL2
+    - Read through first chapter of SDL Game Development by Shaun Mitchell
+    - Made a quick SDL test that loads a blank window
+
+3/24/2019 10:00PM - 12:00PM - Cleaning up before groupmates look at my spaghetti code and rendering images
+    - Commented/used some better looking code for the blank window test so that it was useful for groupmates
+    - Read more into aforementioned ebook
+    - Quickly threw together another SDL program that renders a dumb BMP image
+
+3/25/2019 9:00AM - 11:00AM - Working with milestones and OOP
+    - Made milestones for this week
+    - Made a header interface for an object oriented game
+
+3/28/2019 11:20AM - 12:00AM - Incremental changes
+    - Continued work on the header
+    - Tried and failed at making a good make file multiple times
+
+3/29/2019 12:40PM-3:40PM - Finishing challenge
+    - Resorted to making an explicit make file that still isn't good
+    - Fixed the style sheet rendering in ssTest so that it will render different frames
+        - The problem is that the frames don't seem to have super consistent size, etc
+        - Maybe look into converting gifs to frames or something
+    - Made the game object test work to a good extent
+        - Used what I consider good OOP principles

@@ -1,7 +1,15 @@
 Michael Cox
 CS307 Final Project
-Milestones for 3/29/2019
+File: milestones-mac.txt
 --------------------------------
 
+Milestones for 3/29/2019
 1. Render animations using sprite sheets
 2. Use object oriented game design principles (throw it in a class with member methods)
+
+Milestones for 4/5/2019
+1. Find a better way to render animations so that it can be easier
+2. Continue the object oriented stuffs
+    - Make the constructor/createwindow pair for percent window
+    - Get Rob's key event stuff into the game object
+    - Meet with Rob/Phil to determine what else we need to put here
