@@ -1,0 +1,13 @@
+Robert Smith
+Milestones for CS302 Final Project
+---
+Week of 3/25/19
+1: Learn how to take in keyboard input and register it in SDL
+2: Use keyboard inputs to manipulate a basic SDL window and renderer
+3: Test with basic "gaming keys" (W, A, S, D, etc.)
+4: Try to understand combination inputs along with singular inputs
+
+Week of 4/1/19 and future goals
+1: Work towards combining image rendering with inputs
+2: Attempt to create a plane to move a still image around on
+3: Work to combine all aspects worked on by individual members

@@ -1,0 +1,18 @@
+Robert Smith
+Timelog for CS302 Final Project
+---
+Week of 3/25/19
+
+3/25/19 - 8:45 AM - 10:45 AM (2 hours)
+	- Spent time in lab understanding the base functions of running a basic window
+	  in SDL and some basic data structures in SDL.
+
+3/25/19 - 3 hours
+	- Worked to set up Fedora Linux distribution in a virtual machine and set up
+	  vim workspace and required installations for SDL
+
+3/26/19 - 1 hour
+	- Spent time researching addtional structures in SDL
+
+3/27/19 - 2 hours
+	- begun program to register keyboard inputs and achieved some single key input

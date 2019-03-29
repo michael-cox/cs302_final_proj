@@ -1,0 +1,18 @@
+Robert Smith
+Rubric for CS302 Final Project
+---
+Week of 5/25/19
+
+Create a program using SDL that will:
+10 - Compile successfully with the given submitted compile command
+15 - Run a window that only closes on the press of the ESC key
+10 - Successfully use the W, A, S, D and SPACE keys to perform designated
+	 functions (2 pts per key)
+ 5 - Return with no errors while running
+
+Week of 4/1/19
+
+Create a program using SDL that will:
+10 - Complie successfully with the given command
+25 - Move a still image around a plane using given keys
+ 5 - Return with no errors while running
