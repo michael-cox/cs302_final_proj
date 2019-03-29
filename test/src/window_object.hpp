@@ -13,19 +13,23 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#define GWIN_WIDTH 1280
+#define GWIN_HEIGHT 720
+
 class GWin
 {
     private:
-        static bool isInit;
-        SDL_Window * win;
-        SDL_Renderer * ren;
+        static bool _isInit;
+        SDL_Window * _win;
+        SDL_Renderer * _ren;
+        SDL_DisplayMode _display;
     public:
 
         /* Constructors */
-        GWin() : win(nullptr), ren(nullptr) {}
+        GWin() : _win(nullptr), _ren(nullptr) {}
         GWin(std::string windowTitle);
         GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
-        GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags);
+        /* TODO: GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
 
         /* Deconstructor */
         ~GWin();
@@ -33,16 +37,19 @@ class GWin
         /* SDL initializer */
         void initSDL();
 
+        /* Get display mode */
+        void getDisplayMode();
+
         /* Create window functions */
         void createWindow(std::string windowTitle);
         void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
-        void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags);
+        /* TODO: void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
 
         /* Render BMP */
-        void renderBMP(std::string imagePath, size_t x, size_t y);
+        SDL_Texture * loadBMP(std::string imagePath, int x, int y);
 
         /* Render style sheet */
-        void renderStyleSheet(std::string ssPath, size_t frameWidth, size_t x, size_t y);
+        void renderStyleSheet(std::string ssPath, int frameWidth, int x, int y);
 
         /* Run game */
         void runGame();
