@@ -1,17 +1,19 @@
-PROGNAMES = window image
-HEADERNAMES = window_object
-PROG = $(addprefix bin/, $(PROGNAMES))
-HEADERS = $(addsuffix .hpp, $(addprefix src/, $(HEADERNAMES)))
-SRC = $(addsuffix .cpp, $(addprefix src/, $(PROGNAMES)))
-CXX = g++
-CXXFLAGS = -lSDL2 -std=c++11
+PROG := window image keyTest
+CXX := g++
+CXXFLAGS := -lSDL2 -std=c++11
 
 .PHONY: clean all
 
 all: $(PROG)
 
-$(PROG): $(SRC) $(HEADERS)
-	$(CXX) $(CXXFLAGS) -o $@ $<
+window: src/window.cpp
+	$(CXX) $(CXXFLAGS) -o bin/window $<
+
+image: src/image.cpp
+	$(CXX) $(CXXFLAGS) -o bin/image $<
+
+keyTest: src/keyTest.cpp
+	$(CXX) $(CXXFLAGS) -o bin/keyTest $<
 
 clean:
 	rm -f $(PROG)
