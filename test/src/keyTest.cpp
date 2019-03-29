@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
 	SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
 	SDL_RenderClear(ren);
 
+	//Currently implemented: ESC key closes the window and program on press
 	SDL_Event event;
 	while (true) {
 		SDL_RenderPresent(ren);
@@ -28,7 +29,7 @@ int main(int argc, char **argv) {
 			//check if the key is escape
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				//if it is pressed down, quit the program
-				if (event.type == SDL_KEYUP) {
+				if (event.type == SDL_KEYDOWN) {
 					SDL_Quit();
 					break;
 				}
