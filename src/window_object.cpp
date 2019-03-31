@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <cassert>
 #include "window_object.hpp"
 
@@ -73,33 +74,77 @@ void GWin::createWindow(std::string windowTitle, double percentOfScreen, uint32_
 }
 */
 
-SDL_Texture * GWin::loadBMP(std::string imagePath, int x, int y)
+void GWin::importIMG(std::string imgPath, imageType imgType)
 {
-    SDL_Surface * renderSurface = SDL_LoadBMP(imagePath.c_str());
-    assert(renderSurface != nullptr);
-    SDL_Texture * texture;
-    texture = SDL_CreateTextureFromSurface(_ren, renderSurface);
-
-    SDL_Rect sourceRect, destRect;
-    SDL_QueryTexture(texture, NULL, NULL, &sourceRect.w, &sourceRect.h);
-
-    destRect.w = sourceRect.w;
-    destRect.h = sourceRect.h;
-    destRect.x = sourceRect.x = x;
-    destRect.y = sourceRect.y = y;
-
-    SDL_RenderCopy(_ren, texture, &sourceRect, &destRect);
-    SDL_RenderPresent(_ren);
-
-    return texture;
+    SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
+    SDL_Surface * renderSurface;
+    switch(imgType)
+    {
+        case bmp:
+            renderSurface = IMG_LoadBMP_RW(fStream);
+            break;
+        case gif:
+            renderSurface = IMG_LoadGIF_RW(fStream);
+            break;
+        case jpg:
+            renderSurface = IMG_LoadJPG_RW(fStream);
+            break;
+        case png:
+            renderSurface = IMG_LoadPNG_RW(fStream);
+            break;
+    }
+    SDL_Texture * imgTexture = SDL_CreateTextureFromSurface(_ren, renderSurface);
+    textures[imgPath] = imgTexture;
 }
 
-void GWin::renderStyleSheet(std::string ssPath, int frameWidth, int x, int y)
+void GWin::renderTexture(std::string textureName, int x, int y)
 {
+    std::map<std::string, SDL_Texture * >::iterator texturePair = textures.find(textureName);
+    assert(texturePair != textures.end());
+    SDL_Texture * imgTexture = texturePair->second;
+    SDL_Rect sourceRect, destRect;
+    SDL_QueryTexture(imgTexture, NULL, NULL, &sourceRect.w, &sourceRect.h);
+    destRect.w = sourceRect.w;
+    destRect.h = sourceRect.h;
+    sourceRect.x = sourceRect.y = 0;
+    destRect.x = x;
+    destRect.y = y;
+    SDL_RenderCopy(_ren, imgTexture, &sourceRect, &destRect);
+}
+
+void GWin::renderTextureAnimation(std::string textureName, int frameWidth, int frameNum, int x, int y)
+{
+    int maxWidth;
+    std::map<std::string, SDL_Texture * >::iterator texturePair = textures.find(textureName);
+    assert(texturePair != textures.end());
+    SDL_Texture * imgTexture = texturePair->second;
+    SDL_Rect sourceRect, destRect;
+    SDL_QueryTexture(imgTexture, NULL, NULL, &maxWidth, &sourceRect.h);
+    destRect.w = sourceRect.w = frameWidth;
+    destRect.h = sourceRect.h;
+    sourceRect.x = frameNum * frameWidth;
+    assert(sourceRect.x + frameWidth < maxWidth);
+    sourceRect.y = 0;
+    destRect.x = x;
+    destRect.y = y;
+    SDL_RenderCopy(_ren, imgTexture, &sourceRect, &destRect);
+}
+
+void GWin::render()
+{
+    SDL_RenderPresent(_ren);
 }
 
 void GWin::runGame()
 {
-    loadBMP("assets/char.bmp", 0, 0);
+    SDL_SetRenderDrawColor(_ren, 255, 0, 0, 0);
+    importIMG("assets/skeleton/spritesheets/attack.png", png);
+    for(int i = 0; i < 8; ++i)
+    {
+        renderTextureAnimation("assets/skeleton/spritesheets/attack.png", 43, i, 5, 5);
+        render();
+        SDL_Delay(50);
+        SDL_RenderClear(_ren);
+    }
     SDL_Delay(2000);
 }

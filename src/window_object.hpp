@@ -11,10 +11,10 @@
 #define GAME_OBJ_HPP
 
 #include <SDL2/SDL.h>
+#include <map>
 #include <string>
 
-#define GWIN_WIDTH 1280
-#define GWIN_HEIGHT 720
+enum imageType { bmp, gif, jpg, png };
 
 class GWin
 {
@@ -23,10 +23,10 @@ class GWin
         SDL_Window * _win;
         SDL_Renderer * _ren;
         SDL_DisplayMode _display;
+        std::map<std::string,SDL_Texture* > textures;
     public:
 
         /* Constructors */
-        GWin() : _win(nullptr), _ren(nullptr) {}
         GWin(std::string windowTitle);
         GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
         /* TODO: GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
@@ -45,14 +45,23 @@ class GWin
         void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
         /* TODO: void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
 
-        /* Render BMP */
-        SDL_Texture * loadBMP(std::string imagePath, int x, int y);
+        /* Texture importing functions */
+        void importIMG(std::string imgPath, imageType imgType);
 
-        /* Render style sheet */
-        void renderStyleSheet(std::string ssPath, int frameWidth, int x, int y);
+        /* Render texture */
+        void renderTexture(std::string textureName, int x, int y);
+
+        /* Render an animation */
+        void renderTextureAnimation(std::string textureName, int frameWidth, int frameNum, int x, int y);
+
+        /* Present render */
+        void render();
 
         /* Run game */
         void runGame();
+
+        /* Main loop */
+        void mainLoop();
 
 };
 

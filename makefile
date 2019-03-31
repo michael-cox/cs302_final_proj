@@ -1,7 +1,7 @@
 PROGNAMES := brb2d
 PROGS := $(addprefix bin/, $(PROGNAMES))
 CXX := g++
-CXXFLAGS := -lSDL2 -std=c++11
+CXXFLAGS := -lSDL2 -lSDL2_image -std=c++11
 
 .PHONY: test test-clean all clean
 
