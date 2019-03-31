@@ -20,21 +20,40 @@ int main(int argc, char **argv) {
 	SDL_RenderClear(ren);
 
 	//Currently implemented: ESC key closes the window and program on press
+	//W for red, A, for green, S for blue, D for white, Space for black
 	SDL_Event event;
 	while (true) {
 		SDL_RenderPresent(ren);
 		//handle key cases
 		//check to see if event is happening
 		if (SDL_PollEvent(&event)) {
-			//check if the key is escape
-			if (event.key.keysym.sym == SDLK_ESCAPE) {
-				//if it is pressed down, quit the program
-				if (event.type == SDL_KEYDOWN) {
-					SDL_Quit();
-					break;
+			if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						SDL_Quit();
+						return 0;
+					case SDLK_w:
+						SDL_SetRenderDrawColor(ren, 255, 0, 0, 0);
+						SDL_RenderClear(ren);
+						break;
+					case SDLK_a:
+						SDL_SetRenderDrawColor(ren, 0, 255, 0, 0);
+						SDL_RenderClear(ren);
+						break;
+					case SDLK_s:
+						SDL_SetRenderDrawColor(ren, 0, 0, 255, 0);
+						SDL_RenderClear(ren);
+						break;
+					case SDLK_d:
+						SDL_SetRenderDrawColor(ren, 255, 255, 255, 0);
+						SDL_RenderClear(ren);
+						break;
+					case SDLK_SPACE:
+						SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
+						SDL_RenderClear(ren);
+						break;
 				}
 			}
 		}
 	}
-	return 0;
 }
