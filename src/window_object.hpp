@@ -11,6 +11,7 @@
 #define GAME_OBJ_HPP
 
 #include <SDL2/SDL.h>
+#include "map.hpp"
 #include <map>
 #include <string>
 
@@ -20,10 +21,13 @@ class GWin
 {
     private:
         static bool _isInit;
+        static size_t _numInst;
         SDL_Window * _win;
         SDL_Renderer * _ren;
         SDL_DisplayMode _display;
         std::map<std::string,SDL_Texture* > textures;
+        Map * _map;
+
     public:
 
         /* Constructors */
@@ -59,6 +63,12 @@ class GWin
 
         /* Run game */
         void runGame();
+
+        /* Map loading */
+        void loadMapFromText(std::string filename);
+
+        /* Dump map in characters */
+        void dumpMap();
 
         /* Main loop */
         void mainLoop();
