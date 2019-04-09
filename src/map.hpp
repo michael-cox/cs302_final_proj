@@ -6,6 +6,9 @@
  * Provides an interface for the map object.
  */
 
+#ifndef MAP_HPP
+#define MAP_HPP
+
 #include <cstdlib>
 
 struct Map
@@ -22,3 +25,5 @@ struct Map
         delete [] _map;
     }
 };
+
+#endif

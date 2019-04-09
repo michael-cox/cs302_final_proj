@@ -3,6 +3,8 @@
 #include <cassert>
 #include <fstream>
 #include "window_object.hpp"
+#include "map.hpp"
+#include "character.hpp"
 
 bool GWin::_isInit = 0;
 
@@ -212,6 +214,9 @@ void GWin::runGame()
     render();
     SDL_Log("Getting map...");
     loadMapFromText("assets/map.txt");
-    SDL_Log("Dumping map...");
-    dumpMap();
+}
+
+void GWin::mainLoop()
+{
+
 }
