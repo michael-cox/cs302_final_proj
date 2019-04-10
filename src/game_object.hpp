@@ -13,18 +13,10 @@
 #include <SDL2/SDL.h>
 #include <unordered_map>
 #include <string>
+#include "menu.hpp"
+#include "image.hpp"
 #include "map.hpp"
 #include "object.hpp"
-
-enum imageType { bmp, gif, jpg, png };
-
-struct animation
-{
-    SDL_Texture * spriteSheet;
-    size_t frameWidth;
-    size_t frameNum;
-    size_t numFrames;
-};
 
 class GWin
 {

@@ -154,6 +154,7 @@ void GWin::dumpMap()
 
 void GWin::runGame()
 {
+    loadMainMenu();
 }
 
 void GWin::mainLoop()
@@ -162,5 +163,6 @@ void GWin::mainLoop()
 
 void GWin::loadMainMenu()
 {
-
+    menu mainMenu(_ren);
+    mainMenu.menuLoop();
 }
