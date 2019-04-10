@@ -11,7 +11,9 @@
 #include <cassert>
 #include "image.hpp"
 
-SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType, SDL_Renderer * renderer)
+imageProcessor::imageProcessor(SDL_Renderer * ren) : _renderer(ren) {}
+
+SDL_Texture * imageProcessor::makeTexture(const std::string imgPath, const imageType imgType, SDL_Renderer * renderer)
 {
     SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
     SDL_Surface * renderSurface;
@@ -34,7 +36,7 @@ SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType, SD
     return imgTexture;
 }
 
-void renderTexture(SDL_Texture * texture, SDL_Renderer * renderer, const int x, const int y, const int w, const int h)
+void imageProcessor::renderTexture(SDL_Texture * texture, SDL_Renderer * renderer, const int x, const int y, const int w, const int h)
 {
     SDL_Rect sourceRect, destRect;
     destRect.w = sourceRect.w = w;

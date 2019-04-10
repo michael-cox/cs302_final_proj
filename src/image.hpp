@@ -21,8 +21,14 @@ struct animation
     size_t numFrames;
 };
 
-SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType, SDL_Renderer * ren);
-
-void renderTexture(SDL_Texture * imgTexture, SDL_Renderer * ren, int x, int y);
+class imageProcessor
+{
+    private:
+        SDL_Renderer * _renderer;
+    public:
+        imageProcessor(SDL_Renderer * ren);
+        SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType, SDL_Renderer * ren);
+        void renderTexture(SDL_Texture * imgTexture, SDL_Renderer * ren, int x, int y, int w, int h);
+};
 
 #endif
