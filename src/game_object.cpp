@@ -2,7 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include <fstream>
-#include "window_object.hpp"
+#include "game_object.hpp"
 #include "map.hpp"
 #include "character.hpp"
 
@@ -99,62 +99,6 @@ void GWin::createWindow(std::string windowTitle, double percentOfScreen, uint32_
 }
 */
 
-void GWin::importIMG(std::string imgPath, imageType imgType)
-{
-    SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
-    SDL_Surface * renderSurface;
-    switch(imgType)
-    {
-        case bmp:
-            renderSurface = IMG_LoadBMP_RW(fStream);
-            break;
-        case gif:
-            renderSurface = IMG_LoadGIF_RW(fStream);
-            break;
-        case jpg:
-            renderSurface = IMG_LoadJPG_RW(fStream);
-            break;
-        case png:
-            renderSurface = IMG_LoadPNG_RW(fStream);
-            break;
-    }
-    SDL_Texture * imgTexture = SDL_CreateTextureFromSurface(_ren, renderSurface);
-    textures[imgPath] = imgTexture;
-}
-
-void GWin::renderTexture(std::string textureName, int x, int y)
-{
-    std::map<std::string, SDL_Texture * >::iterator texturePair = textures.find(textureName);
-    assert(texturePair != textures.end());
-    SDL_Texture * imgTexture = texturePair->second;
-    SDL_Rect sourceRect, destRect;
-    SDL_QueryTexture(imgTexture, NULL, NULL, &sourceRect.w, &sourceRect.h);
-    destRect.w = sourceRect.w;
-    destRect.h = sourceRect.h;
-    sourceRect.x = sourceRect.y = 0;
-    destRect.x = x;
-    destRect.y = y;
-    SDL_RenderCopy(_ren, imgTexture, &sourceRect, &destRect);
-}
-
-void GWin::renderTextureAnimation(std::string textureName, int frameWidth, int frameNum, int x, int y)
-{
-    int maxWidth;
-    std::map<std::string, SDL_Texture * >::iterator texturePair = textures.find(textureName);
-    assert(texturePair != textures.end());
-    SDL_Texture * imgTexture = texturePair->second;
-    SDL_Rect sourceRect, destRect;
-    SDL_QueryTexture(imgTexture, NULL, NULL, &maxWidth, &sourceRect.h);
-    destRect.w = sourceRect.w = frameWidth;
-    destRect.h = sourceRect.h;
-    sourceRect.x = frameNum * frameWidth;
-    assert(sourceRect.x + frameWidth < maxWidth);
-    sourceRect.y = 0;
-    destRect.x = x;
-    destRect.y = y;
-    SDL_RenderCopy(_ren, imgTexture, &sourceRect, &destRect);
-}
-
 void GWin::render()
 {
     SDL_RenderPresent(_ren);
@@ -210,13 +154,13 @@ void GWin::dumpMap()
 
 void GWin::runGame()
 {
-    SDL_Log("Rendering nothing...");
-    render();
-    SDL_Log("Getting map...");
-    loadMapFromText("assets/map.txt");
 }
 
 void GWin::mainLoop()
+{
+}
+
+void GWin::loadMainMenu()
 {
 
 }

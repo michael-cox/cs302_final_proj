@@ -4,18 +4,27 @@
  * File: game_object.hpp
  * -----------------------
  * An object oriented SDL window
- * handler
+ * handler.
  */
 
 #ifndef GAME_OBJ_HPP
 #define GAME_OBJ_HPP
 
 #include <SDL2/SDL.h>
-#include "map.hpp"
-#include <map>
+#include <unordered_map>
 #include <string>
+#include "map.hpp"
+#include "object.hpp"
 
 enum imageType { bmp, gif, jpg, png };
+
+struct animation
+{
+    SDL_Texture * spriteSheet;
+    size_t frameWidth;
+    size_t frameNum;
+    size_t numFrames;
+};
 
 class GWin
 {
@@ -25,7 +34,7 @@ class GWin
         SDL_Window * _win;
         SDL_Renderer * _ren;
         SDL_DisplayMode _display;
-        std::map<std::string,SDL_Texture* > textures;
+        std::unordered_map<std::string,object> gameObjects;
         Map * _map;
 
     public:
@@ -72,6 +81,8 @@ class GWin
 
         /* Main loop */
         void mainLoop();
+
+        void loadMainMenu();
 
 };
 

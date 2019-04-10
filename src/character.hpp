@@ -11,24 +11,28 @@
 #define CHARACTER_HPP
 
 #include <string>
+#include <map>
+#include "game_object.hpp"
 #include "object.hpp"
 
-enum direction
+enum movement
 {
     UP,
     DOWN,
     RIGHT,
-    LEFT
+    LEFT,
+    STILL
 };
 
 class character : protected object
 {
     protected:
         double _health;
-        double _speed;
+        double _velocity;
+        std::map<std::string,animation> _animations;
     public:
         character(std::string name, double x, double y);
-        virtual void move(direction dir);
+        virtual void move(movement dir);
         virtual void render() = 0;
 };
 

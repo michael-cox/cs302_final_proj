@@ -1,7 +1,8 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
+
 #include <iostream>
-#include <SDL2/SDL>
+#include <SDL2/SDL.h>
 #include <vector>
 
 struct object {
@@ -9,7 +10,7 @@ struct object {
 	int x, y, w, h;
 	SDL_Texture * t;
 
-	virtual void render();
+	virtual void render() = 0;
 };
 
 #endif
