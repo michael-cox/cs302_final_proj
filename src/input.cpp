@@ -12,8 +12,8 @@
 void input::readInput() {
 	SDL_PollEvent(event);
 	//Check if it is what we want
-	if (event->type == SDL_KEYDOWN) { direction = 1; }
-	else if (event->type == SDL_KEYUP) { direction = 2; }
+	if (event->key.state == SDL_PRESSED) { direction = 1; }
+	else if (event->key.state == SDL_RELEASED) { direction = 2; }
 	else { direction = 0; }
 	//check if we process a key at all
 	//couts are for testing
@@ -99,15 +99,21 @@ void input::readInput() {
 void input::processKeys() {
 	if (KEY_ESC) {
 		SDL_Quit();
+		exit(1);
 	}
 }
 
 //this doesnt work right now cause I'm too lazy to make a window right now
 //but I will do it. The inputs should be fine though
 int main (int argc, char **argv) {
-	SDL_Init(SDL_INIT_EVENTS);
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window *win = SDL_CreateWindow("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 400, 400, 0);
+	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 0);
+	SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
+	SDL_RenderClear(ren);
 	input test;
 	while (1) {
+		SDL_RenderPresent(ren);
 		test.readInput();
 		test.processKeys();
 	}
