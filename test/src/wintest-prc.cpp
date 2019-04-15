@@ -1,6 +1,6 @@
 
 // include SDL header file
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 // initialize global variables, window pointer and renderer pointer
 SDL_Window * g_pWindow = 0;
