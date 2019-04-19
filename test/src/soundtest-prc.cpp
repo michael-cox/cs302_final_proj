@@ -24,7 +24,7 @@ int main(int argc, char ** argv)
 
 	// keep window open enough to hear the sound
 
-	SDL_Delay(1000);
+	SDL_Delay(100);
 
 	// clean up
 
