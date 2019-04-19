@@ -59,13 +59,24 @@ void menu::render()
 
 buttonReturn menu::menuLoop()
 {
-
+	input *keyInput = new input;
+	SDL_Keycode key;
     while(1)
     {
         render();
-
+		key = keyInput->readInput();
         /* TODO: if up/down pressed, moveCursor(UP/DOWN) */
-        /* TODO: if enter pressed, return buttons[cursorPos].activate(); */
+		/* TODO: if enter pressed, return buttons[cursorPos].activate(); */
+		switch (key) {
+			case SDLK_UP:
+				if (keyInput->readDirection()) { moveCursor(UP); }
+				break;
+			case SDLK_DOWN:
+				if (keyInput->readDirection()) { moveCursor(DOWN); }
+				break;
+			case SDLK_RETURN:
+				if (keyInput->readDirection()) { return buttons[cursorPos].activate(); }
+		}
 
     }
 
