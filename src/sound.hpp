@@ -11,18 +11,26 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-struct sound {
+/*struct sound {
 	SDL_AudioSpec wavSpec;
 	Uint32 wavLength;
 	Uint8 * wavBuffer;
 	SDL_AudioDeviceID deviceID;
 	int success;
-}
+};
+*/
 
 class soundProcessor {
 	private:
 		
 	public:
-		void playSound(string wavFile, int duration);
+		void playSound(std::string wavFile, int duration);
+		
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8 * wavBuffer;
+	SDL_AudioDeviceID deviceID;
+	int success;
+};
 
-}
+#endif
