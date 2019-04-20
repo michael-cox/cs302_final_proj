@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include <fstream>
+#include "menu.hpp"
 #include "game_object.hpp"
 #include "map.hpp"
 #include "character.hpp"
@@ -16,6 +17,8 @@ GWin::GWin(std::string windowTitle) : _win(nullptr), _ren(nullptr), _map(nullptr
     initSDL();
     createWindow(windowTitle);
     SDL_Log("Finished constructing GWin");
+    imgProc = new imageProcessor(_ren);
+    keyInput = new input;
 }
 
 GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags) : _win(nullptr), _ren(nullptr), _map(nullptr)
@@ -24,6 +27,8 @@ GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t 
     initSDL();
     createWindow(windowTitle, windowWidth, windowHeight, windowFlags);
     SDL_Log("Finished constructing GWin");
+    imgProc = new imageProcessor(_ren);
+    keyInput = new input;
 }
 
 /* TODO: Constructor with percent size
@@ -41,6 +46,8 @@ GWin::~GWin()
     if(_map != nullptr) delete _map;
     --_numInst;
     SDL_Log("_numInst (after destructing): %zu", _numInst);
+    delete imgProc;
+    delete keyInput;
     if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
 }
 
@@ -163,6 +170,6 @@ void GWin::mainLoop()
 
 void GWin::loadMainMenu()
 {
-    menu mainMenu(_ren);
-    mainMenu.menuLoop();
+    menu mainMenu(imgProc, keyInput);
+    if(mainMenu.menuLoop() == BUTTON_EXIT) return;
 }

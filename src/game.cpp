@@ -1,4 +1,4 @@
-#include "window_object.hpp"
+#include "game_object.hpp"
 
 int main(int argc, char** argv)
 {

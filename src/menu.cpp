@@ -14,37 +14,43 @@ buttonReturn button::activate()
     return RETURN_SIGNAL;
 }
 
-void button::render(SDL_Renderer * ren, bool selected)
+void button::render(imageProcessor * imgProc, bool selected)
 {
-    renderTexture(selected ? textures.second : textures.first, ren, x, y);
+    imgProc->renderTexture(selected ? textures.second : textures.first, x, y, w, h);
 }
 
-menu::menu(SDL_Renderer * ren) : cursorPos(0), ren(ren)
+menu::menu(imageProcessor * img, input * inputProc) : cursorPos(0), imgProc(img), keyInput(inputProc)
 {
     
-    texture = makeTexture("assets/menu.png", png, ren);
+    SDL_Log("Constructing menu...");
+
+    texture = imgProc->makeTexture("assets/bg.png", png);
 
     button start;
     start.x = 450;
     start.y = 250;
-    start.textures.first = makeTexture("assets/start.png", png, ren);
-    start.textures.second = makeTexture("assets/start_on.png", png, ren);
+    start.RETURN_SIGNAL = BUTTON_START;
+    start.textures.first = imgProc->makeTexture("assets/start.png", png);
+    start.textures.second = imgProc->makeTexture("assets/start_on.png", png);
     SDL_QueryTexture(start.textures.first, NULL, NULL, &start.w, &start.h);
     buttons.push_back(start);
 
     button exit;
     exit.x = 450;
     exit.y = start.y + 120;
-    exit.textures.first = makeTexture("assets/start.png", png, ren);
-    exit.textures.second = makeTexture("assets/start_on.png", png, ren);
+    exit.RETURN_SIGNAL = BUTTON_EXIT;
+    exit.textures.first = imgProc->makeTexture("assets/start.png", png);
+    exit.textures.second = imgProc->makeTexture("assets/start_on.png", png);
     SDL_QueryTexture(exit.textures.first, NULL, NULL, &exit.w, &exit.h);
     buttons.push_back(exit);
+
+    SDL_Log("Finished constructing menu");
 
 }
 
 void menu::moveCursor(cursorMovement direction)
 {
-    if(direction == UP) ++cursorPos;
+    if(direction == CURSOR_UP) ++cursorPos;
     else --cursorPos;
     if(cursorPos < 0) cursorPos = buttons.size() - 1;
     if(cursorPos >= buttons.size()) cursorPos = 0;
@@ -52,32 +58,31 @@ void menu::moveCursor(cursorMovement direction)
 
 void menu::render()
 {
-    renderTexture(texture, ren, 0, 0);
+    SDL_Log("Rendering menu...");
+    imgProc->renderTexture(texture, 0, 0, 1440, 780);
     for(size_t i = 0; i < buttons.size(); ++i)
-        buttons[i].render(ren, cursorPos == i);
+        buttons[i].render(imgProc, cursorPos == i);
+    imgProc->present();
+    SDL_Log("Finished rendering menu.");
 }
 
 buttonReturn menu::menuLoop()
 {
-	input *keyInput = new input;
 	SDL_Keycode key;
     while(1)
     {
         render();
 		key = keyInput->readInput();
-        /* TODO: if up/down pressed, moveCursor(UP/DOWN) */
-		/* TODO: if enter pressed, return buttons[cursorPos].activate(); */
 		switch (key) {
 			case SDLK_UP:
-				if (keyInput->readDirection()) { moveCursor(UP); }
+				if (keyInput->readDirection()) { moveCursor(CURSOR_UP); }
 				break;
 			case SDLK_DOWN:
-				if (keyInput->readDirection()) { moveCursor(DOWN); }
+				if (keyInput->readDirection()) { moveCursor(CURSOR_DOWN); }
 				break;
 			case SDLK_RETURN:
 				if (keyInput->readDirection()) { return buttons[cursorPos].activate(); }
 		}
-
     }
 
 }

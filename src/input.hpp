@@ -4,6 +4,10 @@
  * input.hpp
  * Header file for input class.
  */
+
+#ifndef INPUT_HPP
+#define INPUT_HPP
+
 #include <SDL2/SDL.h>
 
 class input {
@@ -19,3 +23,5 @@ class input {
 		SDL_Keycode readInput();
 		bool readDirection();
 };
+
+#endif

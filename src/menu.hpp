@@ -11,11 +11,12 @@
 #include <vector>
 #include <utility>
 #include <string>
-#include "object.hpp"
+#include "input.hpp"
+#include "image.hpp"
 
 enum buttonReturn { BUTTON_START, BUTTON_EXIT };
 
-enum cursorMovement { UP, DOWN };
+enum cursorMovement { CURSOR_UP, CURSOR_DOWN };
 
 struct button
 {
@@ -23,17 +24,18 @@ struct button
     std::pair<SDL_Texture*, SDL_Texture*> textures;
     buttonReturn RETURN_SIGNAL;
     buttonReturn activate();
-    void render(SDL_Renderer * ren, bool selected);
+    void render(imageProcessor * imgProc, bool selected);
 };
 
 struct menu
 {
     int cursorPos;
     SDL_Texture * texture;
-    SDL_Renderer * ren;
+    imageProcessor * imgProc;
+    input * keyInput;
     std::vector<button> buttons;
 
-    menu(SDL_Renderer * ren);
+    menu(imageProcessor * img, input * inputProc);
     void moveCursor(cursorMovement direction);
     void render();
     buttonReturn menuLoop();

@@ -13,7 +13,7 @@
 
 imageProcessor::imageProcessor(SDL_Renderer * ren) : _renderer(ren) {}
 
-SDL_Texture * imageProcessor::makeTexture(const std::string imgPath, const imageType imgType, SDL_Renderer * renderer)
+SDL_Texture * imageProcessor::makeTexture(const std::string imgPath, const imageType imgType)
 {
     SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
     SDL_Surface * renderSurface;
@@ -32,11 +32,11 @@ SDL_Texture * imageProcessor::makeTexture(const std::string imgPath, const image
             renderSurface = IMG_LoadPNG_RW(fStream);
             break;
     }
-    SDL_Texture * imgTexture = SDL_CreateTextureFromSurface(renderer, renderSurface);
+    SDL_Texture * imgTexture = SDL_CreateTextureFromSurface(_renderer, renderSurface);
     return imgTexture;
 }
 
-void imageProcessor::renderTexture(SDL_Texture * texture, SDL_Renderer * renderer, const int x, const int y, const int w, const int h)
+void imageProcessor::renderTexture(SDL_Texture * texture, const int x, const int y, const int w, const int h)
 {
     SDL_Rect sourceRect, destRect;
     destRect.w = sourceRect.w = w;
@@ -44,10 +44,10 @@ void imageProcessor::renderTexture(SDL_Texture * texture, SDL_Renderer * rendere
     sourceRect.x = sourceRect.y = 0;
     destRect.x = x;
     destRect.y = y;
-    SDL_RenderCopy(renderer, texture, &sourceRect, &destRect);
+    SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
-void renderTextureAnimation(SDL_Texture * texture, SDL_Renderer * renderer, int frameWidth, int frameNum, int x, int y)
+void imageProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
 {
     int maxWidth;
     SDL_Rect sourceRect, destRect;
@@ -59,5 +59,7 @@ void renderTextureAnimation(SDL_Texture * texture, SDL_Renderer * renderer, int 
     sourceRect.y = 0;
     destRect.x = x;
     destRect.y = y;
-    SDL_RenderCopy(renderer, texture, &sourceRect, &destRect);
+    SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
+
+void imageProcessor::present() { SDL_RenderPresent(_renderer); }

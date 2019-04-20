@@ -15,6 +15,7 @@
 #include <string>
 #include "menu.hpp"
 #include "image.hpp"
+#include "input.hpp"
 #include "map.hpp"
 #include "object.hpp"
 
@@ -26,8 +27,9 @@ class GWin
         SDL_Window * _win;
         SDL_Renderer * _ren;
         SDL_DisplayMode _display;
-        std::unordered_map<std::string,object> gameObjects;
         Map * _map;
+        imageProcessor * imgProc;
+        input * keyInput;
 
     public:
 
