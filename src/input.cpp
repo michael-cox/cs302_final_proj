@@ -9,7 +9,7 @@
 //Currently it handles one singular input at a time.
 //SDLK_CALCULATOR is a trash key signifying we do not process the input
 SDL_Keycode input::readInput() {
-	SDL_PollEvent(event);
+	SDL_WaitEvent(event);
 	//check if we process at all
 	if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
 		key = event->key.keysym.sym;
