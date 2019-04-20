@@ -15,13 +15,14 @@
 #include "game_object.hpp"
 #include "object.hpp"
 
-enum movement
+enum status
 {
     UP,
     DOWN,
     RIGHT,
     LEFT,
-    STILL
+    STILL,
+    ATTACK
 };
 
 class character : protected object
@@ -29,11 +30,12 @@ class character : protected object
     protected:
         double _health;
         double _velocity;
-        std::map<std::string,animation> _animations;
+        status _curStatus;
+        std::map<status,animation> _animations;
     public:
         character(std::string name, double x, double y);
-        virtual void move(movement dir);
-        virtual void render() = 0;
+        virtual void move(status dir);
+        virtual void render();
 };
 
 #endif

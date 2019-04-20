@@ -26,7 +26,8 @@ class GWin
         static size_t _numInst;
         SDL_Window * _win;
         SDL_Renderer * _ren;
-        SDL_DisplayMode _display;
+        SDL_DisplayMode * _display;
+        SDL_Texture * _background;
         Map * _map;
         imageProcessor * imgProc;
         input * keyInput;
@@ -36,7 +37,6 @@ class GWin
         /* Constructors */
         GWin(std::string windowTitle);
         GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
-        /* TODO: GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
 
         /* Deconstructor */
         ~GWin();
@@ -50,7 +50,6 @@ class GWin
         /* Create window functions */
         void createWindow(std::string windowTitle);
         void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
-        /* TODO: void createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags); */
 
         /* Texture importing functions */
         void importIMG(std::string imgPath, imageType imgType);
@@ -72,9 +71,6 @@ class GWin
 
         /* Dump map in characters */
         void dumpMap();
-
-        /* Main loop */
-        void mainLoop();
 
         void loadMainMenu();
 

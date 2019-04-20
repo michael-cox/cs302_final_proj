@@ -7,37 +7,49 @@
 #include "map.hpp"
 #include "character.hpp"
 
+struct thing
+{
+    int x, y, w, h;
+    double speed;
+    SDL_Texture * texture;
+    thing()
+    {
+        x = y = 0;
+        speed = 10;
+    }
+    void move()
+    {
+        x += speed;
+    }
+};
+
 bool GWin::_isInit = 0;
 
 size_t GWin::_numInst = 0;
 
-GWin::GWin(std::string windowTitle) : _win(nullptr), _ren(nullptr), _map(nullptr)
+GWin::GWin(std::string windowTitle) : _win(nullptr), _ren(nullptr), _map(nullptr),
+    _display(nullptr)
 {
     SDL_Log("Constructing GWin...");
     initSDL();
     createWindow(windowTitle);
     SDL_Log("Finished constructing GWin");
-    imgProc = new imageProcessor(_ren);
     keyInput = new input;
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 }
 
-GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags) : _win(nullptr), _ren(nullptr), _map(nullptr)
+GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags) : _win(nullptr), _ren(nullptr),
+    _map(nullptr), _display(nullptr)
 {
     SDL_Log("Constructing GWin...");
     initSDL();
     createWindow(windowTitle, windowWidth, windowHeight, windowFlags);
     SDL_Log("Finished constructing GWin");
-    imgProc = new imageProcessor(_ren);
     keyInput = new input;
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
+    _display->w = windowWidth;
+    _display->h = windowHeight;
 }
-
-/* TODO: Constructor with percent size
-GWin::GWin(std::string windowTitle, double percentOfScreen, uint32_t windowFlags)
-{
-    initSDL();
-    createWindow(windowTitle, percentOfScreen, windowFlags);
-}
-*/
 
 GWin::~GWin()
 {
@@ -46,6 +58,7 @@ GWin::~GWin()
     if(_map != nullptr) delete _map;
     --_numInst;
     SDL_Log("_numInst (after destructing): %zu", _numInst);
+    delete _display;
     delete imgProc;
     delete keyInput;
     if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
@@ -58,10 +71,10 @@ void GWin::initSDL()
         SDL_Log("Initializing SDL...");
         if(SDL_Init(SDL_INIT_EVERYTHING))
             SDL_Log("Failed to initialize SDL. Error: %s", SDL_GetError());
+        getDisplayMode();
         _isInit = 1;
         SDL_Log("Finished initializing SDL");
     }
-    getDisplayMode();
     ++_numInst;
     SDL_Log("_numInst (after constructing): %zu", _numInst);
 }
@@ -69,22 +82,26 @@ void GWin::initSDL()
 void GWin::getDisplayMode()
 {
     SDL_Log("Getting display mode...");
-    if(SDL_GetCurrentDisplayMode(0, &_display))
+    if(_display == nullptr) _display = new SDL_DisplayMode;
+    if(SDL_GetCurrentDisplayMode(0, _display))
     {
         SDL_Log("Failed to get display mode. Error: %s", SDL_GetError());
     }
-    SDL_Log("Display mode: %dx%d %d Hz", _display.w, _display.h, _display.refresh_rate);
+    SDL_Log("Display mode: %dx%d %d Hz", _display->w, _display->h, _display->refresh_rate);
 }
 
 void GWin::createWindow(std::string windowTitle)
 {
     SDL_Log("Creating window...");
     _win = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            _display.w, _display.h, SDL_WINDOW_FULLSCREEN);
+            _display->w, _display->h, SDL_WINDOW_FULLSCREEN);
     assert(_win != nullptr);
     _ren = SDL_CreateRenderer(_win, -1, 0);
     assert(_ren != nullptr);
-    SDL_RenderClear(_ren);
+    imgProc = new imageProcessor(_ren);
+    _background = imgProc->makeTexture("assets/winter.png", png);
+    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
+    imgProc->present();
     SDL_Log("Finished creating window.");
 }
 
@@ -94,21 +111,18 @@ void GWin::createWindow(std::string windowTitle, int windowWidth, int windowHeig
     _win = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             windowWidth, windowHeight, windowFlags);
     assert(_win != nullptr);
-    _ren = SDL_CreateRenderer(_win, -1, 0);
+    _ren = SDL_CreateRenderer(_win, -1, SDL_RENDERER_PRESENTVSYNC);
     assert(_ren != nullptr);
-    SDL_RenderClear(_ren);
+    imgProc = new imageProcessor(_ren);
+    _background = imgProc->makeTexture("assets/winter.png", png);
+    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
+    imgProc->present();
     SDL_Log("Finished creating window.");
 }
 
-/* TODO: createWindow with percent size
-void GWin::createWindow(std::string windowTitle, double percentOfScreen, uint32_t windowFlags)
-{
-}
-*/
-
 void GWin::render()
 {
-    SDL_RenderPresent(_ren);
+    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
 }
 
 void GWin::loadMapFromText(std::string filename)
@@ -120,7 +134,7 @@ void GWin::loadMapFromText(std::string filename)
         delete _map;
     }
     SDL_Log("Constructing map...");
-    _map = new Map(_display.w, _display.h);
+    _map = new Map(_display->w, _display->h);
     SDL_Log("Constructed map.");
     mapStream.open(filename);
     if(mapStream.fail())
@@ -162,14 +176,23 @@ void GWin::dumpMap()
 void GWin::runGame()
 {
     loadMainMenu();
-}
+    thing t;
+    t.texture = imgProc->makeTexture("assets/zombiefiles/png/male/idle.png", png);
 
-void GWin::mainLoop()
-{
+    SDL_QueryTexture(t.texture, NULL, NULL, &t.w, &t.h);
+    for(size_t i = 0; t.x < _display->w; ++i)
+    {
+        render();
+        imgProc->renderTexture(t.texture, t.x, t.y, t.w - 50, t.h - 50);
+        t.move();
+        imgProc->present();
+        SDL_Delay(17);
+    }
+
 }
 
 void GWin::loadMainMenu()
 {
-    menu mainMenu(imgProc, keyInput);
+    menu mainMenu(imgProc, keyInput, _display);
     if(mainMenu.menuLoop() == BUTTON_EXIT) return;
 }

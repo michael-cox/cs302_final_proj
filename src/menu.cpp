@@ -19,15 +19,16 @@ void button::render(imageProcessor * imgProc, bool selected)
     imgProc->renderTexture(selected ? textures.second : textures.first, x, y, w, h);
 }
 
-menu::menu(imageProcessor * img, input * inputProc) : cursorPos(0), imgProc(img), keyInput(inputProc)
+menu::menu(imageProcessor * img, input * inputProc, SDL_DisplayMode * displayMode) : cursorPos(0),
+    imgProc(img), keyInput(inputProc), _display(displayMode)
 {
     
     SDL_Log("Constructing menu...");
 
-    texture = imgProc->makeTexture("assets/bg.png", png);
+    texture = imgProc->makeTexture("assets/winter.png", png);
 
     button start;
-    start.x = 450;
+    start.x = _display->w / 2 - 270;
     start.y = 250;
     start.RETURN_SIGNAL = BUTTON_START;
     start.textures.first = imgProc->makeTexture("assets/start.png", png);
@@ -36,7 +37,7 @@ menu::menu(imageProcessor * img, input * inputProc) : cursorPos(0), imgProc(img)
     buttons.push_back(start);
 
     button exit;
-    exit.x = 450;
+    exit.x = _display->w / 2 - 270;
     exit.y = start.y + 120;
     exit.RETURN_SIGNAL = BUTTON_EXIT;
     exit.textures.first = imgProc->makeTexture("assets/start.png", png);
@@ -59,7 +60,7 @@ void menu::moveCursor(cursorMovement direction)
 void menu::render()
 {
     SDL_Log("Rendering menu...");
-    imgProc->renderTexture(texture, 0, 0, 1440, 780);
+    imgProc->renderTexture(texture, 0, 0, _display->w, _display->h);
     for(size_t i = 0; i < buttons.size(); ++i)
         buttons[i].render(imgProc, cursorPos == i);
     imgProc->present();

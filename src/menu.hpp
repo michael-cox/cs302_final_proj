@@ -33,9 +33,10 @@ struct menu
     SDL_Texture * texture;
     imageProcessor * imgProc;
     input * keyInput;
+    SDL_DisplayMode * _display;
     std::vector<button> buttons;
 
-    menu(imageProcessor * img, input * inputProc);
+    menu(imageProcessor * img, input * inputProc, SDL_DisplayMode * displayMode);
     void moveCursor(cursorMovement direction);
     void render();
     buttonReturn menuLoop();
