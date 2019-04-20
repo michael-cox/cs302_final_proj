@@ -5,17 +5,15 @@
  * Definitions for prototypes in "input.hpp" as well as some minor testing.
  */
 #include "input.hpp"
-#include <iostream>
 
 //Currently it handles one singular input at a time.
-//Updating the boolean variables will act as filler for actual character action.
+//SDLK_CALCULATOR is a trash key signifying we do not process the input
 SDL_Keycode input::readInput() {
 	SDL_PollEvent(event);
 	//check if we process at all
 	if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
-		if (event->type == SDL_KEYDOWN) { direction = 1;  }
-		else { direction = 0; }
 		key = event->key.keysym.sym;
+		//this is a little jank, may change later
 		switch (key) {
 			case SDLK_LEFT:
 				break;
@@ -37,7 +35,13 @@ SDL_Keycode input::readInput() {
 				key = SDLK_CALCULATOR;
 				break;
 		}
+		states[key].first = states[key].second;
+		if (event->type == SDL_KEYDOWN) { states[key].second = 1; }
+		else { states[key].second = 0; }
+	
+		if ((states[key].first ^ states[key].second) != 1) { key = SDLK_CALCULATOR; }
 	}
+	else { key = SDLK_CALCULATOR; }
 	return key;
 }
 
@@ -45,5 +49,5 @@ SDL_Keycode input::readInput() {
 //Possibly may not be used as processing input as it is being taken in would
 //be faster.
 bool input::readDirection() {
-	return direction;
+	return states[key].second;
 }

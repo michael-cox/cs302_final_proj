@@ -9,14 +9,16 @@
 #define INPUT_HPP
 
 #include <SDL2/SDL.h>
+#include <unordered_map>
+#include <utility>
 
 class input {
 	protected:
 		//dont question newKey right now its for dumb testing purposes
 		SDL_Event *event;
 		SDL_Keycode key;
-		//0 for neither, 1 for down, 2 for up
-		bool direction;
+		//key, prevState, currState
+		std::unordered_map<SDL_Keycode, std::pair<bool, bool> > states;
 	public:
 		input() { event = new SDL_Event; }
 		~input() { delete event; }
