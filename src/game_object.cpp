@@ -7,22 +7,6 @@
 #include "map.hpp"
 #include "character.hpp"
 
-struct thing
-{
-    int x, y, w, h;
-    double speed;
-    SDL_Texture * texture;
-    thing()
-    {
-        x = y = 0;
-        speed = 10;
-    }
-    void move()
-    {
-        x += speed;
-    }
-};
-
 bool GWin::_isInit = 0;
 
 size_t GWin::_numInst = 0;
@@ -33,9 +17,9 @@ GWin::GWin(std::string windowTitle) : _win(nullptr), _ren(nullptr), _map(nullptr
     SDL_Log("Constructing GWin...");
     initSDL();
     createWindow(windowTitle);
+    if(SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "0", SDL_HINT_OVERRIDE)) SDL_Log("Hint set properly!");
     SDL_Log("Finished constructing GWin");
     keyInput = new input;
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 }
 
 GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags) : _win(nullptr), _ren(nullptr),
@@ -44,9 +28,9 @@ GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t 
     SDL_Log("Constructing GWin...");
     initSDL();
     createWindow(windowTitle, windowWidth, windowHeight, windowFlags);
+    if(SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "0", SDL_HINT_OVERRIDE)) SDL_Log("Hint set properly!");
     SDL_Log("Finished constructing GWin");
     keyInput = new input;
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
     _display->w = windowWidth;
     _display->h = windowHeight;
 }
@@ -96,7 +80,7 @@ void GWin::createWindow(std::string windowTitle)
     _win = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             _display->w, _display->h, SDL_WINDOW_FULLSCREEN);
     assert(_win != nullptr);
-    _ren = SDL_CreateRenderer(_win, -1, 0);
+    _ren = SDL_CreateRenderer(_win, -1, SDL_RENDERER_PRESENTVSYNC);
     assert(_ren != nullptr);
     imgProc = new imageProcessor(_ren);
     _background = imgProc->makeTexture("assets/winter.png", png);
@@ -122,6 +106,7 @@ void GWin::createWindow(std::string windowTitle, int windowWidth, int windowHeig
 
 void GWin::render()
 {
+    SDL_RenderClear(_ren);
     imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
 }
 
@@ -176,19 +161,58 @@ void GWin::dumpMap()
 void GWin::runGame()
 {
     loadMainMenu();
-    thing t;
-    t.texture = imgProc->makeTexture("assets/zombiefiles/png/male/idle.png", png);
 
-    SDL_QueryTexture(t.texture, NULL, NULL, &t.w, &t.h);
-    for(size_t i = 0; t.x < _display->w; ++i)
+    player p("Player", 15, 20, imgProc);
+
+    SDL_Delay(500);
+    SDL_Keycode key;
+    while(1)
     {
         render();
-        imgProc->renderTexture(t.texture, t.x, t.y, t.w - 50, t.h - 50);
-        t.move();
+        p.render();
         imgProc->present();
-        SDL_Delay(17);
+        key = keyInput->readInput();
+        switch(key)
+        {
+            case SDLK_UP:
+                if(keyInput->readDirection())
+                {
+                    p.updateStatus(MOVING_UP);
+                    p.move();
+                }
+                break;
+            case SDLK_DOWN:
+                if(keyInput->readDirection())
+                {
+                    p.updateStatus(MOVING_DOWN);
+                    p.move();
+                }
+                break;
+            case SDLK_LEFT:
+                if(keyInput->readDirection())
+                {
+                    p.updateStatus(MOVING_LEFT);
+                    p.move();
+                }
+                break;
+            case SDLK_RIGHT:
+                if(keyInput->readDirection())
+                {
+                    p.updateStatus(MOVING_RIGHT);
+                    p.move();
+                }
+                break;
+            case SDLK_RETURN:
+                if(keyInput->readDirection())
+                {
+                    SDL_Log("Got return");
+                    return;
+                }
+                break;
+            default:
+                break;
+        }
     }
-
 }
 
 void GWin::loadMainMenu()

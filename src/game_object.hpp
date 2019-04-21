@@ -18,6 +18,7 @@
 #include "input.hpp"
 #include "map.hpp"
 #include "object.hpp"
+#include "player.hpp"
 
 class GWin
 {

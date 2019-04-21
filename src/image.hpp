@@ -28,7 +28,8 @@ class imageProcessor
     public:
         imageProcessor(SDL_Renderer * ren);
         SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType);
-        void renderTexture(SDL_Texture * imgTexture, int x, int y, int w, int h);
+        void renderTexture(SDL_Texture * imgTexture, const int x, const int y, const int w, const int h);
+        void renderTextureWithScaling(SDL_Texture * imgTexture, const int x, const int y, const int sourceW, const int sourceH, const int w, const int h);
         void renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y);
         void present();
 };

@@ -47,6 +47,20 @@ void imageProcessor::renderTexture(SDL_Texture * texture, const int x, const int
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
+void imageProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x, const int y,
+        const int sourceW, const int sourceH, const int w, const int h)
+{
+    SDL_Rect sourceRect, destRect;
+    destRect.w = w;
+    sourceRect.w = sourceW;
+    destRect.h = h;
+    sourceRect.h = sourceH;
+    sourceRect.x = sourceRect.y = 0;
+    destRect.x = x;
+    destRect.y = y;
+    SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
+}
+
 void imageProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
 {
     int maxWidth;
