@@ -178,29 +178,25 @@ void GWin::runGame()
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_UP);
-                    p.move();
-                }
+                } else p.updateStatus(STILL);
                 break;
             case SDLK_DOWN:
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_DOWN);
-                    p.move();
-                }
+                } else p.updateStatus(STILL);
                 break;
             case SDLK_LEFT:
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_LEFT);
-                    p.move();
-                }
+                } else p.updateStatus(STILL);
                 break;
             case SDLK_RIGHT:
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_RIGHT);
-                    p.move();
-                }
+                } else p.updateStatus(STILL);
                 break;
             case SDLK_RETURN:
                 if(keyInput->readDirection())
@@ -210,6 +206,7 @@ void GWin::runGame()
                 }
                 break;
             default:
+                p.move();
                 break;
         }
     }

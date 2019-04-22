@@ -17,6 +17,8 @@ class player : public character
         /* TODO: std::vector<item> inventory */
 
         /* Temporary */
+        double _g;
+        double _gVelocity;
         SDL_Texture * _texture;
     public:
         /* TODO: void useItem(); */

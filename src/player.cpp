@@ -8,8 +8,10 @@
 
 #include "player.hpp"
 
-player::player(std::string name, int x, int y, imageProcessor * imgProc) : character(name, x, y, 85, 45, 100, 2.2, imgProc) 
+player::player(std::string name, int x, int y, imageProcessor * imgProc) : character(name, x, y, 39, 21, 100, 2.2, imgProc) 
 {
+    _g = 3;
+    _gVelocity = 0;
     _texture = _imgProc->makeTexture("assets/ninjaadventurenew/png/Idle__001.png", png);
 }
 
@@ -26,7 +28,8 @@ void player::move()
             _y -= _velocity;
             break;
         case MOVING_DOWN:
-            _y += _velocity;
+            if(_y < 900)
+                _y += _velocity;
             break;
         case MOVING_RIGHT:
             _x += _velocity;
@@ -36,7 +39,11 @@ void player::move()
             break;
         default:
             break;
-               
+    }
+    if(_y < 760)
+    {
+        _y += _gVelocity;
+        _gVelocity += _g;
     }
 }
 

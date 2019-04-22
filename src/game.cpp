@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    GWin game("Test game", 800, 640, 0);
+    GWin game("Test game");
     game.runGame();
     return 0;
 }
