@@ -17,34 +17,39 @@ player::player(std::string name, int x, int y, imageProcessor * imgProc) : chara
 
 void player::updateStatus(characterStatus status)
 {
-    _status = status;
+	switch (status) {
+		case JUMP:
+			if (!_jumped) {
+				//currently a fixed jump height, weird mulitprssing going on (meh)
+				_currVelocityY -= 25;
+				_jumped = 1;
+			}
+			break;
+		case MOVING_DOWN:
+			_currVelocityY += _velocity;
+			break;
+		case MOVING_RIGHT:
+			_currVelocityX += _velocity;
+			break;
+		case MOVING_LEFT:
+			_currVelocityX -= _velocity;
+			break;
+	}
 }
 
 void player::move()
 {
-    switch(_status)
-    {
-        case MOVING_UP:
-            _y -= _velocity;
-            break;
-        case MOVING_DOWN:
-            if(_y < 900)
-                _y += _velocity;
-            break;
-        case MOVING_RIGHT:
-            _x += _velocity;
-            break;
-        case MOVING_LEFT:
-            _x -= _velocity;
-            break;
-        default:
-            break;
-    }
-    if(_y < 760)
-    {
-        _y += _gVelocity;
-        _gVelocity += _g;
-    }
+	_y += _currVelocityY;
+	_x += _currVelocityX;
+	//barrier check
+	if (_y > 900) {
+		_y = 900;
+		_currVelocityY = 0;
+		_jumped = 0;
+	}
+	else {
+		_currVelocityY += _velocity;
+	}
 }
 
 /* TODO: Put actual thought into how to do this */

@@ -174,41 +174,33 @@ void GWin::runGame()
         key = keyInput->readInput();
         switch(key)
         {
-            case SDLK_UP:
+            case SDLK_SPACE:
                 if(keyInput->readDirection())
                 {
-                    p.updateStatus(MOVING_UP);
-                } else p.updateStatus(STILL);
-                break;
-            case SDLK_DOWN:
-                if(keyInput->readDirection())
-                {
-                    p.updateStatus(MOVING_DOWN);
-                } else p.updateStatus(STILL);
+                    p.updateStatus(JUMP);
+                }
                 break;
             case SDLK_LEFT:
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_LEFT);
-                } else p.updateStatus(STILL);
+                } else p.updateStatus(MOVING_RIGHT);
                 break;
             case SDLK_RIGHT:
                 if(keyInput->readDirection())
                 {
                     p.updateStatus(MOVING_RIGHT);
-                } else p.updateStatus(STILL);
+                } else p.updateStatus(MOVING_LEFT);
                 break;
-            case SDLK_RETURN:
+            case SDLK_ESCAPE:
                 if(keyInput->readDirection())
                 {
                     SDL_Log("Got return");
                     return;
                 }
                 break;
-            default:
-                p.move();
-                break;
         }
+		p.move();
     }
 }
 
