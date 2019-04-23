@@ -2,7 +2,7 @@
 
 int main(int argc, char** argv)
 {
-    GWin game("Test game");
-    game.runGame();
+    game g(FULLSCREEN);
+    g.runGame();
     return 0;
 }

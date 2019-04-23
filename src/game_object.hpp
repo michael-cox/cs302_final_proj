@@ -20,46 +20,22 @@
 #include "object.hpp"
 #include "player.hpp"
 
-class GWin
+class game
 {
     private:
-        static bool _isInit;
-        static size_t _numInst;
-        SDL_Window * _win;
-        SDL_Renderer * _ren;
-        SDL_DisplayMode * _display;
+
+        menu * _mainMenu;
+        graphicProcessor * _graphicProc;
+        input * _inputProc;
         SDL_Texture * _background;
-        Map * _map;
-        imageProcessor * imgProc;
-        input * keyInput;
 
     public:
 
-        /* Constructors */
-        GWin(std::string windowTitle);
-        GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
+        /* Constructor - FULLSCREEN for fullscreen, SMALL for 800x450*/
+        game(windowMode winMode);
 
         /* Deconstructor */
-        ~GWin();
-
-        /* SDL initializer */
-        void initSDL();
-
-        /* Get display mode */
-        void getDisplayMode();
-
-        /* Create window functions */
-        void createWindow(std::string windowTitle);
-        void createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags);
-
-        /* Texture importing functions */
-        void importIMG(std::string imgPath, imageType imgType);
-
-        /* Render texture */
-        void renderTexture(std::string textureName, int x, int y);
-
-        /* Render an animation */
-        void renderTextureAnimation(std::string textureName, int frameWidth, int frameNum, int x, int y);
+        ~game();
 
         /* Present render */
         void render();
@@ -68,12 +44,10 @@ class GWin
         void runGame();
 
         /* Map loading */
-        void loadMapFromText(std::string filename);
+        //void loadMapFromText(std::string filename);
 
         /* Dump map in characters */
-        void dumpMap();
-
-        void loadMainMenu();
+        //void dumpMap();
 
 };
 

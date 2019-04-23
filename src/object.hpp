@@ -15,9 +15,9 @@
 #include "image.hpp"
 
 struct object {
-    object(int x, int y, int w, int h, bool firm, imageProcessor * imgProc)
-        : _x(x), _y(y), _w(w), _h(h), _firm(firm), _imgProc(imgProc) {}
-    imageProcessor * _imgProc;
+    object(int x, int y, int w, int h, bool firm, graphicProcessor * graphicProc)
+        : _x(x), _y(y), _w(w), _h(h), _firm(firm), _graphicProc(graphicProc) {}
+    graphicProcessor * _graphicProc;
 	int _x, _y, _w, _h;
     bool _firm;
 	virtual void render() = 0;

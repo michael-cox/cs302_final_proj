@@ -20,27 +20,29 @@ enum cursorMovement { CURSOR_UP, CURSOR_DOWN };
 
 struct button
 {
+    button(const int y, std::string offTexturePath, std::string onTexturePath, imageType imgType,
+            buttonReturn returnSignal, graphicProcessor * graphicProc);
     int x, y, w, h;
+    graphicProcessor * graphicProc;
     std::pair<SDL_Texture*, SDL_Texture*> textures;
     buttonReturn RETURN_SIGNAL;
     buttonReturn activate();
-    void render(imageProcessor * imgProc, bool selected);
+    void render(bool selected);
 };
 
-struct menu
+class menu
 {
-    int cursorPos;
-    SDL_Texture * texture;
-    imageProcessor * imgProc;
-    input * keyInput;
-    SDL_DisplayMode * _display;
-    std::vector<button> buttons;
-
-    menu(imageProcessor * img, input * inputProc, SDL_DisplayMode * displayMode);
-    void moveCursor(cursorMovement direction);
-    void render();
-    buttonReturn menuLoop();
-    
+    private:
+        int _cursorPos;
+        std::vector<button> _buttons;
+        SDL_Texture * _background;
+        graphicProcessor * _graphicProc;
+        input * _inputProc;
+    public:
+        menu(graphicProcessor * graphicProc, input * keyInput);
+        void moveCursor(cursorMovement direction);
+        void render();
+        buttonReturn load();
 };
 
 #endif

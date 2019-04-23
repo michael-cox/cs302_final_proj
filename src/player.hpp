@@ -22,7 +22,7 @@ class player : public character
         SDL_Texture * _texture;
     public:
         /* TODO: void useItem(); */
-        player(std::string name, int x, int y, imageProcessor * imgProc);
+        player(std::string name, int x, int y, graphicProcessor * graphicProc);
         void updateStatus(characterStatus newStatus);
         void move();
         void render();

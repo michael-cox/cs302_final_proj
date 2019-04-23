@@ -11,32 +11,119 @@
 #include <cassert>
 #include "image.hpp"
 
-imageProcessor::imageProcessor(SDL_Renderer * ren) : _renderer(ren) {}
+bool graphicProcessor::_isInit = 0;
 
-SDL_Texture * imageProcessor::makeTexture(const std::string imgPath, const imageType imgType)
+size_t graphicProcessor::_numInst = 0;
+
+graphicProcessor::graphicProcessor(std::string windowTitle) : _window(nullptr), _renderer(nullptr),
+    _display(nullptr)
+{
+    SDL_Log("Constructing graphicProcessor...");
+    initSDL();
+    createWindow(windowTitle);
+    if(SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0")) SDL_Log("Set scaling hint.");
+    SDL_Log("Finished constructing graphicProcessor");
+}
+
+graphicProcessor::graphicProcessor(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags)
+    : _window(nullptr), _renderer(nullptr), _display(nullptr)
+{
+    SDL_Log("Constructing graphicProcessor...");
+    initSDL();
+    createWindow(windowTitle, windowWidth, windowHeight, windowFlags);
+    if(SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0")) SDL_Log("Set scaling hint.");
+    _display->w = windowWidth;
+    _display->h = windowHeight;
+    SDL_Log("Finished constructing graphicProcessor");
+}
+
+
+graphicProcessor::~graphicProcessor()
+{
+    SDL_DestroyWindow(_window);
+    SDL_DestroyRenderer(_renderer);
+    delete _display;
+    --_numInst;
+    SDL_Log("_numInst (after destructing): %zu", _numInst);
+    if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
+}
+
+void graphicProcessor::initSDL()
+{
+    if(!_isInit)
+    {
+        SDL_Log("Initializing SDL...");
+        if(SDL_Init(SDL_INIT_EVERYTHING))
+            SDL_Log("Failed to initialize SDL. Error: %s", SDL_GetError());
+        getDisplayMode();
+        _isInit = 1;
+        SDL_Log("Finished initializing SDL");
+    }
+    ++_numInst;
+    SDL_Log("_numInst (after constructing): %zu", _numInst);
+}
+
+void graphicProcessor::getDisplayMode()
+{
+    SDL_Log("Getting display mode...");
+    if(_display == nullptr) _display = new SDL_DisplayMode;
+    if(SDL_GetCurrentDisplayMode(0, _display))
+    {
+        SDL_Log("Failed to get display mode. Error: %s", SDL_GetError());
+    }
+    SDL_Log("Display mode: %dx%d %d Hz", _display->w, _display->h, _display->refresh_rate);
+}
+
+void graphicProcessor::createWindow(std::string windowTitle)
+{
+    SDL_Log("Creating window...");
+    _window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+            _display->w, _display->h, SDL_WINDOW_FULLSCREEN);
+    assert(_window != nullptr);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
+    assert(_renderer != nullptr);
+    SDL_Log("Finished creating window.");
+}
+
+void graphicProcessor::createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags)
+{
+    SDL_Log("Creating window...");
+    _window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+            windowWidth, windowHeight, windowFlags);
+    assert(_window != nullptr);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
+    assert(_renderer != nullptr);
+    SDL_Log("Finished creating window.");
+}
+
+int graphicProcessor::getResolutionW() const { return _display->w; }
+int graphicProcessor::getResolutionH() const { return _display->h; }
+
+SDL_Texture * graphicProcessor::makeTexture(const std::string imgPath, const imageType imgType)
 {
     SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
     SDL_Surface * renderSurface;
     switch(imgType)
     {
-        case bmp:
+        case BMP:
             renderSurface = IMG_LoadBMP_RW(fStream);
             break;
-        case gif:
+        case GIF:
             renderSurface = IMG_LoadGIF_RW(fStream);
             break;
-        case jpg:
+        case JPG:
             renderSurface = IMG_LoadJPG_RW(fStream);
             break;
-        case png:
+        case PNG:
             renderSurface = IMG_LoadPNG_RW(fStream);
             break;
     }
     SDL_Texture * imgTexture = SDL_CreateTextureFromSurface(_renderer, renderSurface);
+    delete renderSurface;
     return imgTexture;
 }
 
-void imageProcessor::renderTexture(SDL_Texture * texture, const int x, const int y, const int w, const int h)
+void graphicProcessor::renderTexture(SDL_Texture * texture, const int x, const int y, const int w, const int h)
 {
     SDL_Rect sourceRect, destRect;
     destRect.w = sourceRect.w = w;
@@ -47,7 +134,7 @@ void imageProcessor::renderTexture(SDL_Texture * texture, const int x, const int
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
-void imageProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x, const int y,
+void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x, const int y,
         const int sourceW, const int sourceH, const int w, const int h)
 {
     SDL_Rect sourceRect, destRect;
@@ -61,7 +148,7 @@ void imageProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
-void imageProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
+void graphicProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
 {
     int maxWidth;
     SDL_Rect sourceRect, destRect;
@@ -76,4 +163,4 @@ void imageProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidt
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
-void imageProcessor::present() { SDL_RenderPresent(_renderer); }
+void graphicProcessor::present() { SDL_RenderPresent(_renderer); }

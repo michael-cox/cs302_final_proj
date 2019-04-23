@@ -8,11 +8,11 @@
 
 #include "player.hpp"
 
-player::player(std::string name, int x, int y, imageProcessor * imgProc) : character(name, x, y, 39, 21, 100, 2.2, imgProc) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc) 
 {
     _g = 3;
     _gVelocity = 0;
-    _texture = _imgProc->makeTexture("assets/ninjaadventurenew/png/Idle__001.png", png);
+    _texture = _graphicProc->makeTexture("assets/ninjaadventurenew/png/Idle__001.png", PNG);
 }
 
 void player::updateStatus(characterStatus status)
@@ -57,5 +57,5 @@ void player::render()
 {
     int textureW, textureH;
     SDL_QueryTexture(_texture, NULL, NULL, &textureW, &textureH);
-    _imgProc->renderTextureWithScaling(_texture, _x, _y, textureW, textureH, _w, _h);
+    _graphicProc->renderTextureWithScaling(_texture, _x, _y, textureW, textureH, _w, _h);
 }
