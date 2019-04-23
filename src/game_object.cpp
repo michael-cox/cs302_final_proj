@@ -7,110 +7,31 @@
 #include "map.hpp"
 #include "character.hpp"
 
-bool GWin::_isInit = 0;
+#define GAME_NAME "BRB2D"
 
-size_t GWin::_numInst = 0;
-
-GWin::GWin(std::string windowTitle) : _win(nullptr), _ren(nullptr), _map(nullptr),
-    _display(nullptr)
+game::game(windowMode winMode)
 {
-    SDL_Log("Constructing GWin...");
-    initSDL();
-    createWindow(windowTitle);
-    if(SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "0", SDL_HINT_OVERRIDE)) SDL_Log("Hint set properly!");
-    SDL_Log("Finished constructing GWin");
-    keyInput = new input;
+    if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
+    else _graphicProc = new graphicProcessor(GAME_NAME, 800, 450, 0);
+    _inputProc = new input;
+    _mainMenu = new menu(_graphicProc, _inputProc);
+    _background = _graphicProc->makeTexture("assets/winter.png", PNG);
 }
 
-GWin::GWin(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags) : _win(nullptr), _ren(nullptr),
-    _map(nullptr), _display(nullptr)
+game::~game()
 {
-    SDL_Log("Constructing GWin...");
-    initSDL();
-    createWindow(windowTitle, windowWidth, windowHeight, windowFlags);
-    if(SDL_SetHintWithPriority(SDL_HINT_RENDER_SCALE_QUALITY, "0", SDL_HINT_OVERRIDE)) SDL_Log("Hint set properly!");
-    SDL_Log("Finished constructing GWin");
-    keyInput = new input;
-    _display->w = windowWidth;
-    _display->h = windowHeight;
+    delete _graphicProc;
+    delete _inputProc;
+    delete _mainMenu;
 }
 
-GWin::~GWin()
+void game::render()
 {
-    SDL_DestroyWindow(_win);
-    SDL_DestroyRenderer(_ren);
-    if(_map != nullptr) delete _map;
-    --_numInst;
-    SDL_Log("_numInst (after destructing): %zu", _numInst);
-    delete _display;
-    delete imgProc;
-    delete keyInput;
-    if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
+    _graphicProc->renderTexture(_background, 0, 0, _graphicProc->getResolutionW(), _graphicProc->getResolutionH());
 }
 
-void GWin::initSDL()
-{
-    if(!_isInit)
-    {
-        SDL_Log("Initializing SDL...");
-        if(SDL_Init(SDL_INIT_EVERYTHING))
-            SDL_Log("Failed to initialize SDL. Error: %s", SDL_GetError());
-        getDisplayMode();
-        _isInit = 1;
-        SDL_Log("Finished initializing SDL");
-    }
-    ++_numInst;
-    SDL_Log("_numInst (after constructing): %zu", _numInst);
-}
-
-void GWin::getDisplayMode()
-{
-    SDL_Log("Getting display mode...");
-    if(_display == nullptr) _display = new SDL_DisplayMode;
-    if(SDL_GetCurrentDisplayMode(0, _display))
-    {
-        SDL_Log("Failed to get display mode. Error: %s", SDL_GetError());
-    }
-    SDL_Log("Display mode: %dx%d %d Hz", _display->w, _display->h, _display->refresh_rate);
-}
-
-void GWin::createWindow(std::string windowTitle)
-{
-    SDL_Log("Creating window...");
-    _win = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            _display->w, _display->h, SDL_WINDOW_FULLSCREEN);
-    assert(_win != nullptr);
-    _ren = SDL_CreateRenderer(_win, -1, SDL_RENDERER_PRESENTVSYNC);
-    assert(_ren != nullptr);
-    imgProc = new imageProcessor(_ren);
-    _background = imgProc->makeTexture("assets/winter.png", png);
-    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
-    imgProc->present();
-    SDL_Log("Finished creating window.");
-}
-
-void GWin::createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags)
-{
-    SDL_Log("Creating window...");
-    _win = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            windowWidth, windowHeight, windowFlags);
-    assert(_win != nullptr);
-    _ren = SDL_CreateRenderer(_win, -1, SDL_RENDERER_PRESENTVSYNC);
-    assert(_ren != nullptr);
-    imgProc = new imageProcessor(_ren);
-    _background = imgProc->makeTexture("assets/winter.png", png);
-    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
-    imgProc->present();
-    SDL_Log("Finished creating window.");
-}
-
-void GWin::render()
-{
-    SDL_RenderClear(_ren);
-    imgProc->renderTexture(_background, 0, 0, _display->w, _display->h);
-}
-
-void GWin::loadMapFromText(std::string filename)
+/*
+void game::loadMapFromText(std::string filename)
 {
     std::ifstream mapStream;
     if(_map != nullptr)
@@ -157,55 +78,47 @@ void GWin::dumpMap()
     }
     SDL_Log("%s", output.c_str());
 }
+*/
 
-void GWin::runGame()
+void game::runGame()
 {
-    loadMainMenu();
 
-    player p("Player", 15, 20, imgProc);
+    if(_mainMenu->load() == BUTTON_EXIT) return;
+    player p("Player", 15, 20, _graphicProc);
 
-    SDL_Delay(500);
-    SDL_Keycode key;
     while(1)
     {
         render();
         p.render();
-        imgProc->present();
-        key = keyInput->readInput();
-        switch(key)
+        _graphicProc->present();
+        switch(_inputProc->readInput())
         {
             case SDLK_SPACE:
-                if(keyInput->readDirection())
+                if(_inputProc->readDirection())
                 {
                     p.updateStatus(JUMP);
                 }
                 break;
             case SDLK_LEFT:
-                if(keyInput->readDirection())
+                if(_inputProc->readDirection())
                 {
                     p.updateStatus(MOVING_LEFT);
                 } else p.updateStatus(MOVING_RIGHT);
                 break;
             case SDLK_RIGHT:
-                if(keyInput->readDirection())
+                if(_inputProc->readDirection())
                 {
                     p.updateStatus(MOVING_RIGHT);
                 } else p.updateStatus(MOVING_LEFT);
                 break;
             case SDLK_ESCAPE:
-                if(keyInput->readDirection())
+                if(_inputProc->readDirection())
                 {
                     SDL_Log("Got return");
                     return;
                 }
                 break;
         }
-		p.move();
+        p.move();
     }
-}
-
-void GWin::loadMainMenu()
-{
-    menu mainMenu(imgProc, keyInput, _display);
-    if(mainMenu.menuLoop() == BUTTON_EXIT) return;
 }

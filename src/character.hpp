@@ -39,8 +39,8 @@ class character : protected object
         std::map<characterStatus,animation> _animations;
     public:
         character(std::string name, int x, int y, int w, int h, double health,
-                double velocity, imageProcessor * imgProc)
-            : object(x, y, w, h, true, imgProc), _name(name), _health(health), _velocity(velocity)
+                double velocity, graphicProcessor * graphicProc)
+            : object(x, y, w, h, true, graphicProc), _name(name), _health(health), _velocity(velocity)
         { _currVelocityX = 0; _currVelocityY = 0; }
         virtual void updateStatus(characterStatus status) = 0;
         virtual void move() = 0;
