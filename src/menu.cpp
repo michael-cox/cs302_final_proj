@@ -8,6 +8,7 @@
 #include "menu.hpp"
 #include "image.hpp"
 #include "input.hpp"
+#include "sound.hpp"
 
 buttonReturn button::activate()
 {
@@ -69,12 +70,13 @@ void menu::render()
 
 buttonReturn menu::menuLoop()
 {
-	SDL_Keycode key;
+	soundProcessor sound;
+	sound.playSound("assets/sounds/menu.wav");
     while(1)
     {
         render();
-		key = keyInput->readInput();
-		switch (key) {
+		if (sound.checkQueue() == 0) { sound.repeat(); }
+		switch (keyInput->readInput()) {
 			case SDLK_UP:
 				if (keyInput->readDirection()) { moveCursor(CURSOR_UP); }
 				break;
@@ -82,7 +84,9 @@ buttonReturn menu::menuLoop()
 				if (keyInput->readDirection()) { moveCursor(CURSOR_DOWN); }
 				break;
 			case SDLK_RETURN:
-				if (keyInput->readDirection()) { return buttons[cursorPos].activate(); }
+				if (keyInput->readDirection()) { 
+					sound.stopSound();
+					return buttons[cursorPos].activate(); }
 		}
     }
 

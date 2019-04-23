@@ -22,15 +22,21 @@
 
 class soundProcessor {
 	private:
-		
-	public:
-		void playSound(std::string wavFile, int duration);
-		
-	SDL_AudioSpec wavSpec;
-	Uint32 wavLength;
-	Uint8 * wavBuffer;
-	SDL_AudioDeviceID deviceID;
-	int success;
+		SDL_AudioSpec wavSpec;
+		Uint32 wavLength;
+		Uint8 * wavBuffer;
+		SDL_AudioDeviceID deviceID;
+	public:/*
+		soundProcessor() {
+			SDL_LoadWAV("assets/sounds/menu.wav", &wavSpec, &wavBuffer, &wavLength);
+			deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
+			SDL_QueueAudio(deviceID, wavBuffer, wavLength);
+			SDL_PauseAudioDevice(deviceID, 0);
+		}*/
+		void playSound(std::string wavFile);
+		Uint32 checkQueue();
+		void stopSound();
+		void repeat();
 };
 
 #endif
