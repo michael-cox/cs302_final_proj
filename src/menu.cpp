@@ -6,7 +6,7 @@
  */
 
 #include "menu.hpp"
-#include "image.hpp"
+#include "graphics.hpp"
 #include "input.hpp"
 #include "sound.hpp"
 
@@ -33,7 +33,7 @@ menu::menu(graphicProcessor * graphicProc, input * inputProc) : _cursorPos(0),
     
     SDL_Log("Constructing menu...");
 
-    _background = _graphicProc->makeTexture("assets/menu/winter.png", PNG);
+    _background = _graphicProc->makeTexture("assets/menu/background.png", PNG);
 
     button start(250, "assets/menu/buttons/start_off.png", "assets/menu/buttons/start_on.png", PNG, BUTTON_START, _graphicProc);
     _buttons.push_back(start);

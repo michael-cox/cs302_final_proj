@@ -12,7 +12,7 @@
 #define OBJECT_HPP
 
 #include <SDL2/SDL.h>
-#include "image.hpp"
+#include "graphics.hpp"
 
 struct object {
     object(int x, int y, int w, int h, bool firm, graphicProcessor * graphicProc)

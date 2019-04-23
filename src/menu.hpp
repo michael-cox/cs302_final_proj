@@ -12,7 +12,7 @@
 #include <utility>
 #include <string>
 #include "input.hpp"
-#include "image.hpp"
+#include "graphics.hpp"
 
 enum buttonReturn { BUTTON_START, BUTTON_EXIT };
 

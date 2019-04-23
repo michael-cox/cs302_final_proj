@@ -82,8 +82,15 @@ void GWin::dumpMap()
 
 void game::runGame()
 {
+    while(1)
+    {
+        if(_mainMenu->load() == BUTTON_EXIT) return;
+        mainLoop();
+    }
+}
 
-    if(_mainMenu->load() == BUTTON_EXIT) return;
+void game::mainLoop()
+{
     player p("Player", 15, 20, _graphicProc);
 
     while(1)

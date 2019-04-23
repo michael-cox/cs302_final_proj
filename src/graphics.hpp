@@ -1,5 +1,5 @@
 /*
- * File: image.hpp
+ * File: graphics.hpp
  * Michael Cox
  * ---------------
  * Interface for loading images.

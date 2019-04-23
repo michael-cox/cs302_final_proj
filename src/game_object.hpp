@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <string>
 #include "menu.hpp"
-#include "image.hpp"
+#include "graphics.hpp"
 #include "input.hpp"
 #include "map.hpp"
 #include "object.hpp"
@@ -42,6 +42,8 @@ class game
 
         /* Run game */
         void runGame();
+
+        void mainLoop();
 
         /* Map loading */
         //void loadMapFromText(std::string filename);
