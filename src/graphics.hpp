@@ -76,6 +76,8 @@ class graphicProcessor
         int getResolutionW() const;
         int getResolutionH() const;
 
+        void clear();
+
         /* Make texture */
         SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType);
 

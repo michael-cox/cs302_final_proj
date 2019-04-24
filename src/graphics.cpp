@@ -50,6 +50,7 @@ animation::animation(std::string baseFilename, imageType imgType, size_t framesP
                 filename += ".png";
                 break;
         }
+        SDL_Log("%s", filename.c_str());
         SDL_Texture * texture = graphicProc->makeTexture(filename, imgType);
         textures.push_back(texture);
     }
@@ -100,6 +101,8 @@ graphicProcessor::~graphicProcessor()
     SDL_Log("_numInst (after destructing): %zu", _numInst);
     if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
 }
+
+void graphicProcessor::clear() { SDL_RenderClear(_renderer); }
 
 void graphicProcessor::initSDL()
 {
