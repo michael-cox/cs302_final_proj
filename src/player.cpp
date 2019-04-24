@@ -7,8 +7,9 @@
  */
 
 #include "player.hpp"
+#include "sound.hpp"
 
-player::player(std::string name, int x, int y, graphicProcessor * graphicProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc), _soundProc(soundProc) 
 {
     _g = 3;
     _gVelocity = 0;
@@ -20,7 +21,7 @@ void player::updateStatus(characterStatus status)
 	switch (status) {
 		case JUMP:
 			if (!_jumped) {
-				//currently a fixed jump height, weird mulitprssing going on (meh)
+				_soundProc->playSound("playerJump.wav");
 				_currVelocityY -= 25;
 				_jumped = 1;
 			}
@@ -33,6 +34,10 @@ void player::updateStatus(characterStatus status)
 			break;
 		case MOVING_LEFT:
 			_currVelocityX -= _velocity;
+			break;
+		case ATTACK:
+			//attack thing
+			_soundProc->playSound("playerShoot.wav");
 			break;
 	}
 }

@@ -10,6 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include <unordered_map>
 
 /*struct sound {
 	SDL_AudioSpec wavSpec;
@@ -20,23 +21,45 @@
 };
 */
 
+struct audioInfo {
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8 * wavBuffer;
+	SDL_AudioDeviceID deviceID;
+};
+
 class soundProcessor {
 	private:
-		SDL_AudioSpec wavSpec;
-		Uint32 wavLength;
-		Uint8 * wavBuffer;
-		SDL_AudioDeviceID deviceID;
-	public:/*
+		std::unordered_map<std::string, audioInfo *> audioMap;
+		audioInfo * loadAudio(std::string wavFile);
+	public:
 		soundProcessor() {
-			SDL_LoadWAV("assets/sounds/menu.wav", &wavSpec, &wavBuffer, &wavLength);
-			deviceID = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, 0);
-			SDL_QueueAudio(deviceID, wavBuffer, wavLength);
-			SDL_PauseAudioDevice(deviceID, 0);
-		}*/
+			SDL_Log("Creating sound processor...");
+			audioMap["menu.wav"] = loadAudio("assets/sounds/menu.wav");
+			audioMap["gameStart.wav"] = loadAudio("assets/sounds/gameStart.wav");
+			audioMap["playerJump.wav"] = loadAudio("assets/sounds/playerJump.wav");
+			audioMap["boneRattle.wav"] = loadAudio("assets/sounds/boneRattle.wav");
+			audioMap["enemyDeath.wav"] = loadAudio("assets/sounds/enemyDeath.wav");
+			audioMap["enemyAttack.wav"] = loadAudio("assets/sounds/enemyAttack.wav");
+			audioMap["playerDamage.wav"] = loadAudio("assets/sounds/playerDamage.wav");
+			audioMap["playerShoot.wav"] = loadAudio("assets/sounds/playerShoot.wav");
+			audioMap["enemyDamage.wav"] = loadAudio("assets/sounds/enemyDamage.wav");
+			audioMap["gameWin.wav"] = loadAudio("assets/sounds/gameWin.wav");
+			audioMap["playerDeath.wav"] = loadAudio("assets/sounds/playerDeath.wav");
+			audioMap["gameMusic.wav"] = loadAudio("assets/sounds/gameMusic.wav");
+		}
+		~soundProcessor() {  
+			std::unordered_map<std::string, audioInfo *>::iterator mit;
+			for (mit = audioMap.begin(); mit != audioMap.end(); mit++) {
+				SDL_CloseAudioDevice(mit->second->deviceID);
+				SDL_FreeWAV(mit->second->wavBuffer);
+				delete mit->second;
+			}
+		}
 		void playSound(std::string wavFile);
-		Uint32 checkQueue();
-		void stopSound();
-		void repeat();
+		Uint32 checkQueue(std::string wavFile);
+		void stopSound(std::string wavFile);
+		void repeat(std::string wavFile);
 };
 
 #endif

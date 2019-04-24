@@ -27,8 +27,8 @@ void button::render(bool selected)
     graphicProc->renderTexture(selected ? textures.second : textures.first, x, y, w, h);
 }
 
-menu::menu(graphicProcessor * graphicProc, input * inputProc) : _cursorPos(0),
-    _graphicProc(graphicProc), _inputProc(inputProc)
+menu::menu(graphicProcessor * graphicProc, input * inputProc, soundProcessor * soundProc) : _cursorPos(0),
+    _graphicProc(graphicProc), _inputProc(inputProc), _soundProc(soundProc)
 {
     
     SDL_Log("Constructing menu...");
@@ -67,12 +67,11 @@ void menu::render()
 
 buttonReturn menu::load()
 {
-	soundProcessor sound;
-	sound.playSound("assets/sounds/menu.wav");
+	_soundProc->playSound("menu.wav");
     while(1)
     {
         render();
-		if (sound.checkQueue() == 0) { sound.repeat(); }
+		if (_soundProc->checkQueue("menu.wav") == 0) { _soundProc->repeat("menu.wav"); }
 		switch (_inputProc->readInput()) {
 			case SDLK_UP:
 				if (_inputProc->readDirection()) { moveCursor(CURSOR_UP); }
@@ -82,7 +81,7 @@ buttonReturn menu::load()
 				break;
 			case SDLK_RETURN:
 				if (_inputProc->readDirection()) { 
-					sound.stopSound();
+					_soundProc->stopSound("menu.wav");
 					return _buttons[_cursorPos].activate();
                 }
 		}

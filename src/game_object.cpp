@@ -6,6 +6,7 @@
 #include "game_object.hpp"
 #include "map.hpp"
 #include "character.hpp"
+#include "sound.hpp"
 
 #define GAME_NAME "BRB2D"
 #define TILE_W 128
@@ -16,17 +17,19 @@ game::game(windowMode winMode)
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
     else _graphicProc = new graphicProcessor(GAME_NAME, 1024, 576, 0);
     _inputProc = new input;
-    _mainMenu = new menu(_graphicProc, _inputProc);
+	_soundProc = new soundProcessor;
+    _mainMenu = new menu(_graphicProc, _inputProc, _soundProc);
     _map = new map(_graphicProc->getResolutionW(), _graphicProc->getResolutionH());
     _background = _graphicProc->makeTexture("assets/winter.png", PNG);
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
-    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc);
+    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
 }
 
 game::~game()
 {
     delete _graphicProc;
     delete _inputProc;
+	delete _soundProc;
     delete _mainMenu;
 }
 
@@ -41,25 +44,27 @@ void game::render()
 
 void game::runGame()
 {
+    placeWall(0, _graphicProc->getResolutionH() * 2 / 3, LEFT_EDGE);
+    for(size_t i = TILE_W; i < _graphicProc->getResolutionW() - TILE_W; i += TILE_W)
+        placeWall(i, _graphicProc->getResolutionH() * 2 / 3, CENTER);
+    placeWall(_graphicProc->getResolutionW() - TILE_W, _graphicProc->getResolutionH() * 2 / 3, RIGHT_EDGE);
     while(1)
     {
         if(_mainMenu->load() == BUTTON_EXIT) return;
-        placeWall(0, _graphicProc->getResolutionH() * 2 / 3, LEFT_EDGE);
-        for(size_t i = TILE_W; i < _graphicProc->getResolutionW() - TILE_W; i += TILE_W)
-            placeWall(i, _graphicProc->getResolutionH() * 2 / 3, CENTER);
-        placeWall(_graphicProc->getResolutionW() - TILE_W, _graphicProc->getResolutionH() * 2 / 3, RIGHT_EDGE);
+        _soundProc->playSound("gameStart.wav");
         mainLoop();
     }
 }
 
 void game::mainLoop()
 {
-
+    _soundProc->playSound("gameMusic.wav");
     while(1)
     {
         render();
         _player->render();
         _graphicProc->present();
+        if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
         {
             case SDLK_SPACE:
@@ -80,8 +85,13 @@ void game::mainLoop()
                     _player->updateStatus(MOVING_RIGHT);
                 } else _player->updateStatus(MOVING_LEFT);
                 break;
+            case SDLK_z:
+                if (_inputProc->readDirection()) {
+                    _player->updateStatus(ATTACK);
+                }
+                break;
             case SDLK_ESCAPE:
-                if(_inputProc->readDirection()) return;
+                if(_inputProc->readDirection()) { _soundProc->stopSound("gameMusic.wav"); return; }
                 break;
         }
         _player->move();
