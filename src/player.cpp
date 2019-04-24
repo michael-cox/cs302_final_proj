@@ -43,8 +43,8 @@ void player::move()
 	_y += _currVelocityY;
 	_x += _currVelocityX;
 	//barrier check
-	if (_y > 900) {
-		_y = 900;
+	if (_y > _graphicProc->getResolutionH() * 2 / 3 - _h) {
+		_y = _graphicProc->getResolutionH() * 2 / 3 - _h;
 		_currVelocityY = 0;
 		_jumped = 0;
 	}

@@ -35,6 +35,7 @@ class menu
 {
     private:
         int _cursorPos;
+        int _w, _h;
         std::vector<button> _buttons;
         SDL_Texture * _background;
         graphicProcessor * _graphicProc;

@@ -54,3 +54,41 @@
 03/25/2019 6:00PM-8:30PM - Meeting To Determine What We Should Work On
     - Phillip and Rob installed Manjaro and Fedora VM's
     - Further deliberated on what we want to do in the rubric
+
+03/31/2019 2:30PM-6:00PM - Individual Work and Planning
+    - Michael worked on creating a window in SDL
+    - Robert worked on mapping key inputs in SDL
+    - Phillip worked on playing wav files in SDL
+
+04/11/2019 8:30PM-10:30PM - Meeting to Regroup and Plan
+    - Began discussing inheritance hierarchy and objects
+
+04/14/2019 9:00PM-11:30PM - Individual Work
+    - Phillip added some sound files and experimental object file
+    - Robert added files for input object class
+
+04/15/2019 8:30PM-10:30PM - Individual Work, Planning
+    - Robert created a TODO list for the whole project
+    - Team members worked individually
+
+04/19/2019 1:30PM-5:00PM - Individual Work, Design
+    - Discussed background design, sprites, map design, sound effects/music
+    - Phillip picked background design, sprites, background music
+    - Michael worked on game and image objects
+    - Robert worked on inputs and controls
+
+04/20/2019 11:00AM-3:30PM - Meeting on Menu, Sounds, Input
+    - Robert worked on refining input for movement, menu screen, etc.
+    - Michael worked on menu object, implementation
+    - Phillip worked on sound function/class
+
+04/22/2019 8:00PM-12:30AM - Meeting on Game Object, Sounds, Timelog Upkeep
+    -  Michael moved graphics and game object code to a separate object
+    - Robert further researched sound usage in SDL, implmemented start menu music
+    - Phillip further researched sound usage in SDL, maintained timelog
+
+04/23/2019 2:30PM-4:30PM - Meeting on Sound Recording
+    - Worked together to record sound effects and voiceovers
+
+04/23/2019 6:00PM-
+    - 

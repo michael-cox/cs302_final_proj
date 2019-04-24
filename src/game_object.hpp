@@ -30,6 +30,8 @@ class game
         input * _inputProc;
 		soundProcessor * _soundProc;
         SDL_Texture * _background;
+        int _w, _h;
+        map * _map;
 
     public:
 
@@ -46,13 +48,6 @@ class game
         void runGame();
 
         void mainLoop();
-
-        /* Map loading */
-        //void loadMapFromText(std::string filename);
-
-        /* Dump map in characters */
-        //void dumpMap();
-
 };
 
 #endif
