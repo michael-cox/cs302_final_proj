@@ -16,6 +16,15 @@ enum imageType { BMP, GIF, JPG, PNG };
 
 enum windowMode { FULLSCREEN, SMALL };
 
+struct sprite
+{
+    sprite(std::string filename, imageType imgType, int w, int h, class graphicProcessor * graphicProc);
+    ~sprite();
+    void render(const int x, const int y, class graphicProcessor * graphicProc);
+    SDL_Texture * texture;
+    int w, h, scaledW, scaledH;
+};
+
 struct styleSheet
 {
     SDL_Texture * spriteSheet;
@@ -26,9 +35,12 @@ struct styleSheet
 
 struct animation
 {
+    animation(std::string baseFilename, imageType imgType, size_t framesPerTexture, size_t numImages, int w, int h, class graphicProcessor * graphicProc);
+    ~animation();
+    void render(const int x, const int y, class graphicProcessor * graphicProc);
     std::vector<SDL_Texture*> textures;
     int h, w, scaledW, scaledH;
-    size_t curFrame, numFrames;
+    size_t curFrame, framesPerTexture, numFrames;
 };
 
 class graphicProcessor
@@ -67,9 +79,10 @@ class graphicProcessor
         /* Make texture */
         SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType);
 
+        void renderSprite(sprite * spriteToRender, const int x, const int y);
         void renderTexture(SDL_Texture * imgTexture, const int x, const int y, const int w, const int h);
         void renderTextureWithScaling(SDL_Texture * imgTexture, const int x, const int y, const int sourceW, const int sourceH, const int w, const int h);
-        void renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y);
+        void renderAnimation(animation anim, const int x, const int y);
         void present();
 };
 

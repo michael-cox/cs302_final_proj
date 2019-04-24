@@ -1,12 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <cassert>
-#include <fstream>
-#include "menu.hpp"
 #include "game_object.hpp"
-#include "map.hpp"
-#include "character.hpp"
-#include "sound.hpp"
 
 #define GAME_NAME "BRB2D"
 #define TILE_W 128

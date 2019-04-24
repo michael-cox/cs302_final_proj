@@ -16,7 +16,6 @@
 #include "graphics.hpp"
 #include "input.hpp"
 #include "map.hpp"
-#include "object.hpp"
 #include "player.hpp"
 #include "wall.hpp"
 #include "sound.hpp"

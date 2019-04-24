@@ -15,6 +15,59 @@ bool graphicProcessor::_isInit = 0;
 
 size_t graphicProcessor::_numInst = 0;
 
+sprite::sprite(std::string filename, imageType imgType, int width, int height, graphicProcessor * graphicProc)
+    : scaledW(width), scaledH(height)
+{
+    texture = graphicProc->makeTexture(filename, imgType);
+    SDL_QueryTexture(texture, NULL, NULL, &w, &h);
+}
+
+sprite::~sprite() { delete texture; }
+
+void sprite::render(const int x, const int y, class graphicProcessor * graphicProc)
+{
+    graphicProc->renderTextureWithScaling(texture, x, y, w, h, scaledW, scaledH);
+}
+
+animation::animation(std::string baseFilename, imageType imgType, size_t framesPerTexture, size_t numFrames, int width, int height, graphicProcessor * graphicProc)
+    : scaledW(width), scaledH(height), numFrames(numFrames), curFrame(0), framesPerTexture(framesPerTexture)
+{
+    for(size_t i = 0; i < numFrames; ++i)
+    {
+        std::string filename = baseFilename + std::to_string(i);
+        switch(imgType)
+        {
+            case BMP:
+                filename += ".bmp";
+                break;
+            case GIF:
+                filename += ".gif";
+                break;
+            case JPG:
+                filename += ".jpg";
+                break;
+            case PNG:
+                filename += ".png";
+                break;
+        }
+        SDL_Texture * texture = graphicProc->makeTexture(filename, imgType);
+        textures.push_back(texture);
+    }
+    SDL_QueryTexture(textures[0], NULL, NULL, &w, &h);
+}
+
+animation::~animation()
+{
+    for(size_t i = 0; i < textures.size(); ++i)
+        delete textures[i];
+}
+
+void animation::render(const int x, const int y, class graphicProcessor * graphicProc)
+{
+    graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH);
+    if(++curFrame > textures.size() * framesPerTexture) curFrame = 0;
+}
+
 graphicProcessor::graphicProcessor(std::string windowTitle) : _window(nullptr), _renderer(nullptr),
     _display(nullptr)
 {
@@ -148,7 +201,20 @@ void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
-void graphicProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
+void graphicProcessor::renderSprite(sprite * spriteToRender, const int x, const int y)
+{
+    SDL_Rect sourceRect, destRect;
+    destRect.w = spriteToRender->scaledW;
+    sourceRect.w = spriteToRender->w;
+    destRect.h = spriteToRender->scaledH;
+    sourceRect.h = spriteToRender->h;
+    sourceRect.x = sourceRect.y = 0;
+    destRect.x = x;
+    destRect.y = y;
+    SDL_RenderCopy(_renderer, spriteToRender->texture, &sourceRect, &destRect);
+}
+
+/*void graphicProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
 {
     int maxWidth;
     SDL_Rect sourceRect, destRect;
@@ -161,6 +227,6 @@ void graphicProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWi
     destRect.x = x;
     destRect.y = y;
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
-}
+}*/
 
 void graphicProcessor::present() { SDL_RenderPresent(_renderer); }

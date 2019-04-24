@@ -8,8 +8,8 @@
 #define WALL_HPP
 
 #include <SDL2/SDL.h>
-#include "object.hpp"
 #include <string>
+#include "object.hpp"
 
 enum wallType
 {
