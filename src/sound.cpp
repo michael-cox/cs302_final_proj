@@ -18,6 +18,7 @@ audioInfo * soundProcessor::loadAudio(std::string wavFile) {
 }
 
 void soundProcessor::playSound(std::string wavFile) {
+	stopSound(wavFile);
 	SDL_QueueAudio(audioMap[wavFile]->deviceID, audioMap[wavFile]->wavBuffer, audioMap[wavFile]->wavLength);
 	SDL_PauseAudioDevice(audioMap[wavFile]->deviceID, 0);
 }

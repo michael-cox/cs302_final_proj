@@ -35,6 +35,10 @@ void player::updateStatus(characterStatus status)
 		case MOVING_LEFT:
 			_currVelocityX -= _velocity;
 			break;
+		case ATTACK:
+			//attack thing
+			_soundProc->playSound("playerShoot.wav");
+			break;
 	}
 }
 

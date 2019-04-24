@@ -34,7 +34,7 @@ class soundProcessor {
 		audioInfo * loadAudio(std::string wavFile);
 	public:
 		soundProcessor() {
-			SDL_Log("Making sound processor...");
+			SDL_Log("Creating sound processor...");
 			audioMap["menu.wav"] = loadAudio("assets/sounds/menu.wav");
 			audioMap["gameStart.wav"] = loadAudio("assets/sounds/gameStart.wav");
 			audioMap["playerJump.wav"] = loadAudio("assets/sounds/playerJump.wav");

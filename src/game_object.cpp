@@ -74,6 +74,11 @@ void game::mainLoop()
                     p.updateStatus(MOVING_RIGHT);
                 } else p.updateStatus(MOVING_LEFT);
                 break;
+			case SDLK_z:
+				if (_inputProc->readDirection()) {
+					p.updateStatus(ATTACK);
+				}
+				break;
             case SDLK_ESCAPE:
                 if(_inputProc->readDirection()) return;
                 break;
