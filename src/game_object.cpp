@@ -48,12 +48,13 @@ void game::runGame()
 void game::mainLoop()
 {
     player p("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
-
+	_soundProc->playSound("gameMusic.wav");
     while(1)
     {
         render();
         p.render();
         _graphicProc->present();
+		if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
         {
             case SDLK_SPACE:
@@ -80,7 +81,7 @@ void game::mainLoop()
 				}
 				break;
             case SDLK_ESCAPE:
-                if(_inputProc->readDirection()) return;
+                if(_inputProc->readDirection()) { _soundProc->stopSound("gameMusic.wav"); return; }
                 break;
         }
         p.move();

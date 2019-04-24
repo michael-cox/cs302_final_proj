@@ -46,6 +46,7 @@ class soundProcessor {
 			audioMap["enemyDamage.wav"] = loadAudio("assets/sounds/enemyDamage.wav");
 			audioMap["gameWin.wav"] = loadAudio("assets/sounds/gameWin.wav");
 			audioMap["playerDeath.wav"] = loadAudio("assets/sounds/playerDeath.wav");
+			audioMap["gameMusic.wav"] = loadAudio("assets/sounds/gameMusic.wav");
 		}
 		~soundProcessor() {  
 			std::unordered_map<std::string, audioInfo *>::iterator mit;
