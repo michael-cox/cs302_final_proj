@@ -9,21 +9,14 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <cstdlib>
+#include <vector>
+#include <utility>
+#include "object.hpp"
 
-struct Map
+struct map
 {
-    size_t _width;
-    size_t _height;
-    char * _map;
-    Map(size_t width, size_t height) : _width(width), _height(height)
-    {
-        _map = (char*)(std::calloc(width * height, sizeof(char)));
-    }
-    ~Map()
-    {
-        delete [] _map;
-    }
+    map(int w, int h) : gameMap(h, std::pair<bool,std::vector<object*>>(false,std::vector<object*>(w, nullptr))) { }
+    std::vector< std::pair<bool,std::vector<object*>>> gameMap;
 };
 
 #endif
