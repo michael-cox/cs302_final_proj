@@ -19,6 +19,7 @@
 #include "map.hpp"
 #include "object.hpp"
 #include "player.hpp"
+#include "sound.hpp"
 
 class game
 {
@@ -27,6 +28,7 @@ class game
         menu * _mainMenu;
         graphicProcessor * _graphicProc;
         input * _inputProc;
+		soundProcessor * _soundProc;
         SDL_Texture * _background;
 
     public:

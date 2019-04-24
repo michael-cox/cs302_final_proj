@@ -6,6 +6,7 @@
 #include "game_object.hpp"
 #include "map.hpp"
 #include "character.hpp"
+#include "sound.hpp"
 
 #define GAME_NAME "BRB2D"
 
@@ -14,7 +15,8 @@ game::game(windowMode winMode)
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
     else _graphicProc = new graphicProcessor(GAME_NAME, 800, 450, 0);
     _inputProc = new input;
-    _mainMenu = new menu(_graphicProc, _inputProc);
+	_soundProc = new soundProcessor;
+    _mainMenu = new menu(_graphicProc, _inputProc, _soundProc);
     _background = _graphicProc->makeTexture("assets/winter.png", PNG);
 }
 
@@ -22,6 +24,7 @@ game::~game()
 {
     delete _graphicProc;
     delete _inputProc;
+	delete _soundProc;
     delete _mainMenu;
 }
 
@@ -85,13 +88,14 @@ void game::runGame()
     while(1)
     {
         if(_mainMenu->load() == BUTTON_EXIT) return;
+		_soundProc->playSound("gameStart.wav");
         mainLoop();
     }
 }
 
 void game::mainLoop()
 {
-    player p("Player", 15, 20, _graphicProc);
+    player p("Player", 15, 20, _graphicProc, _soundProc);
 
     while(1)
     {

@@ -13,6 +13,7 @@
 #include <string>
 #include "input.hpp"
 #include "graphics.hpp"
+#include "sound.hpp"
 
 enum buttonReturn { BUTTON_START, BUTTON_EXIT };
 
@@ -38,8 +39,9 @@ class menu
         SDL_Texture * _background;
         graphicProcessor * _graphicProc;
         input * _inputProc;
+		soundProcessor * _soundProc;
     public:
-        menu(graphicProcessor * graphicProc, input * keyInput);
+        menu(graphicProcessor * graphicProc, input * keyInput, soundProcessor * soundProc);
         void moveCursor(cursorMovement direction);
         void render();
         buttonReturn load();

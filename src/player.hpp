@@ -10,6 +10,7 @@
 #define PLAYER_HPP
 
 #include "character.hpp"
+#include "sound.hpp"
 
 class player : public character
 {
@@ -20,9 +21,10 @@ class player : public character
         double _g;
         double _gVelocity;
         SDL_Texture * _texture;
+		soundProcessor * _soundProc;
     public:
         /* TODO: void useItem(); */
-        player(std::string name, int x, int y, graphicProcessor * graphicProc);
+        player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc);
         void updateStatus(characterStatus newStatus);
         void move();
         void render();
