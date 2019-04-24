@@ -11,7 +11,6 @@
 #define GAME_OBJ_HPP
 
 #include <SDL2/SDL.h>
-#include <unordered_map>
 #include <string>
 #include "menu.hpp"
 #include "graphics.hpp"
@@ -19,6 +18,7 @@
 #include "map.hpp"
 #include "object.hpp"
 #include "player.hpp"
+#include "wall.hpp"
 
 class game
 {
@@ -30,6 +30,8 @@ class game
         SDL_Texture * _background;
         int _w, _h;
         map * _map;
+        player * _player;
+        std::vector<object*> _objects;
 
     public:
 
@@ -46,6 +48,8 @@ class game
         void runGame();
 
         void mainLoop();
+
+        void placeWall(int x, int y, wallType type);
 };
 
 #endif

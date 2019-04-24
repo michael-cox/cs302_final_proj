@@ -12,7 +12,6 @@
 
 #include <string>
 #include <map>
-#include "game_object.hpp"
 #include "object.hpp"
 
 enum characterStatus

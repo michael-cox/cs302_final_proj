@@ -15,8 +15,8 @@
 
 struct map
 {
-    map(int w, int h) : gameMap(h, std::pair<bool,std::vector<object*>>(false,std::vector<object*>(w, nullptr))) { }
-    std::vector< std::pair<bool,std::vector<object*>>> gameMap;
+    map(int w, int h) : gameMap(h, std::vector<std::pair<bool,std::vector<object*>>>(w, std::pair<bool,std::vector<object*>>(false, std::vector<object*>()))) {}
+    std::vector<std::vector<std::pair<bool,std::vector<object*>>>> gameMap;
 };
 
 #endif
