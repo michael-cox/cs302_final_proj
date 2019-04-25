@@ -1,5 +1,5 @@
 #include <SDL2/SDL.h>
-#include "sound.hpp"
+#include "../../src/sound.hpp"
 
 int main() {
 
