@@ -121,8 +121,11 @@ void player::move()
 	}
 		
 	std::list<projectile*>::iterator lit;
-	for (lit = projList.begin(); lit != projList.end(); lit++) {
-		(*lit)->move();
+	for (lit = projList.begin(); lit != projList.end(); 0) {
+		if((*lit)->move()) {
+			lit = projList.erase(lit);
+		}
+		else { lit++; }
 	}
 }
 
@@ -138,12 +141,14 @@ void player::render()
 	}
 }
 
-void projectile::move() {
+bool projectile::move() {
 	_x += _currVelocityX;
+	if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
+	else { return 0; }
 }
 
 void projectile::render() {
-	if (_x > (0 - _w) && _x < _graphicProc->getResolutionW()) { _sprite->render(_x, _y, _graphicProc); }
+	_sprite->render(_x, _y, _graphicProc);
 }
 
 int player::getX() { return _x; }

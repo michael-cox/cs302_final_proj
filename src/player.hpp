@@ -31,7 +31,7 @@ class projectile : protected object {
 			}
 		}
 		~projectile() { delete _sprite; }
-		void move();
+		bool move();
 		void render();
 };
 
