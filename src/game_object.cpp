@@ -4,8 +4,8 @@
 #include "game_object.hpp"
 
 #define GAME_NAME "BRB2D"
-#define TILE_W 128
-#define TILE_H 128
+#define TILE_W 64
+#define TILE_H 64
 
 game::game(windowMode winMode)
 {
@@ -43,10 +43,15 @@ void game::render()
 
 void game::runGame()
 {
-    placeWall(0, _graphicProc->getResolutionH() * 2 / 3, LEFT_EDGE);
-    for(size_t i = TILE_W; i < _graphicProc->getResolutionW() - TILE_W; i += TILE_W)
-        placeWall(i, _graphicProc->getResolutionH() * 2 / 3, CENTER);
-    placeWall(_graphicProc->getResolutionW() - TILE_W, _graphicProc->getResolutionH() * 2 / 3, RIGHT_EDGE);
+    for(size_t i = 0; i < _graphicProc->getResolutionW(); i += TILE_W)
+        placeWall(i, _graphicProc->getResolutionH() * 4 / 5, CENTER_SNOW);
+    for(size_t i = _graphicProc->getResolutionH() * 4 / 5 + TILE_H; i < _graphicProc->getResolutionH(); i += TILE_H)
+    {
+        for(size_t j = 0; j < _graphicProc->getResolutionW(); j += TILE_W)
+        {
+            placeWall(j, i, CENTER_DIRT);
+        }
+    }
     while(1)
     {
         if(_mainMenu->load() == BUTTON_EXIT) return;
@@ -58,6 +63,7 @@ void game::runGame()
 void game::mainLoop()
 {
     _soundProc->playSound("gameMusic.wav");
+	_player->updateStatus(IDLE);
     while(1)
     {
         render();
@@ -95,6 +101,8 @@ void game::mainLoop()
             case SDLK_ESCAPE:
                 if(_inputProc->readDirection()) { _soundProc->stopSound("gameMusic.wav"); return; }
                 break;
+			default:
+				break;
         }
         _player->move();
 
@@ -108,14 +116,17 @@ void game::placeWall(int x, int y, wallType type)
     wall * newWall;
     switch(type)
     {
-        case LEFT_EDGE:
+        case LEFT_EDGE_SNOW:
             newWall = new wall(x, y, TILE_W, TILE_H, _graphicProc, "assets/wintertileset/png/tiles/1.png", PNG);
             break;
-        case CENTER:
+        case CENTER_SNOW:
             newWall = new wall(x, y, TILE_W, TILE_H, _graphicProc, "assets/wintertileset/png/tiles/2.png", PNG);
             break;
-        case RIGHT_EDGE:
+        case RIGHT_EDGE_SNOW:
             newWall = new wall(x, y, TILE_W, TILE_H, _graphicProc, "assets/wintertileset/png/tiles/3.png", PNG);
+            break;
+        case CENTER_DIRT:
+            newWall = new wall(x, y, TILE_W, TILE_H, _graphicProc, "assets/wintertileset/png/tiles/5.png", PNG);
             break;
     }
 
@@ -123,8 +134,11 @@ void game::placeWall(int x, int y, wallType type)
     {
         for(int j = newWall->_x; j < newWall->_x + newWall->_w; ++j)
         {
-            _map->gameMap[i][j].first = true;
-            _map->gameMap[i][j].second.push_back(newWall);
+            if(i < _map->gameMap.size() && j < _map->gameMap[0].size())
+            {
+                _map->gameMap[i][j].first = true;
+                _map->gameMap[i][j].second.push_back(newWall);
+            }
         }
     }
 

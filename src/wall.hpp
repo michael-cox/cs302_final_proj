@@ -2,6 +2,8 @@
  * File: wall.hpp
  * Phillip Chu
  * ---------------
+ * Provides an interface for
+ * the wall object.
  */
 
 #ifndef WALL_HPP
@@ -11,25 +13,33 @@
 #include <string>
 #include "object.hpp"
 
+/* wallType - enum for wall types (corner, edge, etc) */
 enum wallType
 {
-    LEFT_EDGE,
-    CENTER,
-    RIGHT_EDGE
+    LEFT_EDGE_SNOW,
+    CENTER_SNOW,
+    RIGHT_EDGE_SNOW,
+    CENTER_DIRT
 };
 
 struct wall : public object
 {
-    wall(int x, int y, int w, int h, graphicProcessor * graphicProc, std::string fileName, imageType imgType) 
+
+    wallType type;
+    sprite * texture;
+
+    /* Constructor - fileName is an image */
+    wall(int x, int y, int w, int h, graphicProcessor * graphicProc,
+            std::string fileName, imageType imgType) 
         : object(x, y, w, h, true, graphicProc)
     {
-        texture = _graphicProc->makeTexture(fileName, imgType);
+        texture = new sprite(fileName, imgType, w, h, _graphicProc);
     }
-    wallType type;
-    SDL_Texture * texture;
+
+    /* render - draws the wall on the screen */
     void render()
     {
-        _graphicProc->renderTexture(texture, _x, _y, _w, _h);
+        texture->render(_x, _y, _graphicProc);
     }
 };
 
