@@ -21,6 +21,8 @@ class player : public character
         double _g;
         double _gVelocity;
 		soundProcessor * _soundProc;
+		direction _facing;
+
     public:
         /* TODO: void useItem(); */
         player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc);

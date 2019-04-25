@@ -8,7 +8,7 @@
 
 #include "player.hpp"
 
-std::string _statusToString(characterStatus status)
+std::string statusToString(characterStatus status)
 {
     switch(status)
     {
@@ -29,7 +29,7 @@ std::string _statusToString(characterStatus status)
     }
 }
 
-player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc), _soundProc(soundProc) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc), _soundProc(soundProc), _facing(RIGHT) 
 {
     _g = 3;
     _gVelocity = 0;
@@ -38,7 +38,7 @@ player::player(std::string name, int x, int y, graphicProcessor * graphicProc, s
     for(int i = 0; i < 7; ++i)
     {
         status = (characterStatus)i;
-        path = "assets/ninja/png/" + _statusToString(status);
+        path = "assets/ninja/png/" + statusToString(status);
         animation * a = new animation(path, PNG, 4, 10, 39, 21, _graphicProc);
         _animations[status] = a;
     }
@@ -66,7 +66,8 @@ void player::updateStatus(characterStatus status)
 				_status = IDLE; 
 				_currVelocityX = 0;
 			}
-			else { 
+			else {
+				_facing = RIGHT;
 				_status = status; 
 				_currVelocityX = _velocity;
 			}
@@ -76,7 +77,8 @@ void player::updateStatus(characterStatus status)
 				_status = IDLE; 
 				_currVelocityX = 0;
 			}
-			else {	
+			else {
+				_facing = LEFT;
 				_status = status;
 				_currVelocityX = -1 * _velocity;
 			}
@@ -114,5 +116,5 @@ void player::render()
 	if (_animations[_status]->render(_x, _y, _graphicProc) && _status == ATTACK) {
 		updateStatus(_prevStatus);
 	}
-    SDL_Log("%s", _statusToString(_status).c_str());
+    SDL_Log("%s", statusToString(_status).c_str());
 }

@@ -25,6 +25,11 @@ enum characterStatus
     ATTACK
 };
 
+enum direction {
+	LEFT,
+	RIGHT
+};
+
 class character : protected object
 {
     protected:
