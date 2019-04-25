@@ -33,7 +33,7 @@ std::string statusToString(characterStatus status)
 }
 
 player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
-        soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 5.3, graphicProc), _soundProc(soundProc)
+        soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 6.2, graphicProc), _soundProc(soundProc)
 {
     characterStatus status;
     std::string path;
@@ -64,7 +64,7 @@ void player::updateStatus(characterStatus status)
         case JUMP:
             if (!_jumped) {
                 _soundProc->playSound("playerJump.wav");
-                _currVelocityY = -30;
+                _currVelocityY = -35;
                 _jumped = 1;
             }	
             break;

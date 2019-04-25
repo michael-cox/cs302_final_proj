@@ -10,7 +10,7 @@
 
 int main(int argc, char** argv)
 {
-    game g(SMALL);
+    game g(FULLSCREEN);
     g.runGame();
     return 0;
 }

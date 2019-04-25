@@ -13,6 +13,7 @@
 
 #define ENEMY_W 68
 #define ENEMY_H 82
+#define ENEMY_SPEED 1.1
 
 std::unordered_map<characterStatus,animation*> enemy::_animationCache;
 
@@ -40,7 +41,7 @@ std::string e_statusToString(characterStatus status)
 }
 
 enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
-    : character(name, x, y, ENEMY_W, ENEMY_H, 100, 0.7, graphicProc), _soundProc(soundProc)
+    : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
 	_health = 5;
 	//39, 21

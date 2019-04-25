@@ -14,4 +14,4 @@ all: $(OBJ) $(HEAD)
 .PHONY: clean
 
 clean:
-	rm -f $(PROG) $(OBJ)
+	rm -f bin/$(PROG) $(OBJ)

@@ -7,6 +7,7 @@
 #define GAME_NAME "BRB2D"
 #define TILE_W 64
 #define TILE_H 64
+#define RANDOM_CHANCE 500
 
 game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1)
 {
@@ -114,9 +115,9 @@ void game::mainLoop()
 			default:
 				break;
         }
-        _player->move();
 
 		if (checkCollision((_player->projList))) return;
+        _player->move();
 		for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); lit++)
 		{
 			(*lit)->seekPlayer(_player->getX());
@@ -135,9 +136,10 @@ bool game::checkCollision(std::list<projectile*> & projList) {
 	std::list<enemy*>::iterator eit;
 	std::list<projectile*>::iterator pit;
 	for (eit = _zombies.begin(); eit != _zombies.end();) {
+        deleted = 0;
 		SDL_Log("For loop again");
-		if ((_player->getY() + _player->getH()) >= (*eit)->getY()) {
-			if (((_player->getX() + _player->getW() > (*eit)->getX()) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW()))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW())) && (_player->getX() > (*eit)->getX()))) { 
+		if ((_player->getY() + _player->getH()) >= (*eit)->getY() + 23) {
+			if (((_player->getX() + _player->getW() > (*eit)->getX() + 15) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW() - 15))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW() - 15)) && (_player->getX() > (*eit)->getX() + 15))) { 
 				_soundProc->stopSound("gameMusic.wav");
 				_soundProc->playSound("playerDamage.wav");
 				_soundProc->playSound("enemyAttack.wav");
@@ -211,7 +213,7 @@ void game::placeWall(int x, int y, wallType type)
 
 void game::spawnZombies()
 {
-	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + 100)) {
+	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + RANDOM_CHANCE)) {
 		bool spawnSide = _randGenerator() % 2;
 		enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 68 :_graphicProc->getResolutionW(),  _graphicProc->getResolutionH() * (4 / 5) - 86, _graphicProc, _soundProc);
 		_zombies.push_back(zombie);
