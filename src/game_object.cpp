@@ -2,12 +2,13 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include "game_object.hpp"
+#include <random>
 
 #define GAME_NAME "BRB2D"
 #define TILE_W 64
 #define TILE_H 64
 
-game::game(windowMode winMode)
+game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1)
 {
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
     else _graphicProc = new graphicProcessor(GAME_NAME, 1024, 576, 0);
@@ -19,8 +20,6 @@ game::game(windowMode winMode)
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
     _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
 
-	_enemy = new enemy("Enemy", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
-
 }
 
 game::~game()
@@ -29,6 +28,11 @@ game::~game()
     delete _inputProc;
 	delete _soundProc;
     delete _mainMenu;
+
+	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+	{
+		delete *lit;
+	}
 }
 
 void game::render()
@@ -39,6 +43,12 @@ void game::render()
     {
         _objects[i]->render();
     }
+    _player->render();
+
+	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+	{
+		(*lit)->render();
+	}
 }
 
 void game::runGame()
@@ -67,10 +77,6 @@ void game::mainLoop()
     while(1)
     {
         render();
-        _player->render();
-
-		_enemy->render();
-
         _graphicProc->present();
         if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
@@ -106,9 +112,13 @@ void game::mainLoop()
         }
         _player->move();
 
-        _enemy->seekPlayer(_player->getX());
-		_enemy->move();
+		for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); lit++)
+		{
+			(*lit)->seekPlayer(_player->getX());
+			(*lit)->move();
+		}
 
+		spawnZombies();
     }
 }
 
@@ -145,3 +155,24 @@ void game::placeWall(int x, int y, wallType type)
 
     _objects.push_back(newWall);
 }
+
+void game::spawnZombies()
+{
+	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + 100)) {
+		bool spawnSide = _randGenerator() % 2;
+		enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 68 :_graphicProc->getResolutionW(),  _graphicProc->getResolutionH() * (4 / 5) - 86, _graphicProc, _soundProc);
+		_zombies.push_back(zombie);
+		
+	}
+}
+
+int game::maxZombies(int _deadZombies)
+{
+	return 4 + (0.25 * _deadZombies); 
+}
+
+/*double game::zombieSpeed(int _deadZombies)
+{
+	
+}
+*/
