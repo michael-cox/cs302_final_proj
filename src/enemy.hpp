@@ -17,6 +17,7 @@ class enemy : public character
 {
 	private:
 		soundProcessor * _soundProc;
+        static std::unordered_map<characterStatus,animation*> _animationCache;
 
 	public:
 		enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc);
@@ -30,7 +31,7 @@ class enemy : public character
 		int getW();
 		int getH();
 		void updateHealth();
-		int getHealth();
+		int checkHealth();
 };
 
 

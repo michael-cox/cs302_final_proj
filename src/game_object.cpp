@@ -2,12 +2,13 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include "game_object.hpp"
+#include <random>
 
 #define GAME_NAME "BRB2D"
 #define TILE_W 64
 #define TILE_H 64
 
-game::game(windowMode winMode)
+game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1)
 {
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
     else _graphicProc = new graphicProcessor(GAME_NAME, 1024, 576, 0);
@@ -19,8 +20,6 @@ game::game(windowMode winMode)
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
     _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
 
-	_enemy = new enemy("Enemy", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
-
 }
 
 game::~game()
@@ -29,16 +28,27 @@ game::~game()
     delete _inputProc;
 	delete _soundProc;
     delete _mainMenu;
+
+	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+	{
+		delete *lit;
+	}
 }
 
 void game::render()
 {
     _graphicProc->clear();
-    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH());
+    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH(), false);
     for(size_t i = 0; i < _objects.size(); ++i)
     {
         _objects[i]->render();
     }
+    _player->render();
+
+	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+	{
+		(*lit)->render();
+	}
 }
 
 void game::runGame()
@@ -66,12 +76,12 @@ void game::mainLoop()
 	_player->updateStatus(IDLE);
     while(1)
     {
+		SDL_Log("Before render");
         render();
-        _player->render();
-
-		_enemy->render();
-
+		SDL_Log("After render");
         _graphicProc->present();
+		SDL_Log("After present");
+
         if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
         {
@@ -106,20 +116,29 @@ void game::mainLoop()
         }
         _player->move();
 
-        _enemy->seekPlayer(_player->getX());
-		_enemy->move();
 		if (checkCollision((_player->projList))) return;
+		for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); lit++)
+		{
+			(*lit)->seekPlayer(_player->getX());
+			(*lit)->move();
+		}
+		SDL_Log("More doner");
 
+		spawnZombies();
+		SDL_Log("Even most donester");
     }
 }
 
-bool game::checkCollision(std::list<projectile*> projList) {
+bool game::checkCollision(std::list<projectile*> & projList) {
 	//case 1: zombie hits player
-	std::list<_enemy*>::iterator eit;
+	bool deleted = 0;
+	std::list<enemy*>::iterator eit;
 	std::list<projectile*>::iterator pit;
-	for (eit = _zombies.begin(); eit != _zombies.end(); 0) {
+	for (eit = _zombies.begin(); eit != _zombies.end();) {
+		SDL_Log("For loop again");
 		if ((_player->getY() + _player->getH()) >= (*eit)->getY()) {
-			if ((_player->getX() <= ((*eit)->getX() + (*eit)->getW())) || ((_player->getX() + _player->getW()) >= (*eit)->getX())) {
+			if (((_player->getX() + _player->getW() > (*eit)->getX()) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW()))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW())) && (_player->getX() > (*eit)->getX()))) { 
+				_soundProc->stopSound("gameMusic.wav");
 				_soundProc->playSound("playerDamage.wav");
 				_soundProc->playSound("enemyAttack.wav");
 				SDL_Delay(500);
@@ -128,23 +147,32 @@ bool game::checkCollision(std::list<projectile*> projList) {
 				return 1;
 			}
 		}
-		for (pit = projList.begin(); pit != projList.end(); 0) {
-			if (((*pit)->getX() <= ((*eit)->getX() + (*eit)->getW())) || (((*pit)->getX() + (*pit)->getW()) >= (*eit)->getX())) {
+		for (pit = projList.begin(); pit != projList.end(); ) {
+			SDL_Log("No bang");
+			if ((((*pit)->getX() + (*pit)->getW() > (*eit)->getX()) && (((*pit)->getX() + (*pit)->getW()) < ((*eit)->getX() + (*eit)->getW()))) || (((*pit)->getX() < ((*eit)->getX() + (*eit)->getW())) && ((*pit)->getX() > (*eit)->getX()))) { 
+				SDL_Log("Bang");
 				delete (*pit);
 				pit = projList.erase(pit);
-				_soundProc("enemyDamage.wav");
+				SDL_Log("Delet");
+				if (pit == projList.end()) {
+					SDL_Log("yeeeeeeee");
+				}
+				SDL_Log("Fuvker");
+				_soundProc->playSound("enemyDamage.wav");
 				(*eit)->updateHealth();
 				if ((*eit)->checkHealth() == 0) {
-					delete (*eit);
+					//delete (*eit);
+					deleted = 1;
 					eit = _zombies.erase(eit);
-					_soundProc("enemyDeath.wav");
+					_soundProc->playSound("enemyDeath.wav");
 					_deadZombies++;
 				}
-				else { eit++; }
 			}
 			else { pit++; }
 		}
+		if (!deleted) { eit++; }
 	}
+	SDL_Log("Done");
 }	
 
 void game::placeWall(int x, int y, wallType type)
@@ -180,3 +208,24 @@ void game::placeWall(int x, int y, wallType type)
 
     _objects.push_back(newWall);
 }
+
+void game::spawnZombies()
+{
+	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + 100)) {
+		bool spawnSide = _randGenerator() % 2;
+		enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 68 :_graphicProc->getResolutionW(),  _graphicProc->getResolutionH() * (4 / 5) - 86, _graphicProc, _soundProc);
+		_zombies.push_back(zombie);
+		
+	}
+}
+
+int game::maxZombies(int _deadZombies)
+{
+	return 4 + (0.25 * _deadZombies); 
+}
+
+/*double game::zombieSpeed(int _deadZombies)
+{
+	
+}
+*/

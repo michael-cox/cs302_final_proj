@@ -12,6 +12,8 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include <list>
+#include <random>
 #include "menu.hpp"
 #include "graphics.hpp"
 #include "input.hpp"
@@ -37,6 +39,10 @@ class game
 
         std::vector<object*> _objects;
 
+		std::list <enemy *> _zombies;
+		int _deadZombies;
+		std::mt19937 _randGenerator;
+
     public:
 
         /* Constructor - FULLSCREEN for fullscreen, SMALL for  */
@@ -57,7 +63,12 @@ class game
         /* placeWall - places a single wall at the specified location */
         void placeWall(int x, int y, wallType type);
 
-		bool checkCollision(std::list<projectile*> projList);
+		bool checkCollision(std::list<projectile*> &projList);
+		void spawnZombies();
+
+		int  maxZombies(int _deadZombies);
+
+		double zombieSpeed(int _deadZombies);
 
 };
 

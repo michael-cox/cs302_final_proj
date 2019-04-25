@@ -10,6 +10,8 @@
 
 #define PLAYER_W 36
 #define PLAYER_H 68
+#define PLAYER_ACTING_W 64
+#define GRAVITY 2.4
 
 std::string statusToString(characterStatus status)
 {
@@ -30,7 +32,8 @@ std::string statusToString(characterStatus status)
     }
 }
 
-player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 4.2, graphicProc), _soundProc(soundProc), _facing(RIGHT) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
+        soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 5.3, graphicProc), _soundProc(soundProc)
 {
     characterStatus status;
     std::string path;
@@ -38,7 +41,8 @@ player::player(std::string name, int x, int y, graphicProcessor * graphicProc, s
     {
         status = (characterStatus)i;
         path = "assets/ninja/png/" + statusToString(status);
-        animation * a = new animation(path, PNG, 4, 10, PLAYER_W, PLAYER_H, _graphicProc);
+        animation * a = new animation(path, PNG, 4, 10,
+                (status == IDLE || status == JUMP) ? PLAYER_W : PLAYER_ACTING_W, PLAYER_H, _graphicProc);
         _animations[status] = a;
     }
 }
@@ -60,7 +64,7 @@ void player::updateStatus(characterStatus status)
         case JUMP:
             if (!_jumped) {
                 _soundProc->playSound("playerJump.wav");
-                _currVelocityY = -25;
+                _currVelocityY = -30;
                 _jumped = 1;
             }	
             break;
@@ -113,7 +117,7 @@ void player::move()
         _jumped = 0;
     }
     else {
-        _currVelocityY += _velocity;
+        _currVelocityY += GRAVITY;
     }
 	if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
 		if (_x < 0) { _x = 0; _currVelocityX = 0; }
@@ -121,7 +125,7 @@ void player::move()
 	}
 		
 	std::list<projectile*>::iterator lit;
-	for (lit = projList.begin(); lit != projList.end(); 0) {
+	for (lit = projList.begin(); lit != projList.end(); ) {
 		if((*lit)->move()) {
 			delete (*lit);
 			lit = projList.erase(lit);
@@ -132,7 +136,7 @@ void player::move()
 
 void player::render()
 { 
-	if (_animations[_status]->render(_x, _y, _graphicProc) &&  _status == ATTACK) {
+	if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
 		updateStatus(_prevStatus);
 		_attacked = 0;
 	}
@@ -160,4 +164,4 @@ void projectile::render() {
 int player::getX() { return _x; }
 int player::getY() { return _y; }
 int player::getW() { return _w; }
-int player::getH() { return _h' }
+int player::getH() { return _h; }

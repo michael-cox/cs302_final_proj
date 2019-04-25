@@ -14,6 +14,8 @@
 #define ENEMY_W 68
 #define ENEMY_H 82
 
+std::unordered_map<characterStatus,animation*> enemy::_animationCache;
+
 std::string e_statusToString(characterStatus status)
 {
 	switch(status)
@@ -50,72 +52,91 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
 	
 	for (int i = 0; i < 7; ++i)
 	{
+        animation * a;
 		status = (characterStatus)i;
-		path = "assets/zombiefiles/png/male/" + e_statusToString(status);
-		switch(status)
-		{
-			case MOVING_UP:
-				numTextures = 10;
-	        case MOVING_DOWN:
-				numTextures = 10;			 
-	        case JUMP:
-				numTextures = 10;			 
-			case IDLE:
-				numTextures = 15; //15
-				break;
-			case ATTACK:
-				numTextures = 8; //8
-				break;
-			case MOVING_RIGHT:
-				numTextures = 10; //10
-				break;
-			case MOVING_LEFT:
-				numTextures = 10; //10
-				break;
-			default:
-				break;
-		}
-		animation * a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
-		_animations[status] = a;
-	}
+
+        std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
+        if(cacheCheck == _animationCache.end())
+        {
+            path = "assets/zombiefiles/png/male/" + e_statusToString(status);
+            switch(status)
+            {
+                case MOVING_UP:
+                    numTextures = 10;
+                case MOVING_DOWN:
+                    numTextures = 10;			 
+                case JUMP:
+                    numTextures = 10;			 
+                case IDLE:
+                    numTextures = 15; //15
+                    break;
+                case ATTACK:
+                    numTextures = 8; //8
+                    break;
+                case MOVING_RIGHT:
+                    numTextures = 10; //10
+                    break;
+                case MOVING_LEFT:
+                    numTextures = 10; //10
+                    break;
+                default:
+                    break;
+            }
+            a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
+            _animationCache[status] = a;
+        }
+        else a = cacheCheck->second;
+        _animations[status] = a;
+    }
 }
 
 enemy::~enemy()
 {
-	for (std:: unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i) 
-		delete i->second;
+    for (std:: unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i) 
+    {
+        delete i->second;
+    }
 }
 
 void enemy::updateStatus(characterStatus status)
 {
     switch (status) {
         case MOVING_RIGHT:
-				_currVelocityX = _velocity;
+            _status = status; 
+            _currVelocityX = _velocity;
+            _facing = RIGHT;
             break;
         case MOVING_LEFT:
-				_currVelocityX = -1 * _velocity;
+            _status = status;
+            _currVelocityX = -1 * _velocity;
+            _facing = LEFT;
             break;
-	}
+        case IDLE:
+            _status = status;
+            _currVelocityX = 0;
+            break;
+        default:
+            break;
+    }
 }
 
 void enemy::move()
 {
-	_y += _currVelocityY;
-	_x += _currVelocityX;
-	//barrier check
-	if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
-		_y = _graphicProc->getResolutionH() * 4 / 5 - _h;
-		_currVelocityY = 0;
-	}
-	else {
-		_currVelocityY += _velocity;
-	}
+    _y += _currVelocityY;
+    _x += _currVelocityX;
+    //barrier check
+    if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
+        _y = _graphicProc->getResolutionH() * 4 / 5 - _h;
+        _currVelocityY = 0;
+    }
+    else {
+        _currVelocityY += _velocity;
+    }
 }
 
 void enemy::render()
 {
-	_animations[_status]->render(_x, _y, _graphicProc);
-	if(e_statusToString(_status) != "idle") SDL_Log("%s", e_statusToString(_status).c_str());
+    _animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
 }
 
 void enemy::seekPlayer(int playerX)
@@ -126,13 +147,13 @@ void enemy::seekPlayer(int playerX)
 
 }
 
-int getX() {
+int enemy::getX() {
 	return _x;
 }
 
-int getY() { return _y; }
-int getW() { return _w; }
-int getH() { return _h; }
-void updateHealth() { _health--; }
-int checkHealth() { return _health; }
+int enemy::getY() { return _y; }
+int enemy::getW() { return _w; }
+int enemy::getH() { return _h; }
+void enemy::updateHealth() { _health--; }
+int enemy::checkHealth() { return _health; }
 #endif
