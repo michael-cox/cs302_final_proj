@@ -86,10 +86,10 @@ void player::updateStatus(characterStatus status)
         case ATTACK:
 			if (!_attacked) {
 				_attacked = 1;
-				_status = status;
 				projList.push_back(new projectile(_x + (_w / 2), _y + (_h / 2), _graphicProc, _facing));
 				_soundProc->playSound("playerShoot.wav");
 			}
+			_status = status;
             break;
 		case IDLE:
 			_status = status;
@@ -119,9 +119,9 @@ void player::move()
 
 void player::render()
 { 
-	if (_animations[_status]->render(_x, _y, _graphicProc) && _status == ATTACK) {
-		_attacked = 0;
+	if (_animations[_status]->render(_x, _y, _graphicProc) &&  _status == ATTACK) {
 		updateStatus(_prevStatus);
+		_attacked = 0;
 	}
 	for (size_t i = 0; i < projList.size(); i++) {
 		projList[i]->render();
