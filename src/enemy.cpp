@@ -14,6 +14,8 @@
 #define ENEMY_W 68
 #define ENEMY_H 82
 
+std::unordered_map<characterStatus,animation*> enemy::_animationCache;
+
 std::string e_statusToString(characterStatus status)
 {
 	switch(status)
@@ -49,40 +51,51 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
 	
 	for (int i = 0; i < 7; ++i)
 	{
+        animation * a;
 		status = (characterStatus)i;
-		path = "assets/zombiefiles/png/male/" + e_statusToString(status);
-		switch(status)
-		{
-			case MOVING_UP:
-				numTextures = 10;
-	        case MOVING_DOWN:
-				numTextures = 10;			 
-	        case JUMP:
-				numTextures = 10;			 
-			case IDLE:
-				numTextures = 15; //15
-				break;
-			case ATTACK:
-				numTextures = 8; //8
-				break;
-			case MOVING_RIGHT:
-				numTextures = 10; //10
-				break;
-			case MOVING_LEFT:
-				numTextures = 10; //10
-				break;
-			default:
-				break;
-		}
-		animation * a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
-		_animations[status] = a;
-	}
+
+        std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
+        if(cacheCheck == _animationCache.end())
+        {
+            path = "assets/zombiefiles/png/male/" + e_statusToString(status);
+            switch(status)
+            {
+                case MOVING_UP:
+                    numTextures = 10;
+                case MOVING_DOWN:
+                    numTextures = 10;			 
+                case JUMP:
+                    numTextures = 10;			 
+                case IDLE:
+                    numTextures = 15; //15
+                    break;
+                case ATTACK:
+                    numTextures = 8; //8
+                    break;
+                case MOVING_RIGHT:
+                    numTextures = 10; //10
+                    break;
+                case MOVING_LEFT:
+                    numTextures = 10; //10
+                    break;
+                default:
+                    break;
+            }
+            a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
+            _animationCache[status] = a;
+        }
+        else a = cacheCheck->second;
+        _animations[status] = a;
+    }
 }
 
 enemy::~enemy()
 {
-	for (std:: unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i) 
-		delete i->second;
+    for (std:: unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i) 
+    {
+        _animationCache.erase(_animationCache.find(i->first));
+        delete i->second;
+    }
 }
 
 void enemy::updateStatus(characterStatus status)
@@ -98,32 +111,32 @@ void enemy::updateStatus(characterStatus status)
             _currVelocityX = -1 * _velocity;
             _facing = LEFT;
             break;
-		case IDLE:
-			_status = status;
-			_currVelocityX = 0;
+        case IDLE:
+            _status = status;
+            _currVelocityX = 0;
             break;
         default:
             break;
-	}
+    }
 }
 
 void enemy::move()
 {
-	_y += _currVelocityY;
-	_x += _currVelocityX;
-	//barrier check
-	if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
-		_y = _graphicProc->getResolutionH() * 4 / 5 - _h;
-		_currVelocityY = 0;
-	}
-	else {
-		_currVelocityY += _velocity;
-	}
+    _y += _currVelocityY;
+    _x += _currVelocityX;
+    //barrier check
+    if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
+        _y = _graphicProc->getResolutionH() * 4 / 5 - _h;
+        _currVelocityY = 0;
+    }
+    else {
+        _currVelocityY += _velocity;
+    }
 }
 
 void enemy::render()
 {
-	_animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
+    _animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
 }
 
 void enemy::seekPlayer(int playerX)
