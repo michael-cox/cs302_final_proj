@@ -19,7 +19,7 @@ game::game(windowMode winMode)
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
     _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
 
-	_enemy = new enemy("Enemy", _graphicProc->getResolutionW() / 2, 550, _graphicProc, _soundProc);
+	_enemy = new enemy("Enemy", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
 
 }
 

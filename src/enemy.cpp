@@ -11,8 +11,8 @@
 
 #include "enemy.hpp"
 
-#define ENEMY_W 48
-#define ENEMY_H 58
+#define ENEMY_W 68
+#define ENEMY_H 82
 
 std::string e_statusToString(characterStatus status)
 {
@@ -133,6 +133,7 @@ void enemy::render()
 }
 
 void enemy::seekPlayer() {
+
 }
 
 #endif
