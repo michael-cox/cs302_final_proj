@@ -11,7 +11,7 @@
 
 #include "character.hpp"
 #include "sound.hpp"
-
+#include <list>
 
 class projectile : protected object {
 	private:
@@ -41,7 +41,7 @@ class player : public character
 
 		soundProcessor * _soundProc;
 		direction _facing;
-		std::vector<projectile*> projList;
+		std::list<projectile*> projList;
     public:
 
         /* Constructor */

@@ -47,7 +47,10 @@ player::~player()
 {
     for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
         delete i->second;
-	for (size_t i = 0; i < projList.size(); i++) { delete projList[i]; }
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); lit++) {
+		delete *(lit);	
+	}
 }
 
 void player::updateStatus(characterStatus status)
@@ -112,8 +115,14 @@ void player::move()
     else {
         _currVelocityY += _velocity;
     }
-	for (size_t i = 0; i < projList.size(); i++) {
-		projList[i]->move();
+	if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
+		if (_x < 0) { _x = 0; _currVelocityX = 0; }
+		else { _x = _graphicProc->getResolutionW() - _w; _currVelocityX = 0; }
+	}
+		
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); lit++) {
+		(*lit)->move();
 	}
 }
 
@@ -123,18 +132,18 @@ void player::render()
 		updateStatus(_prevStatus);
 		_attacked = 0;
 	}
-	for (size_t i = 0; i < projList.size(); i++) {
-		projList[i]->render();
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); lit++) {
+		(*lit)->render();
 	}
 }
 
 void projectile::move() {
 	_x += _currVelocityX;
-	//if hits wall, disappear
 }
 
 void projectile::render() {
-	_sprite->render(_x, _y, _graphicProc);
+	if (_x > (0 - _w) && _x < _graphicProc->getResolutionW()) { _sprite->render(_x, _y, _graphicProc); }
 }
 
 int player::getX() { return _x; }
