@@ -12,22 +12,24 @@
 #include "character.hpp"
 #include "sound.hpp"
 
+#define PROJ_W 30
+#define PROJ_H 12
 
 class projectile : protected object {
 	private:
 		soundProcessor * _soundProc;
-		direction _facing;
 		sprite * _sprite;
 		double _currVelocityX;
+        direction _facing;
 	public:
-		projectile(int x, int y, graphicProcessor * graphicProc, direction facing) : object(x, y, 15, 6, true, graphicProc), _facing(facing) {
+		projectile(int x, int y, graphicProcessor * graphicProc, direction facing) : object(x, y, PROJ_W, PROJ_H, true, graphicProc), _facing(facing) {
 			if (facing == RIGHT) {
 				_currVelocityX = 6;
-				_sprite = new sprite("assets/ninja/png/kunaiRight.png", PNG, 100, 100, graphicProc);
+				_sprite = new sprite("assets/ninja/png/kunaiRight.png", PNG, PROJ_W, PROJ_H, graphicProc);
 			}
 			else {
 				_currVelocityX = -6;
-				_sprite = new sprite("assets/ninja/png/kunaiLeft.png", PNG, 100, 100, graphicProc);
+				_sprite = new sprite("assets/ninja/png/kunaiLeft.png", PNG, PROJ_W, PROJ_H, graphicProc);
 			}
 		}
 		~projectile() { delete _sprite; }
@@ -40,7 +42,6 @@ class player : public character
     private:
 
 		soundProcessor * _soundProc;
-		direction _facing;
 		std::vector<projectile*> projList;
     public:
 

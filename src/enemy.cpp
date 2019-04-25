@@ -89,40 +89,20 @@ void enemy::updateStatus(characterStatus status)
 {
 	if (_status != ATTACK) { _prevStatus = _status; }
     switch (status) {
-        case JUMP:
-            if (!_jumped) {
-                _soundProc->playSound("playerJump.wav");
-                _currVelocityY = -25;
-                _jumped = 1;
-            }	
-            break;
         case MOVING_RIGHT:
-			if (_status == MOVING_LEFT || _prevStatus == MOVING_LEFT) { 
-				_status = IDLE; 
-				_currVelocityX = 0;
-			}
-			else {
-				_status = status; 
-				_currVelocityX = _velocity;
-			}
+            _status = status; 
+            _currVelocityX = _velocity;
+            _facing = RIGHT;
             break;
         case MOVING_LEFT:
-			if (_status == MOVING_RIGHT || _prevStatus == MOVING_RIGHT) { 
-				_status = IDLE; 
-				_currVelocityX = 0;
-			}
-			else {
-				_status = status;
-				_currVelocityX = -1 * _velocity;
-			}
-            break;
-        case ATTACK:
-			_status = status;
-            _soundProc->playSound("enemyAttack.wav");
+            _status = status;
+            _currVelocityX = -1 * _velocity;
+            _facing = LEFT;
             break;
 		case IDLE:
 			_status = status;
 			_currVelocityX = 0;
+            break;
         default:
             break;
 	}
@@ -145,8 +125,7 @@ void enemy::move()
 
 void enemy::render()
 {
-	_animations[_status]->render(_x, _y, _graphicProc);
-	if(e_statusToString(_status) != "idle") SDL_Log("%s", e_statusToString(_status).c_str());
+	_animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
 }
 
 void enemy::seekPlayer(int playerX)

@@ -57,7 +57,7 @@ void menu::moveCursor(cursorMovement direction)
 
 void menu::render()
 {
-    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH());
+    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH(), 0);
     for(size_t i = 0; i < _buttons.size(); ++i)
     {
         _buttons[i].render(_cursorPos == i);
