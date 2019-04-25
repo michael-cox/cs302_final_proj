@@ -39,6 +39,7 @@ class character : protected object
 		double _currVelocityX;
 		double _currVelocityY;
 		bool _jumped;
+		bool _attacked;
         characterStatus _status;
 		characterStatus _prevStatus;
         std::unordered_map<characterStatus,animation*> _animations;
