@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS := -std=c++11 -lSDL2 -lSDL2_image
+CXXFLAGS := -g -std=c++11 -lSDL2 -lSDL2_image
 PROG := brb2d
 SRC := $(wildcard src/*.cpp)
 OBJ := $(patsubst %.cpp,%.o,$(SRC))

@@ -10,7 +10,6 @@
 #define ENEMY_HPP
 
 #include <string>
-#include <unordered_map>
 #include "character.hpp"
 #include "sound.hpp"
 

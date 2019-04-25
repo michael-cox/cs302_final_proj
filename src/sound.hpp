@@ -2,7 +2,8 @@
  * File: sound.hpp
  * Phillip Chu
  * --------------
- *  Interface for using sounds.
+ * Provides an interface for
+ * our sound processor object.
  */
 
 #ifndef SOUND_HPP
@@ -12,15 +13,8 @@
 #include <string>
 #include <unordered_map>
 
-/*struct sound {
-	SDL_AudioSpec wavSpec;
-	Uint32 wavLength;
-	Uint8 * wavBuffer;
-	SDL_AudioDeviceID deviceID;
-	int success;
-};
-*/
-
+/* audioInfo - struct containing information about an
+ * audio file */
 struct audioInfo {
 	SDL_AudioSpec wavSpec;
 	Uint32 wavLength;
@@ -29,10 +23,16 @@ struct audioInfo {
 };
 
 class soundProcessor {
+
 	private:
+
+        /* Maps filenames to audioInfo structs */
 		std::unordered_map<std::string, audioInfo *> audioMap;
 		audioInfo * loadAudio(std::string wavFile);
+
 	public:
+
+        /* Consructor - Loads all of the sound effects to the audioMap */
 		soundProcessor() {
 			SDL_Log("Creating sound processor...");
 			audioMap["menu.wav"] = loadAudio("assets/sounds/menu.wav");
@@ -48,6 +48,8 @@ class soundProcessor {
 			audioMap["playerDeath.wav"] = loadAudio("assets/sounds/playerDeath.wav");
 			audioMap["gameMusic.wav"] = loadAudio("assets/sounds/gameMusic.wav");
 		}
+
+        /* Destructor */
 		~soundProcessor() {  
 			std::unordered_map<std::string, audioInfo *>::iterator mit;
 			for (mit = audioMap.begin(); mit != audioMap.end(); mit++) {
@@ -56,10 +58,19 @@ class soundProcessor {
 				delete mit->second;
 			}
 		}
+
+        /* playSound - plays a sound */
 		void playSound(std::string wavFile);
+
+        /* checkQueue - checks if a sound is currently playing */
 		Uint32 checkQueue(std::string wavFile);
+
+        /* stopSound - stops a sound effect */
 		void stopSound(std::string wavFile);
+
+        /* repeat - plays sound on repeat */
 		void repeat(std::string wavFile);
+
 };
 
 #endif
