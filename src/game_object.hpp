@@ -3,8 +3,8 @@
  * CS302 March 14, 2019
  * File: game_object.hpp
  * -----------------------
- * An object oriented SDL window
- * handler.
+ * An object handling the
+ * game itself.
  */
 
 #ifndef GAME_OBJ_HPP
@@ -23,7 +23,6 @@
 class game
 {
     private:
-
         menu * _mainMenu;
         graphicProcessor * _graphicProc;
         input * _inputProc;
@@ -36,21 +35,24 @@ class game
 
     public:
 
-        /* Constructor - FULLSCREEN for fullscreen, SMALL for 800x450*/
+        /* Constructor - FULLSCREEN for fullscreen, SMALL for  */
         game(windowMode winMode);
 
         /* Deconstructor */
         ~game();
 
-        /* Present render */
+        /* render - clears the screen, copies all the necessary textures to the window, and presents them */
         void render();
 
-        /* Run game */
+        /* runGame - the single function that loads the menu and subsequently the game itself */
         void runGame();
 
+        /* mainLoop - the loop of the game itself */
         void mainLoop();
 
+        /* placeWall - places a single wall at the specified location */
         void placeWall(int x, int y, wallType type);
+
 };
 
 #endif

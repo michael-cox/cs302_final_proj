@@ -8,7 +8,7 @@
 
 #include "player.hpp"
 
-std::string _statusToString(characterStatus status)
+std::string statusToString(characterStatus status)
 {
     switch(status)
     {
@@ -29,17 +29,15 @@ std::string _statusToString(characterStatus status)
     }
 }
 
-player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, 39, 21, 100, 2.2, graphicProc), _soundProc(soundProc) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, 78, 42, 100, 2.2, graphicProc), _soundProc(soundProc) 
 {
-    _g = 3;
-    _gVelocity = 0;
     characterStatus status;
     std::string path;
     for(int i = 0; i < 7; ++i)
     {
         status = (characterStatus)i;
-        path = "assets/ninja/png/" + _statusToString(status);
-        animation * a = new animation(path, PNG, 4, 10, 39, 21, _graphicProc);
+        path = "assets/ninja/png/" + statusToString(status);
+        animation * a = new animation(path, PNG, 4, 10, 78, 42, _graphicProc);
         _animations[status] = a;
     }
 }
@@ -82,8 +80,8 @@ void player::move()
     _y += _currVelocityY;
     _x += _currVelocityX;
     //barrier check
-    if (_y > _graphicProc->getResolutionH() * 2 / 3 - _h) {
-        _y = _graphicProc->getResolutionH() * 2 / 3 - _h;
+    if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
+        _y = _graphicProc->getResolutionH() * 4 / 5 - _h;
         _currVelocityY = 0;
         _jumped = 0;
     }
@@ -96,5 +94,4 @@ void player::move()
 void player::render()
 {
     _animations[_status]->render(_x, _y, _graphicProc);
-    if(_statusToString(_status) != "idle") SDL_Log("%s", _statusToString(_status).c_str());
 }

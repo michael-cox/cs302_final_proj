@@ -2,7 +2,7 @@
  * File: image.cpp
  * Michael Cox
  * ---------------
- * Implements functions for loading
+ * Implements image processor for loading
  * images from image.hpp.
  */
 
@@ -11,27 +11,36 @@
 #include <cassert>
 #include "graphics.hpp"
 
+/* Instantiates the static variables used to determine whether to initialize/quit SDL */
 bool graphicProcessor::_isInit = 0;
-
 size_t graphicProcessor::_numInst = 0;
 
-sprite::sprite(std::string filename, imageType imgType, int width, int height, graphicProcessor * graphicProc)
+/* Sprite Constructor */
+sprite::sprite(std::string filename, imageType imgType, int width, int height,
+        graphicProcessor * graphicProc)
     : scaledW(width), scaledH(height)
 {
     texture = graphicProc->makeTexture(filename, imgType);
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
 }
 
-sprite::~sprite() { delete texture; }
+/* Sprite Destructor */
+sprite::~sprite() { SDL_DestroyTexture(texture); }
 
+/* sprite::render - places the sprite on the screen */
 void sprite::render(const int x, const int y, class graphicProcessor * graphicProc)
 {
     graphicProc->renderTextureWithScaling(texture, x, y, w, h, scaledW, scaledH);
 }
 
-animation::animation(std::string baseFilename, imageType imgType, size_t framesPerTexture, size_t numFrames, int width, int height, graphicProcessor * graphicProc)
-    : scaledW(width), scaledH(height), numFrames(numFrames), curFrame(0), framesPerTexture(framesPerTexture)
+/* Animation Constructor */
+animation::animation(std::string baseFilename, imageType imgType, size_t framesPerTexture,
+        size_t numFrames, int width, int height, graphicProcessor * graphicProc)
+    : scaledW(width), scaledH(height), numFrames(numFrames),
+    curFrame(0), framesPerTexture(framesPerTexture)
 {
+
+    /* Loop through the files, called baseFilenameX.imgType, adding to vector */
     for(size_t i = 0; i < numFrames; ++i)
     {
         std::string filename = baseFilename + std::to_string(i);
@@ -54,21 +63,26 @@ animation::animation(std::string baseFilename, imageType imgType, size_t framesP
         SDL_Texture * texture = graphicProc->makeTexture(filename, imgType);
         textures.push_back(texture);
     }
+
+    /* Determine the true width and height of the texture */
     SDL_QueryTexture(textures[0], NULL, NULL, &w, &h);
 }
 
+/* Animation Destructor */
 animation::~animation()
 {
     for(size_t i = 0; i < textures.size(); ++i)
-        delete textures[i];
+        if(textures[i] != nullptr) SDL_DestroyTexture(textures[i]);
 }
 
+/* animation::render - places the current frame of the animation on the screen */
 void animation::render(const int x, const int y, class graphicProcessor * graphicProc)
 {
     graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH);
     if(++curFrame > textures.size() * framesPerTexture) curFrame = 0;
 }
 
+/* graphicProcessor Constructor - Initializes SDL if necessary, creates a fullscreen window and renderer */
 graphicProcessor::graphicProcessor(std::string windowTitle) : _window(nullptr), _renderer(nullptr),
     _display(nullptr)
 {
@@ -79,6 +93,7 @@ graphicProcessor::graphicProcessor(std::string windowTitle) : _window(nullptr), 
     SDL_Log("Finished constructing graphicProcessor");
 }
 
+/* graphicProcessor Constructor - Same as last constructor but with a specific resolution */
 graphicProcessor::graphicProcessor(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags)
     : _window(nullptr), _renderer(nullptr), _display(nullptr)
 {
@@ -91,7 +106,7 @@ graphicProcessor::graphicProcessor(std::string windowTitle, int windowWidth, int
     SDL_Log("Finished constructing graphicProcessor");
 }
 
-
+/* graphicProcessor Destructor */
 graphicProcessor::~graphicProcessor()
 {
     SDL_DestroyWindow(_window);
@@ -102,8 +117,10 @@ graphicProcessor::~graphicProcessor()
     if(!_numInst) { SDL_Log("Quitting SDL..."); SDL_Quit(); }
 }
 
+/* graphicProcessor::clear - clears the screen */
 void graphicProcessor::clear() { SDL_RenderClear(_renderer); }
 
+/* graphicProcessor::initSDL - initializes SDL if needed, gets the display mode */
 void graphicProcessor::initSDL()
 {
     if(!_isInit)
@@ -119,6 +136,7 @@ void graphicProcessor::initSDL()
     SDL_Log("_numInst (after constructing): %zu", _numInst);
 }
 
+/* graphicProcessor::getDisplayMode - Gets the displaymode of the first monitor */
 void graphicProcessor::getDisplayMode()
 {
     SDL_Log("Getting display mode...");
@@ -130,6 +148,7 @@ void graphicProcessor::getDisplayMode()
     SDL_Log("Display mode: %dx%d %d Hz", _display->w, _display->h, _display->refresh_rate);
 }
 
+/* graphicProcessor::createWindow - creates a fullscreen window and renderer */
 void graphicProcessor::createWindow(std::string windowTitle)
 {
     SDL_Log("Creating window...");
@@ -141,6 +160,7 @@ void graphicProcessor::createWindow(std::string windowTitle)
     SDL_Log("Finished creating window.");
 }
 
+/* graphicProcessor::createWindow - creates a window of the specified parameters */
 void graphicProcessor::createWindow(std::string windowTitle, int windowWidth, int windowHeight, uint32_t windowFlags)
 {
     SDL_Log("Creating window...");
@@ -152,9 +172,11 @@ void graphicProcessor::createWindow(std::string windowTitle, int windowWidth, in
     SDL_Log("Finished creating window.");
 }
 
+/* Get resolutions */
 int graphicProcessor::getResolutionW() const { return _display->w; }
 int graphicProcessor::getResolutionH() const { return _display->h; }
 
+/* graphicProcessor::makeTexture - constructs a texture */
 SDL_Texture * graphicProcessor::makeTexture(const std::string imgPath, const imageType imgType)
 {
     SDL_RWops * fStream = SDL_RWFromFile(imgPath.c_str(), "rb");
@@ -216,20 +238,5 @@ void graphicProcessor::renderSprite(sprite * spriteToRender, const int x, const 
     destRect.y = y;
     SDL_RenderCopy(_renderer, spriteToRender->texture, &sourceRect, &destRect);
 }
-
-/*void graphicProcessor::renderTextureAnimation(SDL_Texture * texture, int frameWidth, int frameNum, int x, int y)
-{
-    int maxWidth;
-    SDL_Rect sourceRect, destRect;
-    SDL_QueryTexture(texture, NULL, NULL, &maxWidth, &sourceRect.h);
-    destRect.w = sourceRect.w = frameWidth;
-    destRect.h = sourceRect.h;
-    sourceRect.x = frameNum * frameWidth;
-    assert(sourceRect.x + frameWidth < maxWidth);
-    sourceRect.y = 0;
-    destRect.x = x;
-    destRect.y = y;
-    SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
-}*/
 
 void graphicProcessor::present() { SDL_RenderPresent(_renderer); }

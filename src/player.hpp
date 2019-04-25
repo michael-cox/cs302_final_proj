@@ -14,19 +14,27 @@
 
 class player : public character
 {
-    private:
-        /* TODO: std::vector<item> inventory */
 
-        /* Temporary */
-        double _g;
-        double _gVelocity;
+    private:
+
 		soundProcessor * _soundProc;
+
     public:
-        /* TODO: void useItem(); */
-        player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc);
+
+        /* Constructor */
+        player(std::string name, int x, int y, graphicProcessor * graphicProc,
+                soundProcessor * soundProc);
+
+        /* Destructor */
         ~player();
+
+        /* updateStatus - updates the player's status and sets their velocity, etc */
         void updateStatus(characterStatus newStatus);
+
+        /* move - moves the player based on their velocity */
         void move();
+
+        /* render - places the player on the screen */
         void render();
 
 };
