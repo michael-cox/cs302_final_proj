@@ -51,27 +51,43 @@ player::~player()
 }
 
 void player::updateStatus(characterStatus status)
-{
+{	
+	if (_status != ATTACK) { _prevStatus = _status; }
     switch (status) {
         case JUMP:
             if (!_jumped) {
                 _soundProc->playSound("playerJump.wav");
-                _currVelocityY -= 25;
+                _currVelocityY = -25;
                 _jumped = 1;
-            }
-            break;
-        case MOVING_DOWN:
-            _currVelocityY += _velocity;
+            }	
             break;
         case MOVING_RIGHT:
-            _currVelocityX += _velocity;
+			if (_status == MOVING_LEFT || _prevStatus == MOVING_LEFT) { 
+				_status = IDLE; 
+				_currVelocityX = 0;
+			}
+			else { 
+				_status = status; 
+				_currVelocityX = _velocity;
+			}
             break;
         case MOVING_LEFT:
-            _currVelocityX -= _velocity;
+			if (_status == MOVING_RIGHT || _prevStatus == MOVING_RIGHT) { 
+				_status = IDLE; 
+				_currVelocityX = 0;
+			}
+			else {	
+				_status = status;
+				_currVelocityX = -1 * _velocity;
+			}
             break;
         case ATTACK:
+			_status = status;
             _soundProc->playSound("playerShoot.wav");
             break;
+		case IDLE:
+			_status = status;
+			_currVelocityX = 0;
         default:
             break;
     }
@@ -94,7 +110,9 @@ void player::move()
 
 /* TODO: Put actual thought into how to do this */
 void player::render()
-{
-    _animations[_status]->render(_x, _y, _graphicProc);
-    if(_statusToString(_status) != "idle") SDL_Log("%s", _statusToString(_status).c_str());
+{ 
+	if (_animations[_status]->render(_x, _y, _graphicProc) && _status == ATTACK) {
+		updateStatus(_prevStatus);
+	}
+    SDL_Log("%s", _statusToString(_status).c_str());
 }

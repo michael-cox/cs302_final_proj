@@ -54,6 +54,7 @@ void game::runGame()
 void game::mainLoop()
 {
     _soundProc->playSound("gameMusic.wav");
+	_player->updateStatus(IDLE);
     while(1)
     {
         render();
@@ -88,6 +89,8 @@ void game::mainLoop()
             case SDLK_ESCAPE:
                 if(_inputProc->readDirection()) { _soundProc->stopSound("gameMusic.wav"); return; }
                 break;
+			default:
+				break;
         }
         _player->move();
     }

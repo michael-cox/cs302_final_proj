@@ -62,10 +62,10 @@ animation::~animation()
         delete textures[i];
 }
 
-void animation::render(const int x, const int y, class graphicProcessor * graphicProc)
+bool animation::render(const int x, const int y, class graphicProcessor * graphicProc)
 {
     graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH);
-    if(++curFrame > textures.size() * framesPerTexture) curFrame = 0;
+    if(++curFrame > textures.size() * framesPerTexture) { curFrame = 0; return 1; }
 }
 
 graphicProcessor::graphicProcessor(std::string windowTitle) : _window(nullptr), _renderer(nullptr),
