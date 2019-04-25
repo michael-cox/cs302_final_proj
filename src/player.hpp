@@ -18,6 +18,7 @@ class player : public character
     private:
 
 		soundProcessor * _soundProc;
+		direction _facing;
 
     public:
 

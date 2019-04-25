@@ -76,10 +76,12 @@ animation::~animation()
 }
 
 /* animation::render - places the current frame of the animation on the screen */
-void animation::render(const int x, const int y, class graphicProcessor * graphicProc)
+bool animation::render(const int x, const int y, class graphicProcessor * graphicProc)
 {
+    SDL_Log("Rendering %d at (%d, %d)", int(curFrame / framesPerTexture), x, y);
     graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH);
-    if(++curFrame > textures.size() * framesPerTexture) curFrame = 0;
+    if(++curFrame >= textures.size() * framesPerTexture) { curFrame = 0; return 1; }
+    return 0;
 }
 
 /* graphicProcessor Constructor - Initializes SDL if necessary, creates a fullscreen window and renderer */

@@ -25,16 +25,22 @@ enum characterStatus
     ATTACK
 };
 
+enum direction {
+	LEFT,
+	RIGHT
+};
+
 class character : protected object
 {
     protected:
         std::string _name;
-        double _health;
+		double _health;
         double _velocity;
 		double _currVelocityX;
 		double _currVelocityY;
 		bool _jumped;
         characterStatus _status;
+		characterStatus _prevStatus;
         std::unordered_map<characterStatus,animation*> _animations;
     public:
         character(std::string name, int x, int y, int w, int h, double health,
