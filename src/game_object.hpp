@@ -17,6 +17,9 @@
 #include "input.hpp"
 #include "map.hpp"
 #include "player.hpp"
+
+#include "enemy.hpp"
+
 #include "wall.hpp"
 #include "sound.hpp"
 
@@ -32,6 +35,9 @@ class game
         int _w, _h;
         map * _map;
         player * _player;
+
+		enemy * _enemy;
+
         std::vector<object*> _objects;
 
     public:

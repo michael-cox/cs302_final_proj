@@ -18,6 +18,9 @@ game::game(windowMode winMode)
     _background = _graphicProc->makeTexture("assets/winter.png", PNG);
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
     _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
+
+	_enemy = new enemy("Enemy", _graphicProc->getResolutionW() / 2, 550, _graphicProc, _soundProc);
+
 }
 
 game::~game()
@@ -59,6 +62,9 @@ void game::mainLoop()
     {
         render();
         _player->render();
+
+		_enemy->render();
+
         _graphicProc->present();
         if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
@@ -91,6 +97,9 @@ void game::mainLoop()
                 break;
         }
         _player->move();
+
+		_enemy->move();
+
     }
 }
 
