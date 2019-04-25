@@ -38,6 +38,9 @@ class player : public character
         /* render - places the player on the screen */
         void render();
 
+        /* getX - gets the x coordinate of the player */
+        int getX();
+
 };
 
 #endif

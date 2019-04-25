@@ -106,6 +106,7 @@ void game::mainLoop()
         }
         _player->move();
 
+        _enemy->seekPlayer(_player->getX());
 		_enemy->move();
 
     }

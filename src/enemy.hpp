@@ -24,7 +24,7 @@ class enemy : public character
 		void updateStatus(characterStatus newStatus);
 		void move();
 		void render();
-		void seekPlayer();
+		void seekPlayer(int playerX);
 };
 
 

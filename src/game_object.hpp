@@ -17,9 +17,7 @@
 #include "input.hpp"
 #include "map.hpp"
 #include "player.hpp"
-
 #include "enemy.hpp"
-
 #include "wall.hpp"
 #include "sound.hpp"
 

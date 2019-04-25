@@ -30,7 +30,7 @@ std::string statusToString(characterStatus status)
     }
 }
 
-player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 2.2, graphicProc), _soundProc(soundProc), _facing(RIGHT) 
+player::player(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 4.2, graphicProc), _soundProc(soundProc), _facing(RIGHT) 
 {
     characterStatus status;
     std::string path;
@@ -115,3 +115,5 @@ void player::render()
 		updateStatus(_prevStatus);
 	}
 }
+
+int player::getX() { return _x; }

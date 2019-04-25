@@ -37,7 +37,8 @@ std::string e_statusToString(characterStatus status)
 	}
 }
 
-enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc) : character(name, x, y, ENEMY_W, ENEMY_H, 100, 1.5, graphicProc), _soundProc(soundProc)
+enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
+    : character(name, x, y, ENEMY_W, ENEMY_H, 100, 0.7, graphicProc), _soundProc(soundProc)
 {
 	//39, 21
 	characterStatus status;
@@ -86,28 +87,44 @@ enemy::~enemy()
 
 void enemy::updateStatus(characterStatus status)
 {
-	switch (status) {
-		case JUMP:
-			if (!_jumped) {
-				//_soundProc->playSound("playerJump.wav");
-				_currVelocityY -= 25;
-				_jumped = 1;
+	if (_status != ATTACK) { _prevStatus = _status; }
+    switch (status) {
+        case JUMP:
+            if (!_jumped) {
+                _soundProc->playSound("playerJump.wav");
+                _currVelocityY = -25;
+                _jumped = 1;
+            }	
+            break;
+        case MOVING_RIGHT:
+			if (_status == MOVING_LEFT || _prevStatus == MOVING_LEFT) { 
+				_status = IDLE; 
+				_currVelocityX = 0;
 			}
-			break;
-		case MOVING_DOWN:
-			_currVelocityY += _velocity;
-			break;
-		case MOVING_RIGHT:
-			_currVelocityX += _velocity;
-			break;
-		case MOVING_LEFT:
-			_currVelocityX -= _velocity;
-			break;
-		case ATTACK:
-			_soundProc->playSound("enemyAttack.wav");
-			break;
-		default:
-			break;
+			else {
+				_status = status; 
+				_currVelocityX = _velocity;
+			}
+            break;
+        case MOVING_LEFT:
+			if (_status == MOVING_RIGHT || _prevStatus == MOVING_RIGHT) { 
+				_status = IDLE; 
+				_currVelocityX = 0;
+			}
+			else {
+				_status = status;
+				_currVelocityX = -1 * _velocity;
+			}
+            break;
+        case ATTACK:
+			_status = status;
+            _soundProc->playSound("enemyAttack.wav");
+            break;
+		case IDLE:
+			_status = status;
+			_currVelocityX = 0;
+        default:
+            break;
 	}
 }
 
@@ -116,8 +133,8 @@ void enemy::move()
 	_y += _currVelocityY;
 	_x += _currVelocityX;
 	//barrier check
-	if (_y > _graphicProc->getResolutionH() * 2 / 3 - _h) {
-		_y = _graphicProc->getResolutionH() * 2 / 3 - _h;
+	if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
+		_y = _graphicProc->getResolutionH() * 4 / 5 - _h;
 		_currVelocityY = 0;
 		_jumped = 0;
 	}
@@ -132,9 +149,12 @@ void enemy::render()
 	if(e_statusToString(_status) != "idle") SDL_Log("%s", e_statusToString(_status).c_str());
 }
 
-void enemy::seekPlayer() {
+void enemy::seekPlayer(int playerX)
+{
+
+    if(playerX < _x) updateStatus(MOVING_LEFT);
+    else updateStatus(MOVING_RIGHT);
 
 }
 
 #endif
-
