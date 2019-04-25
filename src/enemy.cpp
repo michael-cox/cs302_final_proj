@@ -40,6 +40,7 @@ std::string e_statusToString(characterStatus status)
 enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, 0.7, graphicProc), _soundProc(soundProc)
 {
+	_health = 5;
 	//39, 21
 	characterStatus status;
 	std::string path;
@@ -125,4 +126,13 @@ void enemy::seekPlayer(int playerX)
 
 }
 
+int getX() {
+	return _x;
+}
+
+int getY() { return _y; }
+int getW() { return _w; }
+int getH() { return _h; }
+void updateHealth() { _health--; }
+int checkHealth() { return _health; }
 #endif

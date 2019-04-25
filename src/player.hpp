@@ -33,6 +33,8 @@ class projectile : protected object {
 		~projectile() { delete _sprite; }
 		bool move();
 		void render();
+		int getX();
+		int getW();
 };
 
 class player : public character
@@ -41,8 +43,10 @@ class player : public character
 
 		soundProcessor * _soundProc;
 		direction _facing;
-		std::list<projectile*> projList;
     public:
+
+		
+		std::list<projectile*> projList;
 
         /* Constructor */
         player(std::string name, int x, int y, graphicProcessor * graphicProc,
@@ -62,6 +66,10 @@ class player : public character
 
         /* getX - gets the x coordinate of the player */
         int getX();
+
+		int getY();
+		int getW();
+		int getH();
 
 };
 

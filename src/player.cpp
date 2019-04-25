@@ -87,7 +87,7 @@ void player::updateStatus(characterStatus status)
 			}
             break;
         case ATTACK:
-			if (!_attacked) {
+			if (!_attacked && !_jumped) {
 				_attacked = 1;
 				projList.push_back(new projectile(_x + (_w / 2), _y + (_h / 2), _graphicProc, _facing));
 				_soundProc->playSound("playerShoot.wav");
@@ -123,6 +123,7 @@ void player::move()
 	std::list<projectile*>::iterator lit;
 	for (lit = projList.begin(); lit != projList.end(); 0) {
 		if((*lit)->move()) {
+			delete (*lit);
 			lit = projList.erase(lit);
 		}
 		else { lit++; }
@@ -141,6 +142,11 @@ void player::render()
 	}
 }
 
+int projectile::getX() {
+	return _x;
+}
+int projectile::getW() { return _w; }
+
 bool projectile::move() {
 	_x += _currVelocityX;
 	if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
@@ -152,3 +158,6 @@ void projectile::render() {
 }
 
 int player::getX() { return _x; }
+int player::getY() { return _y; }
+int player::getW() { return _w; }
+int player::getH() { return _h' }

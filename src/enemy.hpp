@@ -25,6 +25,12 @@ class enemy : public character
 		void move();
 		void render();
 		void seekPlayer(int playerX);
+		int getX();
+		int getY();
+		int getW();
+		int getH();
+		void updateHealth();
+		int getHealth();
 };
 
 

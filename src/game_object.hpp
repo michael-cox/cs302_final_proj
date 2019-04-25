@@ -57,6 +57,8 @@ class game
         /* placeWall - places a single wall at the specified location */
         void placeWall(int x, int y, wallType type);
 
+		bool checkCollision(std::list<projectile*> projList);
+
 };
 
 #endif

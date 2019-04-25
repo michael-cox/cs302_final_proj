@@ -108,9 +108,44 @@ void game::mainLoop()
 
         _enemy->seekPlayer(_player->getX());
 		_enemy->move();
+		if (checkCollision((_player->projList))) return;
 
     }
 }
+
+bool game::checkCollision(std::list<projectile*> projList) {
+	//case 1: zombie hits player
+	std::list<_enemy*>::iterator eit;
+	std::list<projectile*>::iterator pit;
+	for (eit = _zombies.begin(); eit != _zombies.end(); 0) {
+		if ((_player->getY() + _player->getH()) >= (*eit)->getY()) {
+			if ((_player->getX() <= ((*eit)->getX() + (*eit)->getW())) || ((_player->getX() + _player->getW()) >= (*eit)->getX())) {
+				_soundProc->playSound("playerDamage.wav");
+				_soundProc->playSound("enemyAttack.wav");
+				SDL_Delay(500);
+				_soundProc->playSound("gameWin.wav");
+				SDL_Delay(8000);
+				return 1;
+			}
+		}
+		for (pit = projList.begin(); pit != projList.end(); 0) {
+			if (((*pit)->getX() <= ((*eit)->getX() + (*eit)->getW())) || (((*pit)->getX() + (*pit)->getW()) >= (*eit)->getX())) {
+				delete (*pit);
+				pit = projList.erase(pit);
+				_soundProc("enemyDamage.wav");
+				(*eit)->updateHealth();
+				if ((*eit)->checkHealth() == 0) {
+					delete (*eit);
+					eit = _zombies.erase(eit);
+					_soundProc("enemyDeath.wav");
+					_deadZombies++;
+				}
+				else { eit++; }
+			}
+			else { pit++; }
+		}
+	}
+}	
 
 void game::placeWall(int x, int y, wallType type)
 {
