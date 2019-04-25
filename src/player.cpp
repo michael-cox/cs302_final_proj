@@ -51,7 +51,10 @@ player::~player()
 {
     for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
         delete i->second;
-	for (size_t i = 0; i < projList.size(); i++) { delete projList[i]; }
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); lit++) {
+		delete *(lit);	
+	}
 }
 
 void player::updateStatus(characterStatus status)
@@ -90,10 +93,10 @@ void player::updateStatus(characterStatus status)
         case ATTACK:
 			if (!_attacked) {
 				_attacked = 1;
-				_status = status;
 				projList.push_back(new projectile(_x + (_w / 2), _y + (_h / 2), _graphicProc, _facing));
 				_soundProc->playSound("playerShoot.wav");
 			}
+			_status = status;
             break;
 		case IDLE:
 			_status = status;
@@ -116,25 +119,36 @@ void player::move()
     else {
         _currVelocityY += GRAVITY;
     }
-	for (size_t i = 0; i < projList.size(); i++) {
-		projList[i]->move();
+	if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
+		if (_x < 0) { _x = 0; _currVelocityX = 0; }
+		else { _x = _graphicProc->getResolutionW() - _w; _currVelocityX = 0; }
+	}
+		
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); ) {
+		if((*lit)->move()) {
+			lit = projList.erase(lit);
+		}
+		else { lit++; }
 	}
 }
 
 void player::render()
 { 
 	if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
-		_attacked = 0;
 		updateStatus(_prevStatus);
+		_attacked = 0;
 	}
-	for (size_t i = 0; i < projList.size(); i++) {
-		projList[i]->render();
+	std::list<projectile*>::iterator lit;
+	for (lit = projList.begin(); lit != projList.end(); lit++) {
+		(*lit)->render();
 	}
 }
 
-void projectile::move() {
+bool projectile::move() {
 	_x += _currVelocityX;
-	//if hits wall, disappear
+	if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
+	else { return 0; }
 }
 
 void projectile::render() {

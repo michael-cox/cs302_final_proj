@@ -9,6 +9,7 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
+#include <list>
 #include "character.hpp"
 #include "sound.hpp"
 
@@ -33,7 +34,7 @@ class projectile : protected object {
 			}
 		}
 		~projectile() { delete _sprite; }
-		void move();
+		bool move();
 		void render();
 };
 
@@ -42,7 +43,8 @@ class player : public character
     private:
 
 		soundProcessor * _soundProc;
-		std::vector<projectile*> projList;
+		std::list<projectile*> projList;
+
     public:
 
         /* Constructor */

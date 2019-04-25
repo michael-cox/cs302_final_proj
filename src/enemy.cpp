@@ -87,7 +87,6 @@ enemy::~enemy()
 
 void enemy::updateStatus(characterStatus status)
 {
-	if (_status != ATTACK) { _prevStatus = _status; }
     switch (status) {
         case MOVING_RIGHT:
             _status = status; 
@@ -116,7 +115,6 @@ void enemy::move()
 	if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
 		_y = _graphicProc->getResolutionH() * 4 / 5 - _h;
 		_currVelocityY = 0;
-		_jumped = 0;
 	}
 	else {
 		_currVelocityY += _velocity;
