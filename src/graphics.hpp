@@ -37,7 +37,7 @@ struct animation
 {
     animation(std::string baseFilename, imageType imgType, size_t framesPerTexture, size_t numImages, int w, int h, class graphicProcessor * graphicProc);
     ~animation();
-    bool render(const int x, const int y, class graphicProcessor * graphicProc);
+    bool render(const int x, const int y, class graphicProcessor * graphicProc, bool reverse);
     std::vector<SDL_Texture*> textures;
     int h, w, scaledW, scaledH;
     size_t curFrame, framesPerTexture, numFrames;
@@ -83,7 +83,7 @@ class graphicProcessor
 
         void renderSprite(sprite * spriteToRender, const int x, const int y);
         void renderTexture(SDL_Texture * imgTexture, const int x, const int y, const int w, const int h);
-        void renderTextureWithScaling(SDL_Texture * imgTexture, const int x, const int y, const int sourceW, const int sourceH, const int w, const int h);
+        void renderTextureWithScaling(SDL_Texture * imgTexture, const int x, const int y, const int sourceW, const int sourceH, const int w, const int h, bool reverse);
         void renderAnimation(animation anim, const int x, const int y);
         void present();
 };

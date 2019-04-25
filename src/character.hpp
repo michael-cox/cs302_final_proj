@@ -38,6 +38,7 @@ class character : protected object
         double _velocity;
 		double _currVelocityX;
 		double _currVelocityY;
+		direction _facing;
 		bool _jumped;
 		bool _attacked;
         characterStatus _status;
@@ -46,7 +47,9 @@ class character : protected object
     public:
         character(std::string name, int x, int y, int w, int h, double health,
                 double velocity, graphicProcessor * graphicProc)
-            : object(x, y, w, h, true, graphicProc), _name(name), _health(health), _velocity(velocity)
+            : object(x, y, w, h, true, graphicProc), _name(name), _health(health), _velocity(velocity),
+            _facing(RIGHT)
+
         { _currVelocityX = 0; _currVelocityY = 0; }
         ~character()
         {

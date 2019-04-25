@@ -30,7 +30,7 @@ sprite::~sprite() { SDL_DestroyTexture(texture); }
 /* sprite::render - places the sprite on the screen */
 void sprite::render(const int x, const int y, class graphicProcessor * graphicProc)
 {
-    graphicProc->renderTextureWithScaling(texture, x, y, w, h, scaledW, scaledH);
+    graphicProc->renderTextureWithScaling(texture, x, y, w, h, scaledW, scaledH, false);
 }
 
 /* Animation Constructor */
@@ -76,10 +76,10 @@ animation::~animation()
 }
 
 /* animation::render - places the current frame of the animation on the screen */
-bool animation::render(const int x, const int y, class graphicProcessor * graphicProc)
+bool animation::render(const int x, const int y, class graphicProcessor * graphicProc, bool reverse)
 {
     SDL_Log("Rendering %d at (%d, %d)", int(curFrame / framesPerTexture), x, y);
-    graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH);
+    graphicProc->renderTextureWithScaling(textures[curFrame / framesPerTexture], x, y, w, h, scaledW, scaledH, reverse);
     if(++curFrame >= textures.size() * framesPerTexture) { curFrame = 0; return 1; }
     return 0;
 }
@@ -215,7 +215,7 @@ void graphicProcessor::renderTexture(SDL_Texture * texture, const int x, const i
 }
 
 void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x, const int y,
-        const int sourceW, const int sourceH, const int w, const int h)
+        const int sourceW, const int sourceH, const int w, const int h, bool reverse)
 {
     SDL_Rect sourceRect, destRect;
     destRect.w = w;
@@ -225,7 +225,8 @@ void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int
     sourceRect.x = sourceRect.y = 0;
     destRect.x = x;
     destRect.y = y;
-    SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
+    SDL_RenderCopyEx(_renderer, texture, &sourceRect, &destRect, 0, NULL,
+            reverse ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void graphicProcessor::renderSprite(sprite * spriteToRender, const int x, const int y)

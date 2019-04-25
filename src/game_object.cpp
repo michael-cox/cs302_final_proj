@@ -38,7 +38,7 @@ game::~game()
 void game::render()
 {
     _graphicProc->clear();
-    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH());
+    _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH(), false);
     for(size_t i = 0; i < _objects.size(); ++i)
     {
         _objects[i]->render();

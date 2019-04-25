@@ -89,10 +89,20 @@ void enemy::updateStatus(characterStatus status)
 {
     switch (status) {
         case MOVING_RIGHT:
-				_currVelocityX = _velocity;
+            _status = status; 
+            _currVelocityX = _velocity;
+            _facing = RIGHT;
             break;
         case MOVING_LEFT:
-				_currVelocityX = -1 * _velocity;
+            _status = status;
+            _currVelocityX = -1 * _velocity;
+            _facing = LEFT;
+            break;
+		case IDLE:
+			_status = status;
+			_currVelocityX = 0;
+            break;
+        default:
             break;
 	}
 }
@@ -113,8 +123,7 @@ void enemy::move()
 
 void enemy::render()
 {
-	_animations[_status]->render(_x, _y, _graphicProc);
-	if(e_statusToString(_status) != "idle") SDL_Log("%s", e_statusToString(_status).c_str());
+	_animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
 }
 
 void enemy::seekPlayer(int playerX)
