@@ -21,7 +21,8 @@ class enemy : public character
 
 	public:
 		enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc);
-		~enemy();
+        static void makeCache(graphicProcessor * graphicProc);
+        static void clearCache();
 		void updateStatus(characterStatus newStatus);
 		void move();
 		void render();
