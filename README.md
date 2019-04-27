@@ -30,4 +30,5 @@ command should be executed again from the command line.
 	rapidly go through the input queue when the game returns to the main menu.
    -
 
-5. 
+5. KNOWN SEG FAULT AREAS: SDL_Destroy_Texture_REAL() in menuing
+	animation::render() for general random seg faults
