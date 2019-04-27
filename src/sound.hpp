@@ -32,7 +32,7 @@ class soundProcessor {
 
 	public:
 
-        /* Consructor - Loads all of the sound effects to the audioMap */
+        /* Constructor - Loads all of the sound effects to the audioMap */
 		soundProcessor() {
 			SDL_Log("Creating sound processor...");
 			audioMap["menu.wav"] = loadAudio("assets/sounds/menu.wav");

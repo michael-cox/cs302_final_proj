@@ -67,9 +67,8 @@ class player : public character
         /* render - places the player on the screen */
         void render();
 
-        /* getX - gets the x coordinate of the player */
+        /* acsessor functions for the dimensions and positions of the player */
         int getX();
-
 		int getY();
 		int getW();
 		int getH();

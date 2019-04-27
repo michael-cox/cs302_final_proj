@@ -13,6 +13,7 @@
 #define PLAYER_ACTING_W 64
 #define GRAVITY 2.4
 
+/* Returns a current status as a usable string for file names */
 std::string statusToString(characterStatus status)
 {
     switch(status)
@@ -32,6 +33,7 @@ std::string statusToString(characterStatus status)
     }
 }
 
+/* Constructor to initialize their textures and animation */
 player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
         soundProcessor * soundProc) : character(name, x, y, PLAYER_W, PLAYER_H, 100, 6.2, graphicProc), _soundProc(soundProc)
 {
@@ -47,6 +49,7 @@ player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
     }
 }
 
+/* Destructor for player */
 player::~player()
 {
     for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
@@ -57,6 +60,8 @@ player::~player()
 	}
 }
 
+/* Will both update the status of a character and perform the corresponding function
+ * of said status */
 void player::updateStatus(characterStatus status)
 {	
 	if (_status != ATTACK) { _prevStatus = _status; }
@@ -106,11 +111,12 @@ void player::updateStatus(characterStatus status)
     }
 }
 
+/* Moves the player's position based on their set velocities */
 void player::move()
 {
     _y += _currVelocityY;
     _x += _currVelocityX;
-    //barrier check
+    /* Checks if they hit the floor */
     if (_y > _graphicProc->getResolutionH() * 4 / 5 - _h) {
         _y = _graphicProc->getResolutionH() * 4 / 5 - _h;
         _currVelocityY = 0;
@@ -119,11 +125,12 @@ void player::move()
     else {
         _currVelocityY += GRAVITY;
     }
+	/* Checks if they hit the edge of the screen */
 	if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
 		if (_x < 0) { _x = 0; _currVelocityX = 0; }
 		else { _x = _graphicProc->getResolutionW() - _w; _currVelocityX = 0; }
 	}
-		
+	/* Moves the kunai and checks if they hit the walls */
 	std::list<projectile*>::iterator lit;
 	for (lit = projList.begin(); lit != projList.end(); ) {
 		if((*lit)->move()) {
@@ -134,6 +141,7 @@ void player::move()
 	}
 }
 
+/* Renders the player's animation based on their current status */
 void player::render()
 { 
 	if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
@@ -146,21 +154,23 @@ void player::render()
 	}
 }
 
-int projectile::getX() {
-	return _x;
-}
+/* Acsessor functions for projectiles */
+int projectile::getX() { return _x; }
 int projectile::getW() { return _w; }
 
+/* Moves the projectile and checks if it hits the wall */
 bool projectile::move() {
 	_x += _currVelocityX;
 	if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
 	else { return 0; }
 }
 
+/* Renders the kunai onto the screen */
 void projectile::render() {
 	_sprite->render(_x, _y, _graphicProc);
 }
 
+/* Acessor functions for the player */
 int player::getX() { return _x; }
 int player::getY() { return _y; }
 int player::getW() { return _w; }
