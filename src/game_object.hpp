@@ -63,7 +63,11 @@ class game
         /* placeWall - places a single wall at the specified location */
         void placeWall(int x, int y, wallType type);
 
+        /* checkCollission - checks for collisions of player and
+         * zombie, projectile and zombie and deletes accordingly */
 		bool checkCollision(std::list<projectile*> &projList);
+
+        /* spawnZombies - spawns zombies if needed */
 		void spawnZombies();
 
 		int  maxZombies(int _deadZombies);

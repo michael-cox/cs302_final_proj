@@ -1,0 +1,2299 @@
+INFO: Constructing graphicProcessor...
+INFO: Initializing SDL...
+INFO: Getting display mode...
+INFO: Display mode: 1920x1080 60 Hz
+INFO: Finished initializing SDL
+INFO: _numInst (after constructing): 1
+INFO: Creating window...
+INFO: Finished creating window.
+INFO: Set scaling hint.
+INFO: Finished constructing graphicProcessor
+INFO: Creating sound processor...
+INFO: Constructing menu...
+INFO: Finished constructing menu
+INFO: assets/zombiefiles/png/male/idle0.png
+INFO: assets/zombiefiles/png/male/idle1.png
+INFO: assets/zombiefiles/png/male/idle2.png
+INFO: assets/zombiefiles/png/male/idle3.png
+INFO: assets/zombiefiles/png/male/idle4.png
+INFO: assets/zombiefiles/png/male/idle5.png
+INFO: assets/zombiefiles/png/male/idle6.png
+INFO: assets/zombiefiles/png/male/idle7.png
+INFO: assets/zombiefiles/png/male/idle8.png
+INFO: assets/zombiefiles/png/male/idle9.png
+INFO: assets/zombiefiles/png/male/idle10.png
+INFO: assets/zombiefiles/png/male/idle11.png
+INFO: assets/zombiefiles/png/male/idle12.png
+INFO: assets/zombiefiles/png/male/idle13.png
+INFO: assets/zombiefiles/png/male/idle14.png
+INFO: assets/zombiefiles/png/male/idle0.png
+INFO: assets/zombiefiles/png/male/idle1.png
+INFO: assets/zombiefiles/png/male/idle2.png
+INFO: assets/zombiefiles/png/male/idle3.png
+INFO: assets/zombiefiles/png/male/idle4.png
+INFO: assets/zombiefiles/png/male/idle5.png
+INFO: assets/zombiefiles/png/male/idle6.png
+INFO: assets/zombiefiles/png/male/idle7.png
+INFO: assets/zombiefiles/png/male/idle8.png
+INFO: assets/zombiefiles/png/male/idle9.png
+INFO: assets/zombiefiles/png/male/idle10.png
+INFO: assets/zombiefiles/png/male/idle11.png
+INFO: assets/zombiefiles/png/male/idle12.png
+INFO: assets/zombiefiles/png/male/idle13.png
+INFO: assets/zombiefiles/png/male/idle14.png
+INFO: assets/zombiefiles/png/male/walk0.png
+INFO: assets/zombiefiles/png/male/walk1.png
+INFO: assets/zombiefiles/png/male/walk2.png
+INFO: assets/zombiefiles/png/male/walk3.png
+INFO: assets/zombiefiles/png/male/walk4.png
+INFO: assets/zombiefiles/png/male/walk5.png
+INFO: assets/zombiefiles/png/male/walk6.png
+INFO: assets/zombiefiles/png/male/walk7.png
+INFO: assets/zombiefiles/png/male/walk8.png
+INFO: assets/zombiefiles/png/male/walk9.png
+INFO: assets/zombiefiles/png/male/walk0.png
+INFO: assets/zombiefiles/png/male/walk1.png
+INFO: assets/zombiefiles/png/male/walk2.png
+INFO: assets/zombiefiles/png/male/walk3.png
+INFO: assets/zombiefiles/png/male/walk4.png
+INFO: assets/zombiefiles/png/male/walk5.png
+INFO: assets/zombiefiles/png/male/walk6.png
+INFO: assets/zombiefiles/png/male/walk7.png
+INFO: assets/zombiefiles/png/male/walk8.png
+INFO: assets/zombiefiles/png/male/walk9.png
+INFO: assets/zombiefiles/png/male/idle0.png
+INFO: assets/zombiefiles/png/male/idle1.png
+INFO: assets/zombiefiles/png/male/idle2.png
+INFO: assets/zombiefiles/png/male/idle3.png
+INFO: assets/zombiefiles/png/male/idle4.png
+INFO: assets/zombiefiles/png/male/idle5.png
+INFO: assets/zombiefiles/png/male/idle6.png
+INFO: assets/zombiefiles/png/male/idle7.png
+INFO: assets/zombiefiles/png/male/idle8.png
+INFO: assets/zombiefiles/png/male/idle9.png
+INFO: assets/zombiefiles/png/male/idle10.png
+INFO: assets/zombiefiles/png/male/idle11.png
+INFO: assets/zombiefiles/png/male/idle12.png
+INFO: assets/zombiefiles/png/male/idle13.png
+INFO: assets/zombiefiles/png/male/idle14.png
+INFO: assets/zombiefiles/png/male/idle0.png
+INFO: assets/zombiefiles/png/male/idle1.png
+INFO: assets/zombiefiles/png/male/idle2.png
+INFO: assets/zombiefiles/png/male/idle3.png
+INFO: assets/zombiefiles/png/male/idle4.png
+INFO: assets/zombiefiles/png/male/idle5.png
+INFO: assets/zombiefiles/png/male/idle6.png
+INFO: assets/zombiefiles/png/male/idle7.png
+INFO: assets/zombiefiles/png/male/idle8.png
+INFO: assets/zombiefiles/png/male/idle9.png
+INFO: assets/zombiefiles/png/male/idle10.png
+INFO: assets/zombiefiles/png/male/idle11.png
+INFO: assets/zombiefiles/png/male/idle12.png
+INFO: assets/zombiefiles/png/male/idle13.png
+INFO: assets/zombiefiles/png/male/idle14.png
+INFO: assets/zombiefiles/png/male/attack0.png
+INFO: assets/zombiefiles/png/male/attack1.png
+INFO: assets/zombiefiles/png/male/attack2.png
+INFO: assets/zombiefiles/png/male/attack3.png
+INFO: assets/zombiefiles/png/male/attack4.png
+INFO: assets/zombiefiles/png/male/attack5.png
+INFO: assets/zombiefiles/png/male/attack6.png
+INFO: assets/zombiefiles/png/male/attack7.png
+INFO: Deleting player
+INFO: Making new player
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/run0.png
+INFO: assets/ninja/png/run1.png
+INFO: assets/ninja/png/run2.png
+INFO: assets/ninja/png/run3.png
+INFO: assets/ninja/png/run4.png
+INFO: assets/ninja/png/run5.png
+INFO: assets/ninja/png/run6.png
+INFO: assets/ninja/png/run7.png
+INFO: assets/ninja/png/run8.png
+INFO: assets/ninja/png/run9.png
+INFO: assets/ninja/png/run0.png
+INFO: assets/ninja/png/run1.png
+INFO: assets/ninja/png/run2.png
+INFO: assets/ninja/png/run3.png
+INFO: assets/ninja/png/run4.png
+INFO: assets/ninja/png/run5.png
+INFO: assets/ninja/png/run6.png
+INFO: assets/ninja/png/run7.png
+INFO: assets/ninja/png/run8.png
+INFO: assets/ninja/png/run9.png
+INFO: assets/ninja/png/jump0.png
+INFO: assets/ninja/png/jump1.png
+INFO: assets/ninja/png/jump2.png
+INFO: assets/ninja/png/jump3.png
+INFO: assets/ninja/png/jump4.png
+INFO: assets/ninja/png/jump5.png
+INFO: assets/ninja/png/jump6.png
+INFO: assets/ninja/png/jump7.png
+INFO: assets/ninja/png/jump8.png
+INFO: assets/ninja/png/jump9.png
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/throw0.png
+INFO: assets/ninja/png/throw1.png
+INFO: assets/ninja/png/throw2.png
+INFO: assets/ninja/png/throw3.png
+INFO: assets/ninja/png/throw4.png
+INFO: assets/ninja/png/throw5.png
+INFO: assets/ninja/png/throw6.png
+INFO: assets/ninja/png/throw7.png
+INFO: assets/ninja/png/throw8.png
+INFO: assets/ninja/png/throw9.png
+INFO: Deleting zombies
+INFO: Finished deleting zombies
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 20)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 20)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 22)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 27)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 34)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 44)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 56)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 70)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 87)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 106)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 128)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 152)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 178)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 207)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 238)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 272)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 308)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 346)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 387)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Spawning zombie
+INFO: Constructing zom zom
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 430)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1920, -86)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 475)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1918, -86)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 523)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1917, -84)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 574)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1916, -82)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 627)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1915, -79)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 682)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1914, -75)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 739)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1913, -69)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1912, -62)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1911, -55)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 2 at (1910, -46)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 2 at (1909, -36)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 2 at (1907, -25)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 2 at (1906, -13)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 3 at (1905, 0)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 3 at (1904, 14)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 3 at (1903, 29)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 3 at (1902, 45)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 4 at (1901, 63)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 4 at (1900, 82)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 4 at (1899, 102)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 4 at (1898, 122)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 5 at (1896, 145)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 5 at (1895, 168)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 5 at (1894, 192)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 5 at (1893, 217)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 6 at (1892, 244)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 6 at (1891, 271)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 6 at (1890, 300)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 6 at (1889, 329)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 7 at (1888, 360)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 7 at (1887, 392)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 7 at (1885, 425)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 7 at (1884, 459)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 8 at (1883, 494)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 8 at (1882, 531)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 8 at (1881, 568)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 8 at (1880, 607)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 9 at (1879, 646)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 9 at (1878, 687)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 9 at (1877, 729)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 9 at (1876, 772)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1874, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1873, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1872, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 0 at (1871, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1870, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1869, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1868, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 1 at (1867, 782)
+INFO: After render
+INFO: After present
+INFO: For loop again
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy
+INFO: Rendering 2 at (1866, 782)
+INFO: After render
+INFO: After present
+INFO: Deleting player
+INFO: Deleting projectiles
+INFO: Done deleting projectiles
+INFO: Deleting character animations
+INFO: Making new player
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/run0.png
+INFO: assets/ninja/png/run1.png
+INFO: assets/ninja/png/run2.png
+INFO: assets/ninja/png/run3.png
+INFO: assets/ninja/png/run4.png
+INFO: assets/ninja/png/run5.png
+INFO: assets/ninja/png/run6.png
+INFO: assets/ninja/png/run7.png
+INFO: assets/ninja/png/run8.png
+INFO: assets/ninja/png/run9.png
+INFO: assets/ninja/png/run0.png
+INFO: assets/ninja/png/run1.png
+INFO: assets/ninja/png/run2.png
+INFO: assets/ninja/png/run3.png
+INFO: assets/ninja/png/run4.png
+INFO: assets/ninja/png/run5.png
+INFO: assets/ninja/png/run6.png
+INFO: assets/ninja/png/run7.png
+INFO: assets/ninja/png/run8.png
+INFO: assets/ninja/png/run9.png
+INFO: assets/ninja/png/jump0.png
+INFO: assets/ninja/png/jump1.png
+INFO: assets/ninja/png/jump2.png
+INFO: assets/ninja/png/jump3.png
+INFO: assets/ninja/png/jump4.png
+INFO: assets/ninja/png/jump5.png
+INFO: assets/ninja/png/jump6.png
+INFO: assets/ninja/png/jump7.png
+INFO: assets/ninja/png/jump8.png
+INFO: assets/ninja/png/jump9.png
+INFO: assets/ninja/png/idle0.png
+INFO: assets/ninja/png/idle1.png
+INFO: assets/ninja/png/idle2.png
+INFO: assets/ninja/png/idle3.png
+INFO: assets/ninja/png/idle4.png
+INFO: assets/ninja/png/idle5.png
+INFO: assets/ninja/png/idle6.png
+INFO: assets/ninja/png/idle7.png
+INFO: assets/ninja/png/idle8.png
+INFO: assets/ninja/png/idle9.png
+INFO: assets/ninja/png/throw0.png
+INFO: assets/ninja/png/throw1.png
+INFO: assets/ninja/png/throw2.png
+INFO: assets/ninja/png/throw3.png
+INFO: assets/ninja/png/throw4.png
+INFO: assets/ninja/png/throw5.png
+INFO: assets/ninja/png/throw6.png
+INFO: assets/ninja/png/throw7.png
+INFO: assets/ninja/png/throw8.png
+INFO: assets/ninja/png/throw9.png
+INFO: Deleting zombies
+INFO: Deleting character animations
+INFO: Erasing zombie list
+INFO: Finished deleting zombies
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 20)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 20)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 22)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 27)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 34)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 44)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 56)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 70)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 87)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 106)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 128)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 152)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 178)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 207)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 238)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 272)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 308)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 346)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 387)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 430)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 475)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 523)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 574)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 627)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 682)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 739)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 6 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 7 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 8 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 9 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 0 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 1 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 2 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 3 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 4 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: After render
+INFO: After present
+INFO: Done
+INFO: More doner
+INFO: Spawning zombie
+INFO: Constructing zom zom
+INFO: Even most donester
+INFO: Before render
+INFO: Rendering player
+INFO: Rendering 5 at (960, 796)
+INFO: Rendering projectors
+INFO: Rendering enemy

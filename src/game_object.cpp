@@ -75,15 +75,19 @@ void game::runGame()
 
 void game::mainLoop()
 {
+    SDL_Log("Deleting player");
     if(_player != nullptr) delete _player;
+    SDL_Log("Making new player");
     _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
+    SDL_Log("Deleting zombies");
     if(_zombies.size() != 0)
     {
         for(std::list<enemy*>::iterator i = _zombies.begin(); i != _zombies.end(); ++i)
             delete (*i);
+        SDL_Log("Erasing zombie list");
         _zombies.erase(_zombies.begin(), _zombies.end());
     }
-
+    SDL_Log("Finished deleting zombies");
     _soundProc->playSound("gameMusic.wav");
 	_player->updateStatus(IDLE);
     while(1)
@@ -186,6 +190,7 @@ bool game::checkCollision(std::list<projectile*> & projList) {
 		if (!deleted) { eit++; }
 	}
 	SDL_Log("Done");
+    return 0;
 }	
 
 void game::placeWall(int x, int y, wallType type)
@@ -225,6 +230,7 @@ void game::placeWall(int x, int y, wallType type)
 void game::spawnZombies()
 {
 	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + RANDOM_CHANCE)) {
+        SDL_Log("Spawning zombie");
 		bool spawnSide = _randGenerator() % 2;
 		enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 68 :_graphicProc->getResolutionW(),  _graphicProc->getResolutionH() * (4 / 5) - 86, _graphicProc, _soundProc);
 		_zombies.push_back(zombie);

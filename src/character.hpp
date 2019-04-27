@@ -53,8 +53,12 @@ class character : protected object
         { _currVelocityX = 0; _currVelocityY = 0; }
         ~character()
         {
+            SDL_Log("Deleting character animations");
             for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
+            {
                 delete i->second;
+            }
+            _animations.erase(_animations.begin(), _animations.end());
         }
         virtual void updateStatus(characterStatus status) = 0;
         virtual void move() = 0;

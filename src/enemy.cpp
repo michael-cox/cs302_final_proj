@@ -40,6 +40,7 @@ std::string e_statusToString(characterStatus status)
 enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
+    SDL_Log("Constructing zom zom");
 	_health = 5;
 	characterStatus status;
     animation * a;
@@ -176,6 +177,7 @@ void enemy::move()
 
 void enemy::render()
 {
+    SDL_Log("Rendering enemy");
     _animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
 }
 

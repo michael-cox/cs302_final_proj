@@ -49,12 +49,13 @@ player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
 
 player::~player()
 {
-    for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
-        delete i->second;
+    SDL_Log("Deleting projectiles");
 	std::list<projectile*>::iterator lit;
 	for (lit = projList.begin(); lit != projList.end(); lit++) {
 		delete *(lit);	
 	}
+    projList.erase(projList.begin(), projList.end());
+    SDL_Log("Done deleting projectiles");
 }
 
 void player::updateStatus(characterStatus status)
@@ -136,10 +137,12 @@ void player::move()
 
 void player::render()
 { 
+    SDL_Log("Rendering player");
 	if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
 		updateStatus(_prevStatus);
 		_attacked = 0;
 	}
+    SDL_Log("Rendering projectors");
 	std::list<projectile*>::iterator lit;
 	for (lit = projList.begin(); lit != projList.end(); lit++) {
 		(*lit)->render();
