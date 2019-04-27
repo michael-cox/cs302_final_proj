@@ -12,19 +12,24 @@
 #include <string>
 #include <vector>
 
+/* Enum to give image types */
 enum imageType { BMP, GIF, JPG, PNG };
 
+/* ENUM for whether to launch full screen or smaller */
 enum windowMode { FULLSCREEN, SMALL };
 
+/* A struct for static textures that is slightly nicer than SDL's textures */
 struct sprite
 {
     sprite(std::string filename, imageType imgType, int w, int h, class graphicProcessor * graphicProc);
     ~sprite();
     void render(const int x, const int y, class graphicProcessor * graphicProc);
+
     SDL_Texture * texture;
     int w, h, scaledW, scaledH;
 };
 
+/* A struct for stylesheet style animations */
 struct styleSheet
 {
     SDL_Texture * spriteSheet;
@@ -33,6 +38,8 @@ struct styleSheet
     size_t numFrames;
 };
 
+/* A struct for separate file animations... assumes a naming scheme of filename0.png
+ * where you pass baseFilename as just filename */
 struct animation
 {
     animation(std::string baseFilename, imageType imgType, size_t framesPerTexture, size_t numImages, int w, int h, class graphicProcessor * graphicProc);
@@ -43,6 +50,7 @@ struct animation
     size_t curFrame, framesPerTexture, numFrames;
 };
 
+/* Object oriented graphics processor */
 class graphicProcessor
 {
     private:
@@ -50,6 +58,9 @@ class graphicProcessor
         SDL_Window * _window;
         SDL_Renderer * _renderer;
         SDL_DisplayMode * _display;
+
+        /* Statics that determine when to init/quit SDL
+         * if you were to create multiple windows */
         static size_t _numInst;
         static bool _isInit;
 
@@ -81,10 +92,13 @@ class graphicProcessor
         /* Make texture */
         SDL_Texture * makeTexture(const std::string imgPath, const imageType imgType);
 
+        /* Different renderning functions */
         void renderSprite(sprite * spriteToRender, const int x, const int y);
         void renderTexture(SDL_Texture * imgTexture, const int x, const int y, const int w, const int h);
         void renderTextureWithScaling(SDL_Texture * imgTexture, const int x, const int y, const int sourceW, const int sourceH, const int w, const int h, bool reverse);
         void renderAnimation(animation anim, const int x, const int y);
+        
+        /* Just presents the render */
         void present();
 };
 

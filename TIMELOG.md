@@ -83,7 +83,7 @@
     - Phillip worked on sound function/class
 
 04/22/2019 8:00PM-12:30AM - Meeting on Game Object, Sounds, Timelog Upkeep
-    -  Michael moved graphics and game object code to a separate object
+    - Michael moved graphics and game object code to a separate object
     - Robert further researched sound usage in SDL, implmemented start menu music
     - Phillip further researched sound usage in SDL, maintained timelog
 
@@ -101,3 +101,7 @@
 	- Michael worked on player animations, resolutution/scaling edits, enemy behavior
 
 04/27/2019 2:30PM-4:40PM - Meeting on Documentation, Debugging
+    - Robert, Phil commented
+    - Phil worked on the README/documentation
+    - Michael attempted to fix caching and made it much better, but was unable to fix
+      the seg faulting issue fully :'(

@@ -70,9 +70,10 @@ class game
         /* spawnZombies - spawns zombies if needed */
 		void spawnZombies();
 
-		int  maxZombies(int _deadZombies);
+        /* maxZombies - calculates the maximum number of zombies as a function of
+         * zombies killed. */
+		int  maxZombies();
 
-		double zombieSpeed(int _deadZombies);
 
 };
 

@@ -14,6 +14,7 @@
 #include <SDL2/SDL.h>
 #include "graphics.hpp"
 
+/* Abstract object */
 struct object {
 
     /* Constructor */

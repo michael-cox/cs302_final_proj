@@ -12,8 +12,10 @@
 #define ENEMY_H 82
 #define ENEMY_SPEED 1.1
 
+/* Instantiate the cache map */
 std::unordered_map<characterStatus,animation*> enemy::_animationCache;
 
+/* Another function to convert the status enum into strings for image loading */
 std::string e_statusToString(characterStatus status)
 {
 	switch(status)
@@ -37,25 +39,26 @@ std::string e_statusToString(characterStatus status)
 	}
 }
 
+/* Constructor */
 enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
-    SDL_Log("Constructing zom zom");
 	_health = 3;
 	characterStatus status;
     animation * a;
 	std::string path;
 	int numTextures = 0;
 	
+    /* Take animations from cache to own animation map */
 	for (int i = 0; i < 7; ++i)
 	{
         status = (characterStatus)i;
         std::unordered_map<characterStatus,animation*>::iterator anim = _animationCache.find(status);
-        if(anim != _animationCache.end()) { _animations[status] = anim->second; SDL_Log("Loading zombie anim"); *_animations[status]; SDL_Log("Loaded animation"); }
-        else SDL_Log("No status for (characterStatus)%d", i);
+        if(anim != _animationCache.end()) _animations[status] = anim->second; 
     }
 }
 
+/* Loads all of the enemy animations into cache */
 void enemy::makeCache(graphicProcessor * graphicProc)
 {
     animation * a;
@@ -94,6 +97,7 @@ void enemy::makeCache(graphicProcessor * graphicProc)
     }
 }
 
+/* Clears the cache map */
 void enemy::clearCache()
 {
     for(std::unordered_map<characterStatus,animation*>::iterator i = _animationCache.begin(); i != _animationCache.end(); ++i)
@@ -101,6 +105,7 @@ void enemy::clearCache()
     _animationCache.erase(_animationCache.begin(), _animationCache.end());
 }
 
+/* Updates the status of the enemy */
 void enemy::updateStatus(characterStatus status)
 {
     switch (status) {
@@ -123,6 +128,7 @@ void enemy::updateStatus(characterStatus status)
     }
 }
 
+/* Moves the enemy */
 void enemy::move()
 {
     _y += _currVelocityY;
@@ -137,12 +143,10 @@ void enemy::move()
     }
 }
 
-void enemy::render()
-{
-    SDL_Log("Rendering enemy");
-    _animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1);
-}
+/* Renders the enemy */
+void enemy::render() { _animations[_status]->render(_x, _y, _graphicProc, _facing == RIGHT ? 0 : 1); }
 
+/* Seeks the player */
 void enemy::seekPlayer(int playerX)
 {
 
@@ -151,10 +155,8 @@ void enemy::seekPlayer(int playerX)
 
 }
 
-int enemy::getX() {
-    return _x;
-}
-
+/* Simple accessor functions */
+int enemy::getX() { return _x; }
 int enemy::getY() { return _y; }
 int enemy::getW() { return _w; }
 int enemy::getH() { return _h; }

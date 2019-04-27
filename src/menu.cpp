@@ -10,6 +10,7 @@
 #include "input.hpp"
 #include "sound.hpp"
 
+/* Button constructor */
 button::button(const int y, std::string offTexturePath, std::string onTexturePath, imageType imgType, 
         buttonReturn returnSignal, graphicProcessor * graphicProc)
     : y(y), RETURN_SIGNAL(returnSignal), graphicProc(graphicProc)
@@ -20,33 +21,33 @@ button::button(const int y, std::string offTexturePath, std::string onTexturePat
     x = graphicProc->getResolutionW() / 2 - w / 2;
 }
 
+/* Returns the button's return signal */
 buttonReturn button::activate() { return RETURN_SIGNAL; }
 
+/* Renders the button as either selected/deselected to the screen */
 void button::render(bool selected)
 {
     graphicProc->renderTexture(selected ? textures.second : textures.first, x, y, w, h);
 }
 
+/* Menu constructor */
 menu::menu(graphicProcessor * graphicProc, input * inputProc, soundProcessor * soundProc) : _cursorPos(0),
     _graphicProc(graphicProc), _inputProc(inputProc), _soundProc(soundProc)
 {
     
-    SDL_Log("Constructing menu...");
-
+    /* Load the background texture */
     _background = _graphicProc->makeTexture("assets/menu/background.png", PNG);
-
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
 
+    /* Instantiate buttons */
     button start(250, "assets/menu/buttons/start_off.png", "assets/menu/buttons/start_on.png", PNG, BUTTON_START, _graphicProc);
     _buttons.push_back(start);
-
     button exit(250 + 120, "assets/menu/buttons/exit_off.png", "assets/menu/buttons/exit_on.png", PNG, BUTTON_EXIT, _graphicProc);
     _buttons.push_back(exit);
 
-    SDL_Log("Finished constructing menu");
-
 }
 
+/* Move the cursor with circular scrolling */
 void menu::moveCursor(cursorMovement direction)
 {
     if(direction == CURSOR_UP) ++_cursorPos;
@@ -55,6 +56,7 @@ void menu::moveCursor(cursorMovement direction)
     if(_cursorPos >= _buttons.size()) _cursorPos = 0;
 }
 
+/* Render the menu to the screen */
 void menu::render()
 {
     _graphicProc->renderTextureWithScaling(_background, 0, 0, _w, _h, _graphicProc->getResolutionW(), _graphicProc->getResolutionH(), 0);
@@ -65,6 +67,7 @@ void menu::render()
     _graphicProc->present();
 }
 
+/* Load the main menu screen */
 buttonReturn menu::load()
 {
 	_soundProc->playSound("menu.wav");
@@ -86,5 +89,4 @@ buttonReturn menu::load()
                 }
 		}
     }
-
 }

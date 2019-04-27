@@ -204,6 +204,7 @@ SDL_Texture * graphicProcessor::makeTexture(const std::string imgPath, const ima
     return imgTexture;
 }
 
+/* graphicProcessor::renderTexture - renders a texture to the screen (without scaling) */
 void graphicProcessor::renderTexture(SDL_Texture * texture, const int x, const int y, const int w, const int h)
 {
     SDL_Rect sourceRect, destRect;
@@ -215,6 +216,7 @@ void graphicProcessor::renderTexture(SDL_Texture * texture, const int x, const i
     SDL_RenderCopy(_renderer, texture, &sourceRect, &destRect);
 }
 
+/* graphicProcessor::renderTextureWithScaling - same as above but with scaling */
 void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int x, const int y,
         const int sourceW, const int sourceH, const int w, const int h, bool reverse)
 {
@@ -230,6 +232,7 @@ void graphicProcessor::renderTextureWithScaling(SDL_Texture * texture, const int
             reverse ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
+/* graphicProcessor::renderSprite - renders a sprite onto the screen */
 void graphicProcessor::renderSprite(sprite * spriteToRender, const int x, const int y)
 {
     SDL_Rect sourceRect, destRect;
@@ -243,4 +246,5 @@ void graphicProcessor::renderSprite(sprite * spriteToRender, const int x, const 
     SDL_RenderCopy(_renderer, spriteToRender->texture, &sourceRect, &destRect);
 }
 
+/* graphicProcessor::present - just presents the new render */
 void graphicProcessor::present() { SDL_RenderPresent(_renderer); }
