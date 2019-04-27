@@ -13,7 +13,7 @@
 
 /* The constructor claims memory for the processors defined that will present and 
  * run the overall game */
-game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1)
+game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1), _player(nullptr)
 {
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
     else _graphicProc = new graphicProcessor(GAME_NAME, 1024, 576, 0);
@@ -23,13 +23,15 @@ game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1)
     _map = new map(_graphicProc->getResolutionW(), _graphicProc->getResolutionH());
     _background = _graphicProc->makeTexture("assets/winter.png", PNG);
     SDL_QueryTexture(_background, NULL, NULL, &_w, &_h);
-    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
+    enemy::makeCache(_graphicProc);
 
 }
 
 /* Destructor for the game object */
 game::~game()
 {
+
+    enemy::clearCache();
     delete _graphicProc;
     delete _inputProc;
 	delete _soundProc;
@@ -82,6 +84,15 @@ void game::runGame()
 /* Runs the main game */
 void game::mainLoop()
 {
+    if(_player != nullptr) delete _player;
+    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
+    if(_zombies.size() != 0)
+    {
+        for(std::list<enemy*>::iterator i = _zombies.begin(); i != _zombies.end(); ++i)
+            delete (*i);
+        _zombies.erase(_zombies.begin(), _zombies.end());
+    }
+
     _soundProc->playSound("gameMusic.wav");
 	_player->updateStatus(IDLE);
     while(1)

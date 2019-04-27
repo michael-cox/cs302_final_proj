@@ -6,9 +6,6 @@
  * Implements the enemy class.
  */
 
-#ifndef ENEMY_CPP
-#define ENEMY_CPP
-
 #include "enemy.hpp"
 
 #define ENEMY_W 68
@@ -44,17 +41,28 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
 	_health = 5;
-	//39, 21
 	characterStatus status;
+    animation * a;
 	std::string path;
-	//omitted _g and _gVelocity
 	int numTextures = 0;
-	
 	
 	for (int i = 0; i < 7; ++i)
 	{
-        animation * a;
-		status = (characterStatus)i;
+        status = (characterStatus)i;
+        std::unordered_map<characterStatus,animation*>::iterator anim = _animationCache.find(status);
+        if(anim != _animationCache.end()) _animations[status] = anim->second;
+    }
+}
+
+void enemy::makeCache(graphicProcessor * graphicProc)
+{
+    animation * a;
+    characterStatus status;
+    std::string path;
+    size_t numTextures;
+    for(size_t i = 0; i < 7; ++i)
+    {
+        status = (characterStatus)i;
 
         std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
         if(cacheCheck == _animationCache.end())
@@ -83,20 +91,51 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
                 default:
                     break;
             }
-            a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
+            a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, graphicProc);
             _animationCache[status] = a;
         }
-        else a = cacheCheck->second;
-        _animations[status] = a;
     }
 }
+/*
+   animation * a;
+   characterStatus status = (characterStatus)i;
 
-enemy::~enemy()
+   std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
+   if(cacheCheck == _animationCache.end())
+   {
+   path = "assets/zombiefiles/png/male/" + e_statusToString(status);
+   switch(status)
+   {
+   case MOVING_UP:
+   numTextures = 10;
+   case MOVING_DOWN:
+   numTextures = 10;			 
+   case JUMP:
+   numTextures = 10;			 
+   case IDLE:
+   numTextures = 15; //15
+   break;
+   case ATTACK:
+   numTextures = 8; //8
+   break;
+   case MOVING_RIGHT:
+   numTextures = 10; //10
+   break;
+   case MOVING_LEFT:
+   numTextures = 10; //10
+   break;
+   default:
+   break;
+   }
+   a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
+   _animationCache[status] = a;
+   }*/
+
+void enemy::clearCache()
 {
-    for (std:: unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i) 
-    {
+    for(std::unordered_map<characterStatus,animation*>::iterator i = _animationCache.begin(); i != _animationCache.end(); ++i)
         delete i->second;
-    }
+    _animationCache.erase(_animationCache.begin(), _animationCache.end());
 }
 
 void enemy::updateStatus(characterStatus status)
@@ -149,7 +188,7 @@ void enemy::seekPlayer(int playerX)
 }
 
 int enemy::getX() {
-	return _x;
+    return _x;
 }
 
 int enemy::getY() { return _y; }
@@ -157,4 +196,3 @@ int enemy::getW() { return _w; }
 int enemy::getH() { return _h; }
 void enemy::updateHealth() { _health--; }
 int enemy::checkHealth() { return _health; }
-#endif
