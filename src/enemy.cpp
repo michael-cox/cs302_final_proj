@@ -43,7 +43,7 @@ std::string e_statusToString(characterStatus status)
 enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, soundProcessor * soundProc)
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
-	_health = 3;
+	_health = 5;
 	characterStatus status;
     animation * a;
 	std::string path;
