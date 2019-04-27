@@ -14,6 +14,7 @@
 #include <unordered_map>
 #include "object.hpp"
 
+/* Enum for different statuses */
 enum characterStatus
 {
     MOVING_UP,
@@ -25,11 +26,14 @@ enum characterStatus
     ATTACK
 };
 
-enum direction {
+/* Enum for direction the character is facing */
+enum direction
+{
 	LEFT,
 	RIGHT
 };
 
+/* Abstract class for characters */
 class character : protected object
 {
     protected:
@@ -44,6 +48,7 @@ class character : protected object
         characterStatus _status;
 		characterStatus _prevStatus;
         std::unordered_map<characterStatus,animation*> _animations;
+
     public:
         character(std::string name, int x, int y, int w, int h, double health,
                 double velocity, graphicProcessor * graphicProc)
@@ -54,6 +59,7 @@ class character : protected object
         virtual void updateStatus(characterStatus status) = 0;
         virtual void move() = 0;
         virtual void render() = 0;
+
 };
 
 #endif
