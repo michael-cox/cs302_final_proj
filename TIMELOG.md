@@ -90,5 +90,14 @@
 04/23/2019 2:30PM-4:30PM - Meeting on Sound Recording
     - Worked together to record sound effects and voiceovers
 
-04/23/2019 6:00PM-
-    - 
+04/23/2019 6:00PM-1:00AM - Meeting on Sound Implementation, Enemy Class and Map
+    - Michael remade the map with collision and the starting menu 
+    - Robert added recorded sounds and worked on multiple sounds
+	- Phillip helped with making wall object and updated the timelog
+
+04/24/2019 6:00PM-6:30AM - Meeting on Attack, Enemy Motion and Spawn, and Animation Functionality
+    - Phillip worked on implementing enemy class, resolution/scaling
+	- Robert worked on throwing knife functionality, attack functionality and enemy despawning
+	- Michael worked on player animations, resolutution/scaling edits, enemy behavior
+
+04/27/2019 2:30PM-4:40PM - Meeting on Documentation, Debugging
