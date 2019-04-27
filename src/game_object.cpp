@@ -1,3 +1,5 @@
+/* The main processing for the game as a whole, this is where
+ * majority of the functions are called */
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <cassert>
@@ -9,6 +11,8 @@
 #define TILE_H 64
 #define RANDOM_CHANCE 500
 
+/* The constructor claims memory for the processors defined that will present and 
+ * run the overall game */
 game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1), _player(nullptr)
 {
     if(winMode == FULLSCREEN) _graphicProc = new graphicProcessor(GAME_NAME);
@@ -23,6 +27,7 @@ game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1), _player(nul
 
 }
 
+/* Destructor for the game object */
 game::~game()
 {
 
@@ -38,6 +43,7 @@ game::~game()
 	}
 }
 
+/* Overall rendering for the main screen of the game */
 void game::render()
 {
     _graphicProc->clear();
@@ -54,6 +60,7 @@ void game::render()
 	}
 }
 
+/* Controls the switch between the main menu and the main game */
 void game::runGame()
 {
     for(size_t i = 0; i < _graphicProc->getResolutionW(); i += TILE_W)
@@ -67,12 +74,14 @@ void game::runGame()
     }
     while(1)
     {
+		/* Runs the menu until the player starts or exits */
         if(_mainMenu->load() == BUTTON_EXIT) return;
         _soundProc->playSound("gameStart.wav");
         mainLoop();
     }
 }
 
+/* Runs the main game */
 void game::mainLoop()
 {
     SDL_Log("Deleting player");
@@ -92,6 +101,9 @@ void game::mainLoop()
 	_player->updateStatus(IDLE);
     while(1)
     {
+		/* Renders and checks for sound loops, then processes input, then
+		 * collision between player, enemies, and projectiles, followed by
+		 * moving players and enemies */
 		SDL_Log("Before render");
         render();
 		SDL_Log("After render");
@@ -146,13 +158,15 @@ void game::mainLoop()
 }
 
 bool game::checkCollision(std::list<projectile*> & projList) {
-	//case 1: zombie hits player
 	bool deleted = 0;
 	std::list<enemy*>::iterator eit;
 	std::list<projectile*>::iterator pit;
+	/* We check the collision status of every zombie on screen, removing
+	 * objects in the process if need be */
 	for (eit = _zombies.begin(); eit != _zombies.end();) {
         deleted = 0;
 		SDL_Log("For loop again");
+		/* Check if a zombie touches a player */
 		if ((_player->getY() + _player->getH()) >= (*eit)->getY() + 23) {
 			if (((_player->getX() + _player->getW() > (*eit)->getX() + 15) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW() - 15))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW() - 15)) && (_player->getX() > (*eit)->getX() + 15))) { 
 				_soundProc->stopSound("gameMusic.wav");
@@ -164,6 +178,7 @@ bool game::checkCollision(std::list<projectile*> & projList) {
 				return 1;
 			}
 		}
+		/* Then we check if a kunai touches a zombie */
 		for (pit = projList.begin(); pit != projList.end(); ) {
 			SDL_Log("No bang");
 			if ((((*pit)->getX() + (*pit)->getW() > (*eit)->getX()) && (((*pit)->getX() + (*pit)->getW()) < ((*eit)->getX() + (*eit)->getW()))) || (((*pit)->getX() < ((*eit)->getX() + (*eit)->getW())) && ((*pit)->getX() > (*eit)->getX()))) { 
@@ -227,6 +242,8 @@ void game::placeWall(int x, int y, wallType type)
     _objects.push_back(newWall);
 }
 
+/* Will continuously spawn zombies based on a chance which increases based on the
+ * amount of zombies killed so far */
 void game::spawnZombies()
 {
 	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + RANDOM_CHANCE)) {
@@ -238,13 +255,8 @@ void game::spawnZombies()
 	}
 }
 
+/* Used for the spawnZombies function to increase the chance */
 int game::maxZombies(int _deadZombies)
 {
 	return 4 + (0.25 * _deadZombies); 
 }
-
-/*double game::zombieSpeed(int _deadZombies)
-{
-	
-}
-*/

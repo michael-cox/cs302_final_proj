@@ -6,14 +6,13 @@
  */
 #include "input.hpp"
 
-//Currently it handles one singular input at a time.
-//SDLK_CALCULATOR is a trash key signifying we do not process the input
+/* Reads in a single key press. If it is not a key that we would usually process, 
+ * we return the calculator key to signify it is  a trash input */
 SDL_Keycode input::readInput() {
 	SDL_PollEvent(event);
-	//check if we process at all
+	/* Check if it is a keypress event */
 	if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
 		key = event->key.keysym.sym;
-		//this is a little jank, may change later
 		switch (key) {
 			case SDLK_LEFT:
 				break;
@@ -35,6 +34,8 @@ SDL_Keycode input::readInput() {
 				key = SDLK_CALCULATOR;
 				break;
 		}
+		/* States[].first holds a prev state and states[].second holds the current state.
+		 * this is to check if the key switches states, if not return trash key */
 		states[key].first = states[key].second;
 		if (event->type == SDL_KEYDOWN) { states[key].second = 1; }
 		else { states[key].second = 0; }
@@ -45,9 +46,7 @@ SDL_Keycode input::readInput() {
 	return key;
 }
 
-//Optional function for using boolean values in order to process the keys.
-//Possibly may not be used as processing input as it is being taken in would
-//be faster.
+/* Returns the state of the key that was just pressed or released */
 bool input::readDirection() {
 	return states[key].second;
 }
