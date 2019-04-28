@@ -31,16 +31,17 @@ game::game(windowMode winMode) : _deadZombies(0), _randGenerator(1), _player(nul
 game::~game()
 {
 
+    for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+    {
+        delete *lit;
+    }
+    _zombies.erase(_zombies.begin(), _zombies.end());
     enemy::clearCache();
     delete _graphicProc;
     delete _inputProc;
-	delete _soundProc;
+    delete _soundProc;
     delete _mainMenu;
 
-	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
-	{
-		delete *lit;
-	}
 }
 
 /* Overall rendering for the main screen of the game */
@@ -54,10 +55,10 @@ void game::render()
     }
     _player->render();
 
-	for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
-	{
-		(*lit)->render();
-	}
+    for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); ++lit)
+    {
+        (*lit)->render();
+    }
 }
 
 /* Controls the switch between the main menu and the main game */
@@ -74,7 +75,7 @@ void game::runGame()
     }
     while(1)
     {
-		/* Runs the menu until the player starts or exits */
+        /* Runs the menu until the player starts or exits */
         if(_mainMenu->load() == BUTTON_EXIT) return;
         _soundProc->playSound("gameStart.wav");
         mainLoop();
@@ -84,10 +85,10 @@ void game::runGame()
 /* Runs the main game */
 void game::mainLoop()
 {
+    /* Delete the player and zombies if the game has been played */
     SDL_Log("Deleting player");
     if(_player != nullptr) delete _player;
     SDL_Log("Making new player");
-    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
     SDL_Log("Deleting zombies");
     if(_zombies.size() != 0)
     {
@@ -97,18 +98,23 @@ void game::mainLoop()
         _zombies.erase(_zombies.begin(), _zombies.end());
     }
     SDL_Log("Finished deleting zombies");
+    _deadZombies = 0;
+
+    /* Create a new player, start music */
+    _player = new player("Player", _graphicProc->getResolutionW() / 2, 20, _graphicProc, _soundProc);
     _soundProc->playSound("gameMusic.wav");
-	_player->updateStatus(IDLE);
+    _player->updateStatus(IDLE);
+
     while(1)
     {
-		/* Renders and checks for sound loops, then processes input, then
-		 * collision between player, enemies, and projectiles, followed by
-		 * moving players and enemies */
-		SDL_Log("Before render");
+        /* Renders and checks for sound loops, then processes input, then
+         * collision between player, enemies, and projectiles, followed by
+         * moving players and enemies */
+        SDL_Log("Before render");
         render();
-		SDL_Log("After render");
+        SDL_Log("After render");
         _graphicProc->present();
-		SDL_Log("After present");
+        SDL_Log("After present");
 
         if (_soundProc->checkQueue("gameMusic.wav") == 0) { _soundProc->repeat("gameMusic.wav"); }
         switch(_inputProc->readInput())
@@ -139,72 +145,73 @@ void game::mainLoop()
             case SDLK_ESCAPE:
                 if(_inputProc->readDirection()) { _soundProc->stopSound("gameMusic.wav"); return; }
                 break;
-			default:
-				break;
+            default:
+                break;
         }
 
-		if (checkCollision((_player->projList))) return;
+        if (checkCollision((_player->projList))) return;
         _player->move();
-		for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); lit++)
-		{
-			(*lit)->seekPlayer(_player->getX());
-			(*lit)->move();
-		}
-		SDL_Log("More doner");
+        for (std::list<enemy*>::iterator lit = _zombies.begin(); lit != _zombies.end(); lit++)
+        {
+            (*lit)->seekPlayer(_player->getX());
+            (*lit)->move();
+        }
+        SDL_Log("More doner");
 
-		spawnZombies();
-		SDL_Log("Even most donester");
+        spawnZombies();
+        SDL_Log("Even most donester");
     }
 }
 
 bool game::checkCollision(std::list<projectile*> & projList) {
-	bool deleted = 0;
-	std::list<enemy*>::iterator eit;
-	std::list<projectile*>::iterator pit;
-	/* We check the collision status of every zombie on screen, removing
-	 * objects in the process if need be */
-	for (eit = _zombies.begin(); eit != _zombies.end();) {
+    bool deleted = 0;
+    std::list<enemy*>::iterator eit;
+    std::list<projectile*>::iterator pit;
+    /* We check the collision status of every zombie on screen, removing
+     * objects in the process if need be */
+    for (eit = _zombies.begin(); eit != _zombies.end();) {
         deleted = 0;
-		SDL_Log("For loop again");
-		/* Check if a zombie touches a player */
-		if ((_player->getY() + _player->getH()) >= (*eit)->getY() + 23) {
-			if (((_player->getX() + _player->getW() > (*eit)->getX() + 15) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW() - 15))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW() - 15)) && (_player->getX() > (*eit)->getX() + 15))) { 
-				_soundProc->stopSound("gameMusic.wav");
-				_soundProc->playSound("playerDamage.wav");
-				_soundProc->playSound("enemyAttack.wav");
-				SDL_Delay(500);
-				_soundProc->playSound("gameWin.wav");
-				SDL_Delay(8000);
-				return 1;
-			}
-		}
-		/* Then we check if a kunai touches a zombie */
-		for (pit = projList.begin(); pit != projList.end(); ) {
-			SDL_Log("No bang");
-			if ((((*pit)->getX() + (*pit)->getW() > (*eit)->getX()) && (((*pit)->getX() + (*pit)->getW()) < ((*eit)->getX() + (*eit)->getW()))) || (((*pit)->getX() < ((*eit)->getX() + (*eit)->getW())) && ((*pit)->getX() > (*eit)->getX()))) { 
-				SDL_Log("Bang");
-				delete (*pit);
-				pit = projList.erase(pit);
-				SDL_Log("Delet");
-				if (pit == projList.end()) {
-					SDL_Log("yeeeeeeee");
-				}
-				SDL_Log("Fuvker");
-				_soundProc->playSound("enemyDamage.wav");
-				(*eit)->updateHealth();
-				if ((*eit)->checkHealth() == 0) {
-					//delete (*eit);
-					deleted = 1;
-					eit = _zombies.erase(eit);
-					_soundProc->playSound("enemyDeath.wav");
-					_deadZombies++;
-				}
-			}
-			else { pit++; }
-		}
-		if (!deleted) { eit++; }
-	}
-	SDL_Log("Done");
+        SDL_Log("For loop again");
+        /* Check if a zombie touches a player */
+        if ((_player->getY() + _player->getH()) >= (*eit)->getY() + 23) {
+            if (((_player->getX() + _player->getW() > (*eit)->getX() + 15) && ((_player->getX() + _player->getW()) < ((*eit)->getX() + (*eit)->getW() - 15))) || ((_player->getX() < ((*eit)->getX() + (*eit)->getW() - 15)) && (_player->getX() > (*eit)->getX() + 15))) { 
+                _soundProc->stopSound("gameMusic.wav");
+                _soundProc->playSound("playerDamage.wav");
+                _soundProc->playSound("enemyAttack.wav");
+                SDL_Delay(500);
+                _soundProc->playSound("gameWin.wav");
+                SDL_Delay(8000);
+                return 1;
+            }
+        }
+        /* Then we check if a kunai touches a zombie */
+        for (pit = projList.begin(); pit != projList.end(); ) {
+            SDL_Log("No bang");
+            if ((((*pit)->getX() + (*pit)->getW() > (*eit)->getX()) && (((*pit)->getX() + (*pit)->getW()) < ((*eit)->getX() + (*eit)->getW()))) || (((*pit)->getX() < ((*eit)->getX() + (*eit)->getW())) && ((*pit)->getX() > (*eit)->getX()))) { 
+                SDL_Log("Bang");
+                delete (*pit);
+                pit = projList.erase(pit);
+                SDL_Log("Delet");
+                if (pit == projList.end()) {
+                    SDL_Log("yeeeeeeee");
+                }
+                SDL_Log("Fuvker");
+                _soundProc->playSound("enemyDamage.wav");
+                (*eit)->updateHealth();
+                if ((*eit)->checkHealth() == 0) {
+                    delete (*eit);
+                    deleted = 1;
+                    eit = _zombies.erase(eit);
+                    _soundProc->playSound("enemyDeath.wav");
+                    _deadZombies++;
+                }
+            }
+            else { pit++; }
+        }
+        if (!deleted) { eit++; }
+        SDL_Log("Finished no banging");
+    }
+    SDL_Log("Done");
     return 0;
 }	
 
@@ -246,17 +253,16 @@ void game::placeWall(int x, int y, wallType type)
  * amount of zombies killed so far */
 void game::spawnZombies()
 {
-	if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + RANDOM_CHANCE)) {
+    if ((_zombies.size() < maxZombies(_deadZombies)) && (_randGenerator() % 100000 <= _deadZombies + RANDOM_CHANCE)) {
         SDL_Log("Spawning zombie");
-		bool spawnSide = _randGenerator() % 2;
-		enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 68 :_graphicProc->getResolutionW(),  _graphicProc->getResolutionH() * (4 / 5) - 86, _graphicProc, _soundProc);
-		_zombies.push_back(zombie);
-		
-	}
+        bool spawnSide = _randGenerator() % 2;
+        enemy * zombie = new enemy("Enemy", spawnSide ? 0 - 200 :_graphicProc->getResolutionW() + 200,  _graphicProc->getResolutionH() * (4 / 5), _graphicProc, _soundProc);
+        _zombies.push_back(zombie);
+    }
 }
 
 /* Used for the spawnZombies function to increase the chance */
 int game::maxZombies(int _deadZombies)
 {
-	return 4 + (0.25 * _deadZombies); 
+    return 4 + (0.25 * _deadZombies); 
 }

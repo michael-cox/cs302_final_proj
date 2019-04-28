@@ -41,7 +41,7 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
     : character(name, x, y, ENEMY_W, ENEMY_H, 100, ENEMY_SPEED, graphicProc), _soundProc(soundProc)
 {
     SDL_Log("Constructing zom zom");
-	_health = 5;
+	_health = 3;
 	characterStatus status;
     animation * a;
 	std::string path;
@@ -51,7 +51,8 @@ enemy::enemy(std::string name, int x, int y, graphicProcessor * graphicProc, sou
 	{
         status = (characterStatus)i;
         std::unordered_map<characterStatus,animation*>::iterator anim = _animationCache.find(status);
-        if(anim != _animationCache.end()) _animations[status] = anim->second;
+        if(anim != _animationCache.end()) { _animations[status] = anim->second; SDL_Log("Loading zombie anim"); *_animations[status]; SDL_Log("Loaded animation"); }
+        else SDL_Log("No status for (characterStatus)%d", i);
     }
 }
 
@@ -64,73 +65,34 @@ void enemy::makeCache(graphicProcessor * graphicProc)
     for(size_t i = 0; i < 7; ++i)
     {
         status = (characterStatus)i;
-
-        std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
-        if(cacheCheck == _animationCache.end())
+        path = "assets/zombiefiles/png/male/" + e_statusToString(status);
+        switch(status)
         {
-            path = "assets/zombiefiles/png/male/" + e_statusToString(status);
-            switch(status)
-            {
-                case MOVING_UP:
-                    numTextures = 10;
-                case MOVING_DOWN:
-                    numTextures = 10;			 
-                case JUMP:
-                    numTextures = 10;			 
-                case IDLE:
-                    numTextures = 15; //15
-                    break;
-                case ATTACK:
-                    numTextures = 8; //8
-                    break;
-                case MOVING_RIGHT:
-                    numTextures = 10; //10
-                    break;
-                case MOVING_LEFT:
-                    numTextures = 10; //10
-                    break;
-                default:
-                    break;
-            }
-            a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, graphicProc);
-            _animationCache[status] = a;
+            case MOVING_UP:
+                numTextures = 10;
+            case MOVING_DOWN:
+                numTextures = 10;			 
+            case JUMP:
+                numTextures = 10;			 
+            case IDLE:
+                numTextures = 15; //15
+                break;
+            case ATTACK:
+                numTextures = 8; //8
+                break;
+            case MOVING_RIGHT:
+                numTextures = 10; //10
+                break;
+            case MOVING_LEFT:
+                numTextures = 10; //10
+                break;
+            default:
+                break;
         }
+        a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, graphicProc);
+        _animationCache[status] = a;
     }
 }
-/*
-   animation * a;
-   characterStatus status = (characterStatus)i;
-
-   std::unordered_map<characterStatus,animation*>::iterator cacheCheck = _animationCache.find(status);
-   if(cacheCheck == _animationCache.end())
-   {
-   path = "assets/zombiefiles/png/male/" + e_statusToString(status);
-   switch(status)
-   {
-   case MOVING_UP:
-   numTextures = 10;
-   case MOVING_DOWN:
-   numTextures = 10;			 
-   case JUMP:
-   numTextures = 10;			 
-   case IDLE:
-   numTextures = 15; //15
-   break;
-   case ATTACK:
-   numTextures = 8; //8
-   break;
-   case MOVING_RIGHT:
-   numTextures = 10; //10
-   break;
-   case MOVING_LEFT:
-   numTextures = 10; //10
-   break;
-   default:
-   break;
-   }
-   a = new animation(path, PNG, 4, numTextures, ENEMY_W, ENEMY_H, _graphicProc);
-   _animationCache[status] = a;
-   }*/
 
 void enemy::clearCache()
 {

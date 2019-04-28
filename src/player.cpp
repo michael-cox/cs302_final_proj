@@ -52,11 +52,18 @@ player::player(std::string name, int x, int y, graphicProcessor * graphicProc,
 /* Destructor for player */
 player::~player()
 {
+    SDL_Log("Deleting player animations");
+    for(std::unordered_map<characterStatus,animation*>::iterator i = _animations.begin(); i != _animations.end(); ++i)
+    {
+        delete i->second;
+    }
+    _animations.erase(_animations.begin(), _animations.end());
+
     SDL_Log("Deleting projectiles");
-	std::list<projectile*>::iterator lit;
-	for (lit = projList.begin(); lit != projList.end(); lit++) {
-		delete *(lit);	
-	}
+    std::list<projectile*>::iterator lit;
+    for (lit = projList.begin(); lit != projList.end(); lit++) {
+        delete *(lit);	
+    }
     projList.erase(projList.begin(), projList.end());
     SDL_Log("Done deleting projectiles");
 }
@@ -65,7 +72,7 @@ player::~player()
  * of said status */
 void player::updateStatus(characterStatus status)
 {	
-	if (_status != ATTACK) { _prevStatus = _status; }
+    if (_status != ATTACK) { _prevStatus = _status; }
     switch (status) {
         case JUMP:
             if (!_jumped) {
@@ -75,38 +82,38 @@ void player::updateStatus(characterStatus status)
             }	
             break;
         case MOVING_RIGHT:
-			if (_status == MOVING_LEFT || _prevStatus == MOVING_LEFT) { 
-				_status = IDLE; 
-				_currVelocityX = 0;
-			}
-			else {
-				_facing = RIGHT;
-				_status = status; 
-				_currVelocityX = _velocity;
-			}
+            if (_status == MOVING_LEFT || _prevStatus == MOVING_LEFT) { 
+                _status = IDLE; 
+                _currVelocityX = 0;
+            }
+            else {
+                _facing = RIGHT;
+                _status = status; 
+                _currVelocityX = _velocity;
+            }
             break;
         case MOVING_LEFT:
-			if (_status == MOVING_RIGHT || _prevStatus == MOVING_RIGHT) { 
-				_status = IDLE; 
-				_currVelocityX = 0;
-			}
-			else {
-				_facing = LEFT;
-				_status = status;
-				_currVelocityX = -1 * _velocity;
-			}
+            if (_status == MOVING_RIGHT || _prevStatus == MOVING_RIGHT) { 
+                _status = IDLE; 
+                _currVelocityX = 0;
+            }
+            else {
+                _facing = LEFT;
+                _status = status;
+                _currVelocityX = -1 * _velocity;
+            }
             break;
         case ATTACK:
-			if (!_attacked && !_jumped) {
-				_attacked = 1;
-				projList.push_back(new projectile(_x + (_w / 2), _y + (_h / 2), _graphicProc, _facing));
-				_soundProc->playSound("playerShoot.wav");
-			}
-			_status = status;
+            if (!_attacked && !_jumped) {
+                _attacked = 1;
+                projList.push_back(new projectile(_x + (_w / 2), _y + (_h / 2), _graphicProc, _facing));
+                _soundProc->playSound("playerShoot.wav");
+            }
+            _status = status;
             break;
-		case IDLE:
-			_status = status;
-			_currVelocityX = 0;
+        case IDLE:
+            _status = status;
+            _currVelocityX = 0;
         default:
             break;
     }
@@ -126,35 +133,35 @@ void player::move()
     else {
         _currVelocityY += GRAVITY;
     }
-	/* Checks if they hit the edge of the screen */
-	if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
-		if (_x < 0) { _x = 0; _currVelocityX = 0; }
-		else { _x = _graphicProc->getResolutionW() - _w; _currVelocityX = 0; }
-	}
-	/* Moves the kunai and checks if they hit the walls */
-	std::list<projectile*>::iterator lit;
-	for (lit = projList.begin(); lit != projList.end(); ) {
-		if((*lit)->move()) {
-			delete (*lit);
-			lit = projList.erase(lit);
-		}
-		else { lit++; }
-	}
+    /* Checks if they hit the edge of the screen */
+    if (_x < 0 || _x > (_graphicProc->getResolutionW() - _w)) {
+        if (_x < 0) { _x = 0; _currVelocityX = 0; }
+        else { _x = _graphicProc->getResolutionW() - _w; _currVelocityX = 0; }
+    }
+    /* Moves the kunai and checks if they hit the walls */
+    std::list<projectile*>::iterator lit;
+    for (lit = projList.begin(); lit != projList.end(); ) {
+        if((*lit)->move()) {
+            delete (*lit);
+            lit = projList.erase(lit);
+        }
+        else { lit++; }
+    }
 }
 
 /* Renders the player's animation based on their current status */
 void player::render()
 { 
     SDL_Log("Rendering player");
-	if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
-		updateStatus(_prevStatus);
-		_attacked = 0;
-	}
+    if (_animations[_status]->render(_x, _y, _graphicProc, _facing == LEFT ? 1 : 0) && _status == ATTACK) {
+        updateStatus(_prevStatus);
+        _attacked = 0;
+    }
     SDL_Log("Rendering projectors");
-	std::list<projectile*>::iterator lit;
-	for (lit = projList.begin(); lit != projList.end(); lit++) {
-		(*lit)->render();
-	}
+    std::list<projectile*>::iterator lit;
+    for (lit = projList.begin(); lit != projList.end(); lit++) {
+        (*lit)->render();
+    }
 }
 
 /* Acsessor functions for projectiles */
@@ -163,14 +170,14 @@ int projectile::getW() { return _w; }
 
 /* Moves the projectile and checks if it hits the wall */
 bool projectile::move() {
-	_x += _currVelocityX;
-	if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
-	else { return 0; }
+    _x += _currVelocityX;
+    if (_x < 0 || _x > _graphicProc->getResolutionW() - _w) { return 1; }
+    else { return 0; }
 }
 
 /* Renders the kunai onto the screen */
 void projectile::render() {
-	_sprite->render(_x, _y, _graphicProc);
+    _sprite->render(_x, _y, _graphicProc);
 }
 
 /* Acessor functions for the player */
